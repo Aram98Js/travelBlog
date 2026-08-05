@@ -1,0 +1,44 @@
+.admin-sidebar {
+
+
+  .logo {
+    width: 400px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+  }
+
+
+  nav {
+
+    display:flex;
+    flex-direction:column;
+
+
+    a {
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+     gap: 15px;
+      padding:15px 20px;
+      color:white;
+      text-decoration:none;
+
+
+      &.active {
+
+        background:#2563eb;
+
+      }
+
+    }
+
+  }
+
+}

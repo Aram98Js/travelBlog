@@ -1,0 +1,55 @@
+.admin-layout {
+
+    display: flex;
+    min-height: 100vh;
+    background: #f5f7fb;
+
+
+    .admin-sidebar {
+
+        width: 260px;
+        position: fixed;
+        left:0;
+        top:0;
+        bottom:0;
+
+        background:#445b8d;
+
+    }
+
+
+
+    .admin-main {
+
+        margin-left:260px; // Sidebar-ի լայնությունը
+
+        width:calc(100% - 260px);
+
+        min-height:100vh;
+
+
+    }
+
+
+
+    .admin-header {
+
+        height:70px;
+        background:white;
+
+        position:sticky;
+        top:0;
+
+        z-index:10;
+
+    }
+
+
+
+    .admin-content {
+
+        padding:20px;
+
+    }
+
+}

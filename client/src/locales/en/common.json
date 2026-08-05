@@ -1,0 +1,87 @@
+{
+  "home": "Home",
+  "about": "About Us",
+  "travel": "Travel",
+  "food": "Food",
+  "relax": "Relax",
+  "login": "Login",
+  "register":"Register",
+  "guest": "Guest",
+  "ourServices":"Our Services",
+  "profileText": "My Profile",
+  "settingText": "Settings",
+   "languageText":"Languages",
+   "notificationText":"Notification",
+   "logoutText":"Log Out",
+      "travelHeader":"Travel Notes",
+    "travelParagraph":"Travel is a flirtation with life",
+    "guestHeader":"Hello Guest",
+    "guestParagraph":"Sign in to continue",
+    "userLoginHeader":"User Login",
+      "userLoginParagraph":"Welcome back! Login to manage your website",
+      "username":"Username",
+      "password":"Password",
+      "email":"Email Address",
+      "placeHolder":{
+        "user":"Enter Your Username",
+        "password":"Enter Your Password",
+        "usernameForRegister":"Write Your Username",
+        "emailForRegister":"Write Your Email",
+        "passwordForRegister":"Write Your password"
+        
+      },
+        "loginButtonText":"Login",
+        "dontHaveAccountText":"You Don't have an account?",
+        "RegisterLink":"Register Now",
+        "HaveAccountText":"Already have account?",
+        "loginLink":"Login Now",
+        "aboutUs":"About Us",
+        "MottoText":"Explore • Taste • Relax",
+        "aboutUsObj":{
+       "header":"Welcome to our platform",
+        "paragraphOne":"We believe that every great journey begins with reliable information, and every unforgettable experience starts with making the right choice. That is why we created a platform where travelers, food lovers, and people seeking relaxation can discover everything they need in one convenient place.",
+        "paragraphTwo":"Our mission is to inspire people to explore new destinations, experience different cultures, enjoy exceptional cuisine, and create lasting memories. We carefully collect, organize, and present information to ensure that it is accurate, trustworthy, and easy to access.",
+            "paragraphThree":"Our team is committed to continuously improving the quality of our services, updating our content, and creating the best possible experience for every visitor. We pay close attention to every detail, from the usability of our website to the reliability of the information we provide.",
+            "paragraphFour":" We understand that your time is valuable. For this reason, we strive to make every search simple, efficient, and enjoyable by offering clear information that helps you make confident decisions.",
+            "paragraphFive":"Our vision is to build a trusted community where people can find inspiration, discover exciting destinations, explore new flavors,and choose the perfect place to relax.",
+            "paragraphSix":"Whether you are planning your next adventure, searching for a memorable restaurant, or simply looking for ideas, we are here to support your journey."
+      },
+      "SignaturePart":{
+        "SignatureHeader":"Thank you for choosing us.",
+        "SignatureParagraph":"Your trust inspires us to grow, improve,and serve you with excellence every day.",
+        "lastText":" With love, The Team."
+      },
+
+      "Cards":{
+        "card_one":"Discover beautiful places around the world",
+        "card_two":"Taste unforgettable dishes and restaurants.",
+        "card_three":"Find the perfect place to rest and recharge."
+      },
+      "Why_choose_us":"Why Choose Us?",
+      "chooseObject":{
+        "trust_info": "Trusted Information",
+        "trust_info_two": "Professional Team",
+        "trust_info_three": "Customer First",
+        "trust_info_four": "High Quality Content"
+
+      },
+        "thankYou":{
+          "thankYouHeader":"Thank You",
+          "thankYouParagraph":"Thank you for choosing our platform.",
+          "thankYouTwo":"With love",
+          "thankYouThree":"Our Organization Team"
+        },
+        "follow":"Follow us",
+        "explore":"Explore",
+        "category":"Categories",
+        "contact":"Contact",
+         "results":{
+          "happyVisitors":"Happy Visitors",
+          "destination":"Destination",
+          "restaurant":"Restaurant",
+          "positiveReviews":"Positive Reviews"
+        },
+        "discoverText":"Discover the world through travel, delicious food and relaxing experiences."
+
+      
+}
