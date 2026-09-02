@@ -10,6 +10,7 @@ import Relax from "../models/Relax.js";
     try {
           const{title,short_description,description,location,rating} = req.body;
    const newRelax = {
+      user: req.user.id,
     title,
     short_description,
     description,

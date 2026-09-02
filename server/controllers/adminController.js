@@ -7,7 +7,7 @@ import User from "../models/User.js";
 export const adminRegister = async (req, res) => {
     try {
 
-        const { username, email, password } = req.body;
+        const { username, email, password,birthDate,gender } = req.body;
 
 
         const existingAdmin = await User.findOne({
@@ -29,6 +29,8 @@ export const adminRegister = async (req, res) => {
             username,
             email,
             password: hashPass,
+            birthDate,
+            gender,
             role: "admin"
         });
 
@@ -46,9 +48,11 @@ export const adminRegister = async (req, res) => {
 
 
     } catch (error) {
-
+        console.log("ADMIN REGISTER ERROR",error);
+        
         return res.status(500).json({
-            msg: "Server error"
+            msg: "Server error",
+                error: error.message
         });
 
     }
@@ -61,7 +65,7 @@ export const adminRegister = async (req, res) => {
 export const adminLogin = async (req, res) => {
 
     try {
-
+ console.log("ADMIN LOGIN BODY:", req.body);
         const { username, password } = req.body;
 
 
@@ -107,8 +111,8 @@ export const adminLogin = async (req, res) => {
             }
         );
 
+        console.log("FOUND ADMIN:", admin);
 console.log("ADMIN TOKEN DATA:",jwt.decode(token));
-
 
         return res.status(200).json({
             token,

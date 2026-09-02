@@ -3,6 +3,11 @@ import mongoose from "mongoose";
 
 const relaxSchema = new mongoose.Schema(
     {
+     user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+     required: true
+          },
    title: {
     required: true,
     type:String

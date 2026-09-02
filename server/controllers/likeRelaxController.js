@@ -1,4 +1,6 @@
+import notificationModel from "../models/Notification.js";
 import Relax from "../models/Relax.js"
+import settingModel from "../models/SettingsSchema.js";
 
 
  
@@ -15,6 +17,30 @@ if (!post) {
         "msg":"Post Not Found"
     })
 }
+
+
+
+const setting = await settingModel.findOne({
+    user: post.user
+})
+  console.log("===== LIKE START =====");
+
+    console.log("USER:", req.user);
+    console.log("POST ID:", req.params.id);
+if (setting?.notification?.newLike) {
+    const newNotification =   await notificationModel.create({
+            user: post.user,
+    sender: req.user.id,
+    postType: "Relax",
+        type:"like",
+         message: "Someone Liked on your post"
+    })
+     console.log(
+        "NOTIFICATION CREATED:",
+        newNotification
+      );
+}
+
 
 return res.status(200).json(post)
     

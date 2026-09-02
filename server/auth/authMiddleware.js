@@ -28,6 +28,7 @@ try {
     console.log("DECODED:", decoded);
     next();
 }catch(error){
+    console.log(error);
 
     return res.status(401).json({
         msg:"Invalid token"

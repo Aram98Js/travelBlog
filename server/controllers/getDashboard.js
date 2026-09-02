@@ -17,14 +17,17 @@ activity
 ] = await Promise.all([
 
 Travel.find()
+.populate("user", "username")
 .sort({_id:-1})
 .limit(5),
 
 Food.find()
+.populate("user", "username")
 .sort({_id:-1})
 .limit(10),
 
 Relax.find()
+.populate("user", "username")
 .sort({_id:-1})
 .limit(8),
 

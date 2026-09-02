@@ -10,6 +10,7 @@ import Food from "../models/Food.js";
     try {
           const{title,short_description,description,location,rating} = req.body;
    const newFood = {
+      user: req.user.id,
     title,
     short_description,
     description,

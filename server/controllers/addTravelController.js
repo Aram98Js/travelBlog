@@ -10,6 +10,7 @@ import Travel from "../models/Travel.js";
     try {
           const{title,short_description,description,location,rating} = req.body;
    const newTravel = {
+    user: req.user.id,
     title,
     short_description,
     description,

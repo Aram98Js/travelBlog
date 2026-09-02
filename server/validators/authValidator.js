@@ -3,9 +3,9 @@ export const registerValidator = [
     body("username")
     .trim()
     .notEmpty()
-    .withMessage("Username is required")
+    .withMessage("usernameRequired")
     .isLength({ min: 3 })
-    .withMessage("Username must be at least 3 characters"),
+    .withMessage("usernameMinLength"),
 
 
 
@@ -13,24 +13,57 @@ export const registerValidator = [
     body("email")
     .trim()
     .notEmpty()
-    .withMessage("Email is required")
+    .withMessage("emailRequired")
+     .custom((value)=>{
+        if (!value.includes("@")) {
+            throw new Error("emailMustContainAt")
+        }
+        if (!value.includes(".")) {
+            throw new Error("emailMustContainAtSecond") 
+        }
+        return true
+     })
+
     .isEmail()
-   .withMessage("Invalid email"),
+   .withMessage("invalidEmail"),
+
+
+
+
+
 
      body("password")
     .notEmpty()
-    .withMessage("Password is required")
+    .withMessage("passwordRequired")
     .isLength({ min: 8 })
-    .withMessage("Password must be at least 8 characters")
+    .withMessage("passwordMinLength")
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/)
+    .withMessage("passwordWeak"),
+    
+
+
+
+
+
+
+    body("gender")
+       .notEmpty()
+        .withMessage("genderRequired")
+        .isIn(["male", "female"])
+        .withMessage("invalidGender"),
+
+    body("birthDate")
+    .notEmpty()
+    .withMessage("birthDateRequired")    
 ]
 
 export const loginValidator = [
-      body("username")
-    .trim()
-    .notEmpty()
-    .withMessage("name is required"),
-  
-  body("password")
-    .notEmpty()
-    .withMessage("Password is required")
-]
+    body("email")
+        .trim()
+        .notEmpty()
+        .withMessage("emailRequired"),
+
+    body("password")
+        .notEmpty()
+        .withMessage("passwordRequired")
+];
