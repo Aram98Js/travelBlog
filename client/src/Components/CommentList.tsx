@@ -6,7 +6,8 @@ interface Comment {
   createdAt: string;
   user: {
     username: string;
-  };
+    image?:string
+  }| null;
 }
 
 interface PropsPostID {
@@ -32,10 +33,10 @@ const CommentList = ({ postId }: PropsPostID) => {
       {comments.map((comment) => (
         <div key={comment._id} className="comment-card">
           <div className="comment-header">
-            <img className="avatar" src="/avatar.png" alt="" />
+            <img className="avatar" src={comment.user?.image} alt="" />
 
             <div className="user-info">
-              <h4>{comment.user.username}</h4>
+              <h4>{comment.user?.username || "Unknown User"}</h4>
               <span>
                 {new Date(comment.createdAt).toLocaleDateString()}
               </span>

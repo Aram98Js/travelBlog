@@ -5,14 +5,21 @@ import "./Food.scss";
 import type {FoodFormData,GetFoodData } from "../../Interfaces/interface";
 import PostModal from "../../components/PostModal";
 import { Helmet } from "react-helmet-async";
+import { useTranslation } from "react-i18next";
+import Skeleton from "../../../Ui/Skelleton";
+import adminFetch from "../../adminFetch";
+import { useNavigate } from "react-router-dom";
 
 
 const Food = () => {
+  const {t} = useTranslation()
+  const [loading,setLoading] = useState<boolean>(true)
   const [image,setImage] = useState<File|null>(null)
   const [searchInput,setSearchInput] = useState<string>("")
   const [editingId,setEditingId] = useState<string|null>(null)
   const [foodModalData,setFoodModalData] = useState<GetFoodData | null>(null)
   const [modalFood,setModalFood] = useState<boolean>(false)
+  const navigate = useNavigate()
   const [foodForm,setFoodForm] = useState<FoodFormData>({
     title:"",
     short_description:"",
@@ -79,20 +86,33 @@ setFoodForm(prev=>{
 }
 
 
-const getFoodData = ()=>{
-fetch("http://localhost:3000/admin/foodList")
-.then((response)=>response.json())
-.then((data)=>{
-  console.log(data);
-  console.log(data.allFoods);
-  
-setFoodData(data.allFoods || [])
 
-})
-}
+
 useEffect(()=>{
+const getFoodData = async ()=>{
+
+  try {
+    
+    const response = await adminFetch("http://localhost:3002/admin/foodList",navigate)
+    if (!response ) return
+    const data = await response.json();
+    setFoodData(data.allFoods || [])
+      console.log(data);
+  console.log(data.allFoods);
+  } catch (error) {
+    console.log(error);
+    
+  }finally{
+setLoading(false)
+  }
+}
+
+
 getFoodData()
 },[])
+
+
+
 
   const addFood = async()=>{
 
@@ -121,10 +141,12 @@ if(image){
     );
 }
 try {
-const response = await fetch(
-    "http://localhost:3000/admin/food",
-    {
+  const token = localStorage.getItem("data_token")
+const response = await fetch("http://localhost:3002/admin/food",{
         method:"POST",
+        headers:{
+          Authorization: `Bearer ${token}`
+        },
         body:formData
     }
 );
@@ -158,9 +180,12 @@ setFoodForm({
     
     }
 const deleteFood = async (id:string)=>{
+  const token = localStorage.getItem("data_token")
    const response = await fetch(`http://localhost:3000/admin/food/${id}`,{
     method:"DELETE",
-
+headers:{
+  authorization: `Bearer ${token}`
+}
    })
    const data = await response.json();
    console.log(data);
@@ -204,6 +229,7 @@ const saveFood = async () => {
   }
 
   try {
+    const token = localStorage.getItem("data_token")    
     const response = await fetch(
       editingId
         ? `http://localhost:3000/admin/food/${editingId}`
@@ -211,6 +237,9 @@ const saveFood = async () => {
       {
         method: editingId ? "PATCH" : "POST",
         body: formData,
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
       }
     );
 
@@ -218,9 +247,8 @@ const saveFood = async () => {
     console.log(data);
 
     // Թարմացնում ենք ցուցակը
-    getFoodData();
 
-    // Մաքրում ենք form-ը
+    
     setFoodForm({
       title: "",
       short_description: "",
@@ -251,7 +279,7 @@ setSearchInput(evt.target.value)
     <Fragment>
  <Helmet>
 <title>
-Admin Page | Food Post Creating
+{t("adminTitle.titleAdminFood")}
 </title>
 
 
@@ -268,8 +296,8 @@ Admin Panel Page For Creating Food Post
 
       <div className="food-header">
         <div>
-          <h1>Food</h1>
-          <p>Manage all food posts</p>
+          <h1>{t("adminFoodHeader")}</h1>
+          <p>{t("adminFoodParagraph")}</p>
         </div>
 
        
@@ -278,52 +306,52 @@ Admin Panel Page For Creating Food Post
 
       <div className="food-form">
 
-        <h2>Create Food Post</h2>
+        <h2>{t("create.foodPost")}</h2>
 
         <div className="form-grid">
 
           <div className="form-group full">
-            <label>Title</label>
-            <input type="text" value={foodForm.title} onChange={handleChange} placeholder="Enter title" name="title"/>
+            <label>{t("inputBox.title")}</label>
+            <input type="text" value={foodForm.title} onChange={handleChange} placeholder={t("inputBox.titlePlaceHolder")} name="title"/>
           </div>
 
 
           <div className="form-group full">
-            <label>Short Description</label>
-            <input type="text"  value={foodForm.short_description} onChange={handleChange} placeholder="Enter Short description" name="short_description" />
+            <label>{t("inputBox.shortDescription")}</label>
+            <input type="text"  value={foodForm.short_description} onChange={handleChange} placeholder={t("inputBox.placeHolderShortDescription")} name="short_description" />
           </div>
 
           <div className="form-group full">
-            <label>Description</label>
-          <input type="text"  value={foodForm.description} onChange={handleChange} placeholder="Enter Description" name="description" />
+            <label>{t("inputBox.description")}</label>
+          <input type="text"  value={foodForm.description} onChange={handleChange} placeholder={t("inputBox.placeHolderdescription")} name="description" />
           </div>
 
 
 <div className="form-group full">
-  <label>Country</label>
+  <label>{t("inputBox.country")}</label>
 <input
   type="text"
   name="country"
    value={foodForm.location.country}
-   placeholder='Enter a country'
+   placeholder={t("inputBox.placeHolderCountry")}
    onChange={handleChange}
 />
 </div>
 
 <div className="form-group full">
-  <label>City</label>
+  <label>{t("inputBox.city")}</label>
 <input
   type="text"
   name="city"
    value={foodForm.location.city}
-   placeholder='Enter a city'
+   placeholder={t("inputBox.placeHolderCity")}
    onChange={handleChange}
 />
 </div>
 
 
   <div className="form-group full">
-  <label>Rating</label>
+  <label>{t("inputBox.rating")}</label>
 <input
 
   type="number"
@@ -336,14 +364,14 @@ Admin Panel Page For Creating Food Post
 </div>
 
           <div className="form-group">
-            <label>Upload Image</label>
+            <label>{t("inputBox.imgUpload")}</label>
             <input type="file" onChange={handleImageChange}/>
           </div>
 
         </div>
 
         <Button onClick={editingId?saveFood:addFood} className="save-btn">
-          Save Post
+         {t("savePost")}
         </Button>
 
       </div>
@@ -358,15 +386,29 @@ Admin Panel Page For Creating Food Post
             type="text"
             value={searchInput}
             onChange={handleFilter}
-            placeholder="Search..."
+            placeholder={t("postSearch")}
           />
         </div>
 
 
         <div className="cards">
 
-          {!filtered ||  filtered.length === 0?(
-            <h2>Food List Not found</h2>
+          {loading?(
+            <>
+               <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            </>
+         
+          ):!filtered ||  filtered.length === 0?(
+                   <div className="empty-posts">
+          <h2>{t("emptyPostHeader")}</h2>
+
+          <p>
+            {t("emptyPostParagraph")}
+          </p>
+        </div>
           ):(
 filtered.map((item)=>{
             return(

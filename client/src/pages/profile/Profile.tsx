@@ -1,16 +1,27 @@
 import React, { useEffect, useState } from "react";
 import './Profile.scss'
-
+import Button from "../../Components/Button";
+import { useNavigate, useParams, } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import { useTranslation } from 'react-i18next'
 interface DataForUser{
    username: string,
    email:string
+   image:string
 }
 const Profile = () => {
-const [userData,setUserData] = useState<DataForUser | null>(null)
+const [userData,setUserData] = useState<DataForUser | null>(null);
+
+ 
+  const { id } = useParams();
+
+  console.log("PROFILE ID:", id);
+const navigate = useNavigate();
+const {t} = useTranslation()
 useEffect(()=>{
 
 const getProfile = async()=>{
-const token = localStorage.getItem("token");
+const token = localStorage.getItem("accessToken");
 const response = await fetch(
     "http://localhost:3000/profile",
     {
@@ -21,6 +32,7 @@ const response = await fetch(
 );
 const data = await response.json();
 console.log(data);
+console.log("PROFILE USER:", data.user);
 setUserData(data.user)
 }
 getProfile();
@@ -29,8 +41,39 @@ getProfile();
 },[]);
 
 
+
 return (
- <div className="profile-page">
+
+<>
+<Helmet>
+   <title>{userData?.username ? `${userData.username} | ${t("pagesTitle.profilePage")}` :t("pagesTitle.profilePage")}</title>
+
+  <meta
+    name="description"
+    content="View and manage your Travel Notes profile, personal information, travel preferences, and saved experiences."
+  />
+
+  <meta
+    name="keywords"
+    content="Travel Notes, profile, travel profile, user profile, travel preferences"
+  />
+
+  <meta
+    property="og:title"
+    content="My Profile | Travel Notes"
+  />
+
+  <meta
+    property="og:description"
+    content="View and manage your Travel Notes profile and personal travel information."
+  />
+
+  <meta
+    property="og:type"
+    content="profile"
+  />
+</Helmet>
+<div className="profile-page">
 
       <div className="profile-container">
 
@@ -38,14 +81,14 @@ return (
         <div className="profile-avatar-card">
 
           <img 
-            
+            src={userData?.image}
             alt="profile avatar"
             className="profile-avatar"
           />
 
-          <button className="edit-btn">
+          <Button onClick={()=>navigate("/profile_change")}  className="edit-btn">
             Edit Profile
-          </button>
+          </Button>
 
         </div>
 
@@ -179,6 +222,10 @@ return (
 
 
     </div>
+</>
+
+
+ 
 )
 
 }

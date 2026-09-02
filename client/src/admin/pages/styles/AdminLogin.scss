@@ -12,7 +12,7 @@
 
 
   
-.auth-wrapper{
+.admin-wrapper{
     
     background:
     linear-gradient(
@@ -25,7 +25,7 @@
     background-position:center;
     min-height:100vh;
 @include flexPos();
-    .auth-card{
+    .admin-card{
     width:420px;
     background:white;
     padding:40px;
@@ -55,12 +55,20 @@ h2{
 }
 .input-group{
     margin-bottom:20px;
+    @include flexPos();
+    align-items: flex-start;
+    flex-direction: column;
     label{
     display:block;
     margin-bottom:8px;
     font-size:14px;
     color:#333;
+    position: relative;
     }
+    .inputBox{
+        width: 100%;
+        @include flexPos();
+        gap: 5px;
     input{
     width:100%;
     padding:13px;
@@ -73,7 +81,29 @@ h2{
 }
 
 }
+.show_hide{
+       position: relative;
+       width: 45px;
+       height: 45px;
+       background-color: #fff;
+       color: #000;
+          border:1px solid #ddd;
+          @include flexPos();
+}
+    }
 
+    input{
+    width:100%;
+    padding:13px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    outline:none;
+    font-size:15px;
+&:focus{
+    border-color:#0b4f6c;
+}
+
+}
 }
 button{
     width:100%;
@@ -97,16 +127,84 @@ button{
 
 
 
-.bottom-text{
-    text-align:center;
-    margin-top:25px;
-    color:#555;
-     a{
-    color:#0b4f6c;
-    text-decoration:none;
-    font-weight:bold;
+
+.bottom-text {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  user-select: none;
+  input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  &:checked + .custom-checkbox {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+&:checked + .custom-checkbox::after { content: ""; 
+    width: 5px; 
+    height: 9px; 
+    border-right: 2px solid #fff; 
+    border-bottom: 2px solid #fff; 
+    transform: rotate(45deg);
+     margin-top: -2px; }
+}
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #cbd5e1;
+  border-radius: 5px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 }
+
+}
+
+
+
+
+
+
+/* Checked */
+
+.remember-me 
+
+/* Check mark */
+
+.remember-me input:checked + .custom-checkbox::after {
+  content: "";
+  width: 5px;
+  height: 9px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(45deg);
+  margin-top: -2px;
+}
+
+/* Hover */
+
+.remember-me:hover .custom-checkbox {
+  border-color: #2563eb;
+}
+
+/* Text */
+
+.remember-text {
+  font-size: 14px;
+  color: #475569;
+}
+
+
 
 
 

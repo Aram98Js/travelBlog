@@ -3,7 +3,27 @@
   margin: 0;
   box-sizing: border-box;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  user-select: none;
 }
+
+body {
+  margin: 0;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+    &.light{
+  background-color: #f5f7fa;
+  color: #222;
+    }
+    &.dark{
+ background-color: #111827;
+  color: #f3f4f6;
+    }
+    overflow-x: hidden;
+}
+
+
+
 
 
 section{

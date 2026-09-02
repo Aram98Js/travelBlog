@@ -4,23 +4,45 @@ import GuideIntro from "../Components/GuideIntro"
 import { useEffect, useState } from "react"
 import type { GetFoodData } from "../admin/Interfaces/interface"
 import GuideCards from "../Components/GuideCards"
-
+import { useTranslation } from "react-i18next"
+import './food.scss'
+import Skeleton from "../Ui/Skelleton"
 
 const Eat = () => {
   const [foodPostData,setFoodPostData] = useState<GetFoodData[]>([])
-
+  const [loading,setLoading] = useState<boolean>(true);
+  const [search,setSearch] = useState<string>("")
+const {t} = useTranslation()
 
   useEffect(()=>{
+
+
      const getDataFood = async ()=>{
-      const response = await fetch("http://localhost:3000/postFood");
+
+          try {
+       const response = await fetch("http://localhost:3000/postFood");
       const data = await response.json();
       setFoodPostData(data.allFoodPost);
       console.log(foodPostData);
+    } catch (error) {
+      console.log(error);
+      
+    }finally{
+      setLoading(false)
+    }
+     
       
      }
      getDataFood()
   },[])
 
+const filteredItems = foodPostData.filter((item)=>item.title.toLowerCase().includes(search.toLowerCase()))
+
+
+
+const handleChange = (evt:React.ChangeEvent<HTMLInputElement>)=>{
+  setSearch(evt.target.value)
+}
 
   const isNewPost = (createdAt: string)=>{
 const createdPost = new Date(createdAt);
@@ -36,7 +58,7 @@ return dif <= 7 * 24 * 60 * 60 * 1000;
 <Helmet>
 
 <title>
-Food Guide | Taste The World
+{t("pagesTitle.foodPage")}
 </title>
 
 
@@ -57,45 +79,56 @@ content="/food-banner.jpg"
 
     <BannerComponent
 
-title="TASTE THE WORLD"
-description="Find the best restaurants,
-traditional dishes and local cuisine."
+title={t("foodGuidesTexts.foodGuideHeader")}
+description={t("foodGuidesTexts.foodGuideParagraph")}
 image="/FoodImg.jpg"
-placeholder="Search destinations..."
+placeholder={t("foodGuidesTexts.SearchText")}
+handleChange={handleChange}
+search={search}
 />
 
 
 <GuideIntro 
-title="Taste The World With Our Food Guide"
+title={t("foodGuidesTexts.foodGuideHeaderTwo")}
 
-description="
-Discover traditional dishes, famous restaurants
-and local flavors from different countries.
-
-Learn what to try, where to eat and which
-culinary experiences you should not miss.
-"
+description={t("foodGuidesTexts.foodGuideParagraphTwo")}
 
 image="/FoodImg.jpg"
-buttonText="Read Food Tips"
+buttonText={t("foodGuidesTexts.buttonText")}
 
 />
 
-{!foodPostData || foodPostData.length === 0?(
-  <h2>Not Found</h2>
+<div className="cards_grid">
+{loading?(
+  <>
+  <Skeleton />
+  <Skeleton />
+  <Skeleton />
+  <Skeleton />
+  
+  </>
+):!filteredItems || filteredItems.length === 0?(
+            <div className="empty-posts">
+          <h2>{t("emptyPostHeader")}</h2>
+
+          <p>
+            {t("emptyPostParagraph")}
+          </p>
+        </div>
 ):(
-  foodPostData.map((item)=>{
+  filteredItems.map((item)=>{
     const isNew = isNewPost(item.createdAt);
     const isPopular = item.likesCount >= MAX_LIKES_COUNT && item.viewsCount >= MAX_VIEWS_COUNT
     return(
         <GuideCards
+        id={item._id}
         key={item._id}
       image={item.image}
- 
+      category="Food"
       title={item.title}
       description={item.description}
       city={item.location.city}
-      country={item.location.country}
+      country={item.location.country}  
       rating={item.rating}
       views={item.viewsCount}
       likes={item.likesCount}
@@ -105,6 +138,8 @@ buttonText="Read Food Tips"
     )
   })
 )}
+</div>
+
 
     </>
   )

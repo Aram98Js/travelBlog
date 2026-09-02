@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import logo from '/putevye-zametki-logo.png';
+
 import "./Footer.scss"
 import type { Links } from "./Header";
 import { useTranslation } from "react-i18next";
@@ -12,17 +12,6 @@ interface EmailFormData{
   name:string,
   email: string,
   message: string,
-}
-
-
-interface ImportMetaEnv{
-  readonly VITE_SERVICE_ID: string
-  readonly VITE_TEMPLATE_ID: string
-  readonly VITE_EMAIL_PUBLIC_KEY: string
-}
-
-interface ImportMeta{
-  readonly env: ImportMetaEnv
 }
 
 const Footer = () => {
@@ -65,6 +54,10 @@ href: "/",
     {
 link:t("about"),
 href: "/about"
+    },
+    {
+      link:t("privacy_policy"),
+href: "/privacy_policy"
     }
   ]
   const categoryData:Links[] = [
@@ -96,7 +89,7 @@ href: "/relax"
         <div className="footer-brand">
 
           <div className="footerLogoBlock">
-            <img src={logo} alt="" />
+            
           </div>
 
           <p>
@@ -167,7 +160,7 @@ href: "/relax"
     ></textarea>
 
     <button type="submit">
-      {t("send")}
+      {t("sendMessage")}
     </button>
 
   </form>
@@ -201,7 +194,7 @@ href: "/relax"
 
       <div className="footer-bottom">
 
-        © {new Date().getFullYear()} Your Website. All rights reserved.
+        © {new Date().getFullYear()} {t("copyRightText")}.
 
       </div>
 

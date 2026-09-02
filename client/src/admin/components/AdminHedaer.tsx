@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import "./AdminHeader.scss";
 import Button from "../../Components/Button";
 import { useNavigate } from "react-router-dom";
-import logOutIcon from "/log-out.png"
+import logOutIcon from "../../assets/pngicons/log-out.png"
+import adminPanel from '../../assets/pngicons/admin-panel.png'
+import { useTranslation } from "react-i18next";
 
 type  AdminData = {
   username: string
 }
 const AdminHeader = () => {
+  const {t} = useTranslation()
 const[admin,setAdmin] = useState<AdminData | null>(null);
 const navigate = useNavigate()
 useEffect(()=>{
@@ -32,7 +35,7 @@ getAdminInfo()
 },[])
 
 const logOut = ()=>{
-  localStorage.clear();
+  localStorage.removeItem("data_token");
   setAdmin(null);
   navigate("/admin/login")
 }
@@ -42,14 +45,14 @@ const logOut = ()=>{
      
       <div className="profile">
         <img
-          src="/admin-panel.png"
+          src={adminPanel}
           alt="admin"
         />
         <span>
-          {admin?.username.toUpperCase()}
+                  {admin?.username.toUpperCase()}
         </span>
       </div>
-      <Button className="Admin_log_Out_Btn" onClick={logOut}><img src={logOutIcon} alt="" /> Log Out</Button>
+      <Button className="Admin_log_Out_Btn" onClick={logOut}><img src={logOutIcon} alt="" /> {t("adminLogOut")}</Button>
     </header>
   );
 

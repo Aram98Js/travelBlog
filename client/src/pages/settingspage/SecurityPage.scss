@@ -1,0 +1,138 @@
+.security-user-settings {
+     width: 100%;
+    position: relative;
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    top: 70px;
+
+  &__header {
+    margin-bottom: 30px;
+
+    h2 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    p {
+      margin: 0;
+      font-size: 15px;
+      color: #777;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+
+      padding: 13px 15px;
+
+      border: 1px solid #ddd;
+      border-radius: 10px;
+
+      outline: none;
+
+      font-size: 15px;
+      color: #222;
+
+      transition: 0.2s;
+
+      &:focus {
+        border-color: #2b6cb0;
+        box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.1);
+      }
+
+      &::placeholder {
+        color: #aaa;
+      }
+    }
+  }
+
+  button {
+    width: 100%;
+    margin-top: 8px;
+
+    padding: 14px 20px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #2b6cb0;
+    color: #fff;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+    &:hover {
+      background: #1d4f86;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .security-settings {
+    margin: 20px auto;
+    padding: 22px;
+
+    border-radius: 16px;
+
+    &__header {
+      h2 {
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .security-settings {
+    padding: 18px;
+    box-shadow: none;
+
+    &__header {
+      h2 {
+        font-size: 22px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
+
+    .input-group {
+      input {
+        padding: 12px;
+      }
+    }
+  }
+}

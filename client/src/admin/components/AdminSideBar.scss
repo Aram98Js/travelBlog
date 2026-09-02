@@ -1,12 +1,19 @@
-.admin-sidebar {
+@mixin flexPos(){
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 
+.admin-sidebar {
+display: flex;
+flex-direction: column;
+gap: 15px;
 
   .logo {
     width: 400px;
     height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+ @include flexPos();
+ justify-content: center;
 img{
   width: 100%;
   height: 100%;
@@ -41,4 +48,21 @@ img{
 
   }
 
+}
+
+.languageBlock{
+@include flexPos();
+padding-left: 30px;
+gap: 15px;
+button{
+  width: 35px;
+  height: 35px;
+  background: none;
+  border: none;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
 }

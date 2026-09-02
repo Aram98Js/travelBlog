@@ -2,7 +2,7 @@ import "./Home.scss"
 import travelImg from '/travelImg.jpg'
 import relaxImg from '/relaxImg.jpg'
 import foodImg from '/FoodImg.jpg'
-import type { DashboardData, DataURL, } from "../admin/Interfaces/interface"
+import type { DashboardData, DataURL, Post, } from "../admin/Interfaces/interface"
 import {  Link } from "react-router-dom"
 import { Fragment, useEffect, useState } from "react"
 
@@ -18,18 +18,18 @@ const Home = () => {
   const {t} = useTranslation()
 const [dashboardData,setDashboardData] = useState<DashboardData |null>(null)
 
-  const allPosts = [
+  const allPosts:Post[] = [
    ...(dashboardData?.posts.travel || []).map(post=>({
           ...post,
-      category:"Travel"
+      category:"Travel" as const
    })),
    ...(dashboardData?.posts.food || []).map(post=>({
           ...post,
-      category:"Food"
+      category:"Food" as const
    })),
    ...(dashboardData?.posts.relax || []).map(post=>({
           ...post,
-      category:"Relax"
+      category:"Relax" as const
    })),
   ]
 const UrlData:DataURL[] = [
@@ -57,13 +57,18 @@ const getInfos = async()=>{
 const response = await fetch("http://localhost:3000/admin/dashboard/posts");
 const data = await response.json();
 setDashboardData(data);
+console.log(data);
 
 }
 getInfos();
 },[])
 const patchLikeCount = async (id: string,path:string)=>{
+  const token =  localStorage.getItem("accessToken")
  const response = await fetch(`http://localhost:3000/admin/${path}/${id}/like`,{
-    method:"PATCH"
+    method:"PATCH",
+    headers:{
+      Authorization: `Bearer ${token}`
+    }
   })
   const updatedPost = await response.json();
 
@@ -96,7 +101,7 @@ setDashboardData(prev=>{
 <Fragment>  
     <Helmet>
 <title>
-Home Page
+{t("pagesTitle.homePage")}
 </title>
 
 
@@ -112,19 +117,12 @@ Home page for travel Blog web Site.
 property="og:title"
 content="Home  Page"
 />
-
-
 <meta
 property="og:description"
 content="
 Home Page.
 "
 />
-
-
-
-
-
 <meta
 property="og:type"
 content="website"

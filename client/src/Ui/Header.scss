@@ -12,9 +12,13 @@ header{
 justify-content: space-evenly;
 position: fixed;
 z-index:  1;
+top: 0;
 .logo_block{
-
-height: 100px;
+    width: 240px;
+    height: 100px;
+background-image: url(../../src/assets/pngicons/putevye-zametki-logo.png);
+background-repeat: no-repeat;
+background-size: cover;
 @include flexPoition();
 img{
   width: 100%;
@@ -99,4 +103,11 @@ transition: all 0.5s;
 
   }
 }
+}
+
+
+@media screen and (max-width: 768px) {
+  header{
+  display: none;
+  }
 }

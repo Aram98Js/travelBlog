@@ -4,13 +4,20 @@ import "./TravelPage.scss"
 import Button from '../../../Components/Button'
 import type { TravelFormData,GetTravelData } from '../../Interfaces/interface'
 import { Helmet } from 'react-helmet-async'
+import { useTranslation } from 'react-i18next'
+import Skeleton from '../../../Ui/Skelleton'
+import adminFetch from '../../adminFetch'
+import { useNavigate } from 'react-router-dom'
 
 
 const TravelPage = () => {
+  const {t} = useTranslation()
   const [editId,setEditId] = useState<string|null>(null)
   const [travelData,setTravelData] = useState<GetTravelData[]>([])
   const [image,setImage] = useState<File|null>(null)
   const [searchInput,setSearchInput] = useState<string>("")
+  const [loading,setLoading] = useState<boolean>(true)
+  const navigate = useNavigate()
   const [travelForm,setTravelForm] = useState<TravelFormData>({
     title:"",
     short_description:"",
@@ -81,21 +88,19 @@ useEffect(() => {
   const getTravelData = async () => {
 
     try {
-
-      const response = await fetch(
-        "http://localhost:3000/admin/list_for_travel"
-      );
-
+      
+      const response = await adminFetch("http://localhost:3002/admin/list_for_travel",navigate);
+      if (!response) return 
       const data = await response.json();
-
       console.log(data);
-
       setTravelData(data.allTravel || []);
 
     } catch (error) {
 
       console.log(error);
 
+    }finally{
+      setLoading(false)
     }
 
   };
@@ -106,7 +111,7 @@ useEffect(() => {
 
 
 
-const addTravel = ()=>{
+const addTravel = async ()=>{
 
    if (!travelForm.title ||!travelForm.short_description || !travelForm.description || !travelForm.location.city ||!travelForm.location.country ||!travelForm.rating) return;
    const formData = new FormData();
@@ -120,11 +125,14 @@ formData.append("rating",travelForm.rating.toString())
     formData.append("image", image);
 }
 
+const token = localStorage.getItem("data_token")
 
-
-fetch("http://localhost:3000/admin/travel",{
+ await fetch("http://localhost:3000/admin/travel",{
   method:"POST",
   body:formData,
+  headers:{
+    Authorization: `Bearer ${token}`
+  }
 })
 .then((response)=>response.json())
 .then((data)=>{
@@ -154,8 +162,12 @@ setTravelForm({
 
 
 const deleteTravel = async (id:string) =>{
-  const response = await fetch(`http://localhost:3000/admin/travel/${id}`,{
-    method: "DELETE"
+const token = localStorage.getItem("data_token")
+  const response = await fetch(`http://localhost:3002/admin/travel/${id}`,{
+    method: "DELETE",
+      headers:{
+    Authorization: `Bearer ${token}`
+  }
   })
    const data = await response.json();
    console.log(data);
@@ -184,31 +196,39 @@ const saveTravel = async ()=>{
   if (image) {
     formData.append("image",image)
   }
+  const token = localStorage.getItem("data_token")
   if (editId) {
      await fetch(
-            `http://localhost:3000/admin/travel/${editId}`,
+            `http://localhost:3002/admin/travel/${editId}`,
             {
                 method: "PATCH",
-                body: formData
+                body: formData,
+                   headers:{
+    Authorization: `Bearer ${token}`
+  }
             }
         );
   }else{
     await fetch(
-            `http://localhost:3000/admin/travel`,
+            `http://localhost:3002/admin/travel`,
             {
                 method: "POST",
-                body: formData
+                body: formData,
+                   headers:{
+    Authorization: `Bearer ${token}`
+  }
             }
         );
   }
 }
 const filtered = travelData.filter(item=>item.title.toLowerCase().includes(searchInput.toLowerCase()))
+
   return (
 
 <Fragment>
  <Helmet>
 <title>
-Admin Page | Travel Post Creating
+{t("adminTitle.titleAdminTravel")}
 </title>
 
 
@@ -223,8 +243,8 @@ Admin Panel Page For Creating Travel Post
 
       <div className="travel-header">
         <div>
-          <h1>Travel</h1>
-          <p>Manage all Travel posts</p>
+          <h1>{t("adminTravelHeader")}</h1>
+          <p>{t("adminTravelParagraph")}</p>
         </div>
 
        
@@ -233,60 +253,60 @@ Admin Panel Page For Creating Travel Post
 
       <div className="travel-form">
 
-        <h2>Create Travel Post</h2>
+        <h2>{t("create.travelPost")}</h2>
 
         <div className="form-grid">
 
           <div className="form-group full">
-            <label>Title</label>
+            <label>{t("inputBox.title")}</label>
             <input type="text" 
             value={travelForm.title} 
             onChange={handleChange}  
-            placeholder="Enter title" 
+            placeholder={t("inputBox.titlePlaceHolder")} 
             name="title"/>
           </div>
 
 
           <div className="form-group full">
-            <label>Short Description</label>
+            <label>{t("inputBox.shortDescription")}</label>
             <input type="text" 
             value={travelForm.short_description}
              onChange={handleChange}    
-             placeholder="Enter Short description"
+             placeholder={t("inputBox.placeHolderShortDescription")} 
               name="short_description" />
           </div>
 
           <div className="form-group full">
-            <label>Description</label>
+            <label>{t("inputBox.description")}</label>
           <input type="text" 
           value={travelForm.description} 
           onChange={handleChange} 
-          placeholder="Enter Description" 
+          placeholder={t("inputBox.placeHolderdescription")} 
           name="description" />
           </div>
 
 <div className="form-group full">
-  <label>Country</label>
+  <label>{t("inputBox.country")}</label>
 <input
   type="text"
    value={travelForm.location.country}
    onChange={handleChange}
-   placeholder='Enter a country'
+   placeholder={t("inputBox.placeHolderCountry")}
    name="country"
 />
 </div>
 <div className="form-group full">
-  <label>City</label>
+  <label>{t("inputBox.city")}</label>
 <input
   type="text"
   name="city"
    value={travelForm.location.city}
-   placeholder='Enter a city'
+   placeholder={t("inputBox.placeHolderCity")}
    onChange={handleChange}
 />
 </div>
 <div className="form-group full">
-  <label>Rating</label>
+  <label>{t("inputBox.rating")}</label>
 <input
 
   type="number"
@@ -294,19 +314,18 @@ Admin Panel Page For Creating Travel Post
   value={travelForm.rating}
   step="0.1"
   onChange={handleChange}
-  placeholder='Enter a Rating'
 />
 </div>
 
           <div className="form-group">
-            <label>Upload Image</label>
+            <label>{t("inputBox.imgUpload")}</label>
             <input type="file" onChange={handleImageChange}/>
           </div>
 
         </div>
 
         <Button onClick={editId?saveTravel:addTravel}  className="save-btn">
-          Save Post
+          {t("savePost")}
         </Button>
 
       </div>
@@ -321,14 +340,27 @@ Admin Panel Page For Creating Travel Post
             type="text"
             value={searchInput}
             onChange={(evt:React.ChangeEvent<HTMLInputElement>)=>setSearchInput(evt.target.value)}
-            placeholder="Search..."
+            placeholder={t("postSearch")}
           />
         </div>
 
 
         <div className="cards">
-     {!filtered || filtered.length === 0?(
-        <h2>Travel List Not Found</h2>
+     {loading? (
+<>
+<Skeleton />
+<Skeleton />
+<Skeleton />
+<Skeleton />
+</>
+      ):!filtered || filtered.length === 0?(
+               <div className="empty-posts">
+          <h2>{t("emptyPostHeader")}</h2>
+
+          <p>
+            {t("emptyPostParagraph")}
+          </p>
+        </div>
       ):(
         filtered.map((item)=>{
           console.log(item);

@@ -1,133 +1,388 @@
-<div className="post-card">
+# Գաղտնիության քաղաքականություն
 
-  <div className="post-image">
-    <img src={image} alt={title} />
-  </div>
+## 1. Ընդհանուր տեղեկություն
 
-  <div className="post-content">
+Այս կայքը ուսումնական վեբ նախագիծ է, որը ստեղծվել է վեբ ծրագրավորման հմտությունները ցուցադրելու և ժամանակակից վեբ տեխնոլոգիաների կիրառումը ներկայացնելու նպատակով։
 
-    <div className="post-author">
+Կայքի օգտագործման ընթացքում կարող են օգտագործվել օգտատիրոջ կողմից տրամադրված որոշ տվյալներ՝ կայքի հիմնական ֆունկցիոնալությունն ապահովելու համար։
 
-      <div className="author-avatar">
-        <img src="/avatar.png" alt="Admin" />
-      </div>
+## 2. Ինչ տվյալներ են օգտագործվում
 
-      <div className="author-info">
-        <h4>Admin</h4>
-        <span>4 дек. 2022 г. • 1 мин. чтения</span>
-      </div>
+Կայքում կարող են օգտագործվել հետևյալ տվյալները
 
-    </div>
+* Օգտանուն
+* Էլ․ փոստի հասցե
+* Գաղտնաբառ
+* Օգտատիրոջ պրոֆիլի տվյալներ
+* Ծանուցումների հետ կապված տվյալներ
+
+## 3. Ինչ նպատակով են օգտագործվում տվյալները
+
+Տվյալներն օգտագործվում են կայքի հետևյալ հնարավորություններն ապահովելու համար.
+
+* Օգտատիրոջ գրանցում
+* Մուտք գործել հաշիվ
+* Օգտատիրոջ նույնականացում
+* Պրոֆիլի տվյալների փոփոխություն
+* Գաղտնաբառի փոփոխություն
+* Ծանուցումների տրամադրում
+* Օգտատիրոջ հաշվի կառավարում
+
+## 4. Տվյալների անվտանգություն
+
+Օգտատիրոջ գաղտնաբառերը չեն պահվում բաց տեքստով։ Գաղտնաբառերը պահպանվում են hashավորված տեսքով՝ օգտագործելով bcrypt տեխնոլոգիան։
+
+Նույնականացման համար օգտագործվում են access token և refresh token մեխանիզմները։
+
+## 5. Local Storage
+
+Կայքը կարող է օգտագործել browser-ի Local Storage-ը՝ նույնականացման և օգտատիրոջ հիմնական տվյալների պահպանման համար։
+
+Local Storage-ում կարող են պահպանվել՝
+
+* accessToken
+* refreshToken
+* օգտատիրոջ հիմնական տվյալներ
+* կայքի որոշ նախընտրություններ
+
+## 6. Օգտատիրոջ հաշվի ջնջում
+
+Օգտատերը կարող է ջնջել իր հաշիվը Settings բաժնի միջոցով։
+
+Հաշվի ջնջման դեպքում համապատասխան օգտատիրոջ տվյալները կարող են հեռացվել նախագծի տվյալների բազայից։
+
+## 7. Ուսումնական նախագծի բնույթը
+
+Այս կայքը ստեղծվել է բացառապես ուսումնական նպատակներով։
+
+Կայքի միջոցով հավաքվող կամ օգտագործվող տվյալները նախատեսված են նախագծի ֆունկցիոնալությունը ցուցադրելու և վեբ ծրագրավորման տեխնոլոգիաների կիրառումը ներկայացնելու համար։
+
+## 8. Գաղտնիության քաղաքականության փոփոխություններ
+
+Այս էջի բովանդակությունը կարող է փոփոխվել նախագծի զարգացման ընթացքում։
+
+Փոփոխությունների դեպքում թարմացված տարբերակը կտեղադրվի այս էջում։
+
+## 9. Կապ
+
+Նախագծի կամ տվյալների օգտագործման վերաբերյալ հարցերի դեպքում կարող եք կապ հաստատել կայքի հեղինակի հետ։
 
 
 
-    <h2 className="post-title">
-      Белый песок, синее море
-    </h2>
-
-    <p className="post-description">
-      Создайте подзаголовок поста: одно-два предложения,
-      которые кратко передают содержание поста и побуждают
-      продолжить чтение. Это текст...
-    </p>
-
-    <div className="post-footer">
-
-      <div className="post-stats">
-
-        <div className="stat">
-          👁
-          <span>0</span>
-        </div>
-
-        <div className="stat">
-          💬
-          <span>0</span>
-        </div>
-
-      </div>
-
-      <button className="like-btn">
-        ♡
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
 
 
-{!filtered || filtered.length === 0?(
-        <h2>Travel List Not Found</h2>
-      ):(
-        filtered.map((item)=>{
-        return(
- <div className="card">
 
-  <img
-    src={item.image}
-    alt={item.title}
+
+
+
+
+
+
+# Политика конфиденциальности
+
+## 1. О сайте
+
+Данный сайт представляет собой учебный веб-проект на тему путешествий, созданный для представления информации о путешествиях, интересных местах, еде и вариантах отдыха.
+
+Сайт включает несколько основных разделов — **Travel, Food и Relax**, где пользователи могут знакомиться с различными местами, идеями для путешествий, блюдами и вариантами отдыха.
+
+Проект создан с целью демонстрации навыков веб-разработки и практического применения современных веб-технологий. Функциональность сайта включает регистрацию и авторизацию пользователей, управление профилем, уведомления, просмотр публикаций и другие интерактивные возможности.
+
+## 2. Какие данные используются
+
+Для работы некоторых функций сайта могут использоваться следующие данные:
+
+* Имя пользователя
+* Адрес электронной почты
+* Пароль
+* Данные профиля пользователя
+* Данные уведомлений
+
+Эти данные используются преимущественно для работы пользовательского аккаунта и персонализированных функций сайта.
+
+## 3. Для чего используются данные
+
+Данные пользователя используются для обеспечения следующих возможностей:
+
+* Регистрация и авторизация
+* Идентификация пользователя
+* Управление личным профилем
+* Изменение данных профиля
+* Изменение пароля
+* Получение уведомлений
+* Управление пользовательским аккаунтом
+
+Информационный и туристический контент сайта может быть доступен без регистрации.
+
+## 4. Безопасность данных
+
+Пароли пользователей не хранятся в открытом виде. Они сохраняются в хешированном виде с использованием технологии **bcrypt**.
+
+Для идентификации и авторизации пользователей используются механизмы access token и refresh token.
+
+## 5. Local Storage
+
+Сайт использует Local Storage браузера для хранения информации, необходимой для авторизации пользователя и сохранения некоторых настроек.
+
+В Local Storage могут сохраняться:
+
+* accessToken
+* refreshToken
+* основные данные пользователя
+* некоторые настройки сайта
+
+## 6. Управление аккаунтом
+
+Зарегистрированный пользователь может управлять своим профилем через раздел Settings.
+
+Пользователь может изменить личные данные, изменить пароль, выйти из аккаунта или удалить свою учетную запись.
+
+## 7. Учебный характер проекта
+
+Данный сайт создан **исключительно в учебных целях**.
+
+Он является примером веб-проекта на туристическую тематику и предназначен для демонстрации навыков frontend и backend-разработки, работы с базами данных, аутентификацией и другими современными веб-технологиями.
+
+Сайт не является туристическим агентством, системой бронирования или платным сервисом.
+
+## 8. Изменения политики конфиденциальности
+
+Поскольку проект может продолжать развиваться, содержание данной страницы также может изменяться.
+
+В случае внесения изменений обновлённая версия будет опубликована на этой странице.
+
+## 9. Контакты
+
+Если у вас есть вопросы относительно проекта, его функциональности или использования данных, вы можете связаться с автором сайта.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Privacy Policy
+
+## 1. About the Website
+
+This website is an educational web project focused on travel and created to present information about destinations, interesting places, food, and relaxation options.
+
+The website includes several main sections — **Travel, Food, and Relax**, where users can explore different destinations, travel ideas, food-related content, and places or activities for relaxation.
+
+The project was created to demonstrate web development skills and the practical use of modern web technologies. Its functionality includes user registration and authentication, profile management, notifications, content browsing, and other interactive features.
+
+## 2. What Data Is Used
+
+Certain website features may use the following information:
+
+* Username
+* Email address
+* Password
+* User profile information
+* Notification-related data
+
+This information is primarily used to provide user account functionality and personalized features.
+
+## 3. How the Data Is Used
+
+User data is used to provide the following features:
+
+* User registration and authentication
+* User identification
+* Personal profile management
+* Profile information updates
+* Password changes
+* Notifications
+* User account management
+
+The travel and informational content of the website may also be available without creating an account.
+
+## 4. Data Security
+
+User passwords are not stored in plain text. They are stored in hashed form using **bcrypt** technology.
+
+Access token and refresh token mechanisms are used for user authentication and identification.
+
+## 5. Local Storage
+
+The website uses the browser's Local Storage to store information required for user authentication and certain website preferences.
+
+The following information may be stored in Local Storage:
+
+* accessToken
+* refreshToken
+* Basic user information
+* Certain website preferences
+
+## 6. Account Management
+
+Registered users can manage their profile through the Settings section.
+
+Users can update their personal information, change their password, log out, or delete their account.
+
+## 7. Educational Purpose
+
+This website has been created **exclusively for educational purposes**.
+
+It is an example of a travel-themed web project designed to demonstrate frontend and backend development, database management, authentication, and the practical use of modern web technologies.
+
+The website is not a travel agency, booking platform, or paid service.
+
+## 8. Changes to This Privacy Policy
+
+As the project may continue to evolve, the content of this page may also be updated.
+
+If changes are made, the updated version will be published on this page.
+
+## 9. Contact
+
+If you have any questions regarding the project, its functionality, or the use of data, you can contact the website author.
+
+
+
+
+
+  useEffect(()=>{
+    const getData = async ()=>{
+
+        const token = localStorage.getItem("accessToken");
+
+        const response = await fetch(
+            "http://localhost:3000/profile",
+            {
+                headers:{
+                    Authorization:`Bearer ${token}`
+                }
+            }
+        );
+
+        const data = await response.json();
+          setUserData(data.user)
+        console.log(data);
+    }
+getData()
+
+  },[])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  travelsData.map((item)=>{
+  
+const isPopular = item.likesCount >= MAX_LIKES_COUNT && item.viewsCount >= MAX_VIEWS_COUNT
+const isNew = isNewPost(item.createdAt)
+return(
+  
+  <GuideCards 
+  id={item._id}
+  key={item._id}
+  category="Travel"
+image={item.image}
+title={item.title}
+description={item.description}
+city={item.location.city}
+country={item.location.country}
+rating={item.rating}
+views={item.viewsCount}
+likes={item.likesCount}
+isNew={isNew}
+isPopular={isPopular}
   />
+)
+  
+})
 
-  <div className="card-body">
 
-    <div className="card-header">
 
-      <h3>{item.title}</h3>
 
-      <span className="rating">
-        ⭐ {item.rating}
-      </span>
 
-    </div>
 
-    <p className="short-description">
-      {item.short_description}
-    </p>
 
-    <div className="location">
 
-      📍 {item.location.city}, {item.location.country}
 
-    </div>
 
-    <div className="stats">
 
-      <span>❤️ {item.likesCount}</span>
 
-      <span>👁 {item.viewsCount}</span>
 
-    </div>
 
-    <div className="actions">
 
-      <Button
-        onClick={() => editTravel(item)}
-        className="EditBtn"
-      >
-        Edit
-      </Button>
 
-      <Button
-        onClick={() => deleteTravel(item._id)}
-        className="DeleteBtn"
-      >
-        Delete
-      </Button>
 
-      <Button
-        onClick={() => alert()}
-        className="ViewBtn"
-      >
-        View
-      </Button>
 
-    </div>
 
-  </div>
 
-</div>
-        )
-      })
-      )}
+
+
+
+
+
+
+
+
+
+ || !formData.email || !formData.password || !formData.gender || !formData.birthDate.day ||
+  !formData.birthDate.month ||
+  !formData.birthDate.year
+
+
+    newErrors.email = "email is required"
+    newErrors.password = "password is required"
+    newErrors.gender = "gender is required"
+    newErrors.birthDate.day = ""

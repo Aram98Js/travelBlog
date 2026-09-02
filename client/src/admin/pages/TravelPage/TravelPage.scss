@@ -123,9 +123,10 @@
     }
 
     .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
-      gap: 25px;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;      gap: 25px;
 
       .card {
         background: white;
@@ -188,5 +189,24 @@
         }
       }
     }
+  }
+}
+
+
+
+.empty-posts {
+    text-align: center;
+    padding: 80px 20px;
+    background: #fff;
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid #eee;
+
+  h2 {
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #777;
   }
 }

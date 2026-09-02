@@ -1,23 +1,22 @@
 @mixin flexPoition(){
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .profileGuestContainer{
-width: 360px;
+    width: 290px;
     background-color: #fff;
-    display: flex;
-@include flexPoition();
-flex-direction: column;
-    position: absolute;
-    top: 100px;
+   @include flexPoition();
+    flex-direction: column;
+    position: fixed;
     right: 15px;
     border-radius: 15px;
- top: 107%;
-    right: -19%;
+    top: 100px;
+    right: -290px;
     transition: all 0.3s ease;
-  
+    z-index: 10;
+
       .toggleBtn{
         border: none;
         position: absolute;
@@ -39,11 +38,9 @@ right: 0;
     padding: 20px;
     border-bottom: 1px solid #ececec;
 .guest-avatar {
-    width: 65px;
-    height: 65px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+      width: 50px;
+    height: 50px;
+  @include flexPoition();
     border-radius: 50%;
     background: #eef4ff;
     border: 2px solid #dbeafe;
@@ -81,14 +78,10 @@ right: 0;
     width: 100%;
     align-items: center;
     gap: 15px;
-
     padding: 14px 20px;
     cursor: pointer;
-
     transition: .3s;
-
     border-radius: 12px;
-
     svg:first-child {
         width: 22px;
         height: 22px;
@@ -109,23 +102,16 @@ right: 0;
 
     &:hover {
         background: #f5f7fb;
-
         svg {
             color: #2563eb;
         }
-
         span {
             color: #2563eb;
         }
     }
         .flags{
-
         border:none;
-
- display: flex;
- justify-content: center;
- align-items: center;
-
+@include flexPoition();
         border-radius:20px;
         cursor:pointer;
         width: 30px;
@@ -152,12 +138,5 @@ right: 0;
 }
 }
 }
-
-
-
-
-
-
-
 
 

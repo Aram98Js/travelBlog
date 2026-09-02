@@ -21,7 +21,7 @@ const AboutUs = () => {
     <Fragment>
 <Helmet>
 <title>
-About Us
+{t("pagesTitle.AboutUs")}
 </title>
 
 

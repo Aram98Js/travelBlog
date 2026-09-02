@@ -1,0 +1,194 @@
+.security-settings {
+  width: 100%;
+  max-width: 900px;
+
+  background: #fff;
+
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 30px;
+
+
+  // =========================
+  // Header
+  // =========================
+
+  &__header {
+    margin-bottom: 30px;
+
+    h2 {
+      margin: 0 0 8px;
+
+      font-size: 24px;
+      font-weight: 600;
+
+      color: #222;
+    }
+
+    p {
+      margin: 0;
+
+      font-size: 14px;
+      line-height: 1.5;
+
+      color: #777;
+    }
+  }
+
+
+  // =========================
+  // Form
+  // =========================
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 22px;
+  }
+
+
+  // =========================
+  // Fields
+  // =========================
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    label {
+      font-size: 14px;
+      font-weight: 600;
+
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      height: 45px;
+
+      padding: 0 14px;
+
+      border: 1px solid #dcdcdc;
+      border-radius: 7px;
+
+      outline: none;
+
+      font-size: 15px;
+
+      color: #222;
+
+      transition: 0.2s;
+
+
+      &:focus {
+        border-color: #333;
+      }
+
+
+      &::placeholder {
+        color: #aaa;
+      }
+    }
+  }
+
+
+  // =========================
+  // Hint
+  // =========================
+
+  &__hint {
+    font-size: 12px;
+
+    color: #888;
+  }
+
+
+  // =========================
+  // Error
+  // =========================
+
+  &__error {
+    margin: 0;
+
+    font-size: 13px;
+
+    color: #d32f2f;
+  }
+
+
+  // =========================
+  // Success
+  // =========================
+
+  &__success {
+    margin: 0;
+
+    font-size: 13px;
+
+    color: #2e7d32;
+  }
+
+
+  // =========================
+  // Button
+  // =========================
+
+  &__button {
+    align-self: flex-start;
+
+    padding: 11px 24px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #222;
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+
+    &:disabled {
+      opacity: 0.5;
+
+      cursor: not-allowed;
+    }
+  }
+}
+
+
+// =========================
+// Responsive
+// =========================
+
+@media (max-width: 600px) {
+
+  .security-settings {
+    padding: 20px;
+
+
+    &__header {
+
+      h2 {
+        font-size: 21px;
+      }
+    }
+
+
+    &__button {
+      width: 100%;
+    }
+  }
+}

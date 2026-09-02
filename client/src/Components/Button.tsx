@@ -4,11 +4,12 @@ interface PropsButton{
    className: string,
    children: React.ReactNode,
    onClick: ()=>void
-
+   disabled?: boolean
+   type?:"submit"|"reset"|"button"
 }
 const Button = (props:PropsButton) => {
   return (
-    <button onClick={props.onClick} className={props.className}>{props.children}</button>
+    <button type={props.type}  disabled={props.disabled} onClick={props.onClick} className={props.className}>{props.children}</button>
   )
 }
 

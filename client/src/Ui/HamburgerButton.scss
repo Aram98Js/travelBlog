@@ -1,0 +1,26 @@
+@mixin flexPosition(){
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+}
+
+.hamburgerBtn{
+    width: 35px;
+    height: 35px;
+    background-color: #fff;
+    color: #000;
+    border: none;   
+@include flexPosition();
+position: fixed;
+top: 15px;
+right: 15px;
+z-index: 1;
+}
+
+@media screen and (max-width: 768px) {
+ .hamburgerBtn{
+    opacity: 1;
+    visibility: visible;
+ }
+
+}

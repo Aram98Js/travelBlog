@@ -1,3 +1,10 @@
+@mixin flexPosition(){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 .profile-dropdown{
     width:320px;
     background:white;
@@ -6,10 +13,10 @@
     box-shadow:
     0 15px 40px rgba(0,0,0,.08);
     font-family:"Inter",sans-serif;
-        position: absolute;
-    top: 107%;
-    right: -21%;
-    
+        position: fixed;
+    top: 100px;
+    right: -320px;
+    z-index: 10;
     transition: all 0.3s ease;
   
     &.active{
@@ -59,6 +66,7 @@
 }
 .menu-item{
     height:55px;
+    width: 100%;
     display:flex;
     align-items:center;
     gap:15px;
@@ -66,18 +74,25 @@
     border-radius:14px;
     cursor:pointer;
     color:#475467;
-
-
     transition:.25s;
-
-
-
+    &.savingActions{
+        width: 100%;
+        @include flexPosition();
+        justify-content: space-between;
+        .linkAndIcon{
+            @include flexPosition();
+            gap: 15px;
+        }
+        p{
+            background-color: #f00;
+            padding: 5px 9.5px;
+            border-radius: 50%;
+            color: #fff;
+        }
+    }
     svg{
-
         width:22px;
-
         height:22px;
-
     }
 
 .ProfileLink{
@@ -115,33 +130,60 @@
 
 }
 
-
+.settingLink{
+    color: #000;
+    text-decoration: none;
+}
+.saveLink{
+     color: #000;
+    text-decoration: none
+}
 
 .notification{
-
-
-    button{
-
+height: 100%;
+border: none;
+    .notificationBtn{
         border:none;
-
-        background:#e8f7ef;
-
-
-        color:#16a36a;
-
-
-        padding:5px 14px;
-
+       width: 100%;
         border-radius:20px;
-
-
         cursor:pointer;
-
         font-size:13px;
-
-
+background: none;
+font-size: 16px;
+display: flex;
+justify-content: flex-start;
+align-items: center;
     }
 
+.badge{
+    background-color: #f00;
+    color: #fff;
+        width: 35px;
+    height: 25px;
+@include flexPosition();
+border-radius: 50%;
+}
+}
+
+.light_dark_theme{
+    .themeBtn{
+        border:none;
+        background:#e8f7ef;
+        color:#16a36a;
+        padding:5px 14px;
+        border-radius:20px;
+        transition: all 0.5s ease;
+        cursor:pointer;
+        font-size:13px;
+        &.dark{
+             background:#252525;
+        color:#e6e8e7;
+        }
+        &.light{
+               background:#e8f7ef;
+        color:#16a36a; 
+        }
+    }
 }
 
 .Language{
@@ -151,9 +193,7 @@
 
         border:none;
 
- display: flex;
- justify-content: center;
- align-items: center;
+ @include flexPosition();
         color:#16a36a;
         border-radius:20px;
         cursor:pointer;

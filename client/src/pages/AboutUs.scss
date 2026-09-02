@@ -1,7 +1,15 @@
+@mixin flexPos(){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .about {
 
-    background: #fafafa;
+      background: #fafafa;
     color: #2c2c2c;
+    position: relative;
+    top: 100px;
 
 }
 
@@ -14,7 +22,7 @@
 
 .about-hero {
 
-    height: 500px;
+    height: 670px;
     position: relative;
 
     img {
@@ -146,49 +154,27 @@
 }
 
 .grid{
-
     display:grid;
-
     grid-template-columns:repeat(2,1fr);
-
     gap:30px;
-
     div{
-
         display:flex;
-
         align-items:center;
-
         gap:15px;
-
         background:white;
-
         padding:25px;
-
         border-radius:15px;
-
         box-shadow:0 5px 20px rgba(0,0,0,.08);
-
     }
-
     svg{
-
         color:#2d9c74;
-
     }
-
 }
-
 .stats{
-
-    display:grid;
-
-    grid-template-columns:repeat(4,1fr);
-
+    @include flexPos();   
+    justify-content: space-between;
     gap:25px;
-
     margin:100px 0;
-
     text-align:center;
 
     div{
@@ -245,4 +231,33 @@
 
     }
 
+}
+
+@media screen and (max-width: 768px) {
+    .services{
+            display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
+    }
+    .stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+    color: #555;
+    font-size: 16px;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
+}
+
+
+    .overlay {
+    text-align: center;
+}
+.about{
+    top: 0;
+}
 }

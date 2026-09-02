@@ -5,7 +5,7 @@ import Eat from "../pages/Eat";
 import Home from "../pages/Home";
 import Relax from "../pages/Relax";
 import Travel from "../pages/Travel";
-import Settings from "../admin/pages/Settings";
+import AdminSettingsPage from "../admin/pages/settings/AdminSettingsPage";
 
 import Dashboard from "../admin/pages/Dashboard";
 import AdminLayout from "../admin/pages/layouts/AdminLayout";
@@ -17,6 +17,14 @@ import Register from "../pages/Register";
 import Food from "../admin/pages/Food/Food";
 import RelaxPage from "../admin/pages/Relax/RelaxPage";
 import TravelPage from "../admin/pages/TravelPage/TravelPage";
+import Settings from "../pages/settingspage/Settings";
+import SecurityPage from "../pages/settingspage/SecurityPage";
+import ProfileSettings from "../pages/settingspage/ProfileSettings";
+import Notifications from "../pages/settingspage/Notifications";
+import PrivacyPolicy from "../pages/PrivacyPolicy";
+import Saved from "../pages/Saved";
+import Comments from "../admin/pages/Comments";
+import AdminNotification from "../admin/pages/AdminNotification";
 
 
 
@@ -45,7 +53,7 @@ const router = createBrowserRouter([
         element: <Relax />
       },
       {
-        path:"profile",
+        path:"profile/:id",
         element: <Profile/>
       },
        {
@@ -55,7 +63,32 @@ const router = createBrowserRouter([
        {
         path:"register",
         element: <Register/>
-      }
+      },
+      {
+        path:"settings",
+        element: <Settings />
+      },
+      {
+        path:"security",
+        element: <SecurityPage />
+      },
+      {
+        path:"profile_change",
+        element: <ProfileSettings />
+      },
+      {
+        path:"notification",
+        element: <Notifications />
+      },
+      {
+        path:"privacy_policy",
+        element: <PrivacyPolicy />
+      },
+      {
+        path:"saved",
+        element: <Saved />
+      },
+   
     ]
   },
 
@@ -88,9 +121,17 @@ const router = createBrowserRouter([
       },
      
       {
-        path: "settings",
-        element: <Settings />
+        path: "settingsPage",
+        element: <AdminSettingsPage />
       },
+      {
+        path:"comments",
+        element: <Comments />
+      },
+      {
+        path:"adminNotification",
+        element:<AdminNotification />
+      }
   
     ]
   }

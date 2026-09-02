@@ -26,10 +26,15 @@ export type TravelFormData = {
 export type GetFoodData = {
   _id:string
  title: string,
+ user:{
+  _id:string,
+  username:string,
+  email?:string
+ }
   short_description: string,
   description: string 
   image:string,
-  category: string
+
     location:{
     city:string,
     country:string
@@ -44,10 +49,15 @@ export type GetFoodData = {
 export type GetTravelData = {
   _id: string
  title: string,
+  user:{
+  _id:string,
+  username:string,
+  email?:string
+ }
   short_description: string,
   description: string 
   image:string,
-  category: string
+
   location:{
     city:string,
     country:string
@@ -73,6 +83,11 @@ export type RelaxFormData = {
 export type GetRelaxData = {
   _id: string
  title: string,
+  user:{
+  _id:string,
+  username:string,
+  email?:string
+ }
   short_description: string,
   description: string 
   image:string,
@@ -90,6 +105,11 @@ export type GetRelaxData = {
 export type Post = {
     _id:string;
     title:string
+      user:{
+  _id:string,
+  username:string,
+  email?:string
+ }
     image:string;
     short_description:string;
     description:string;

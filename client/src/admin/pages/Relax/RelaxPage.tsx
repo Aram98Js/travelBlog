@@ -4,12 +4,17 @@ import Button from '../../../Components/Button'
 import type { RelaxFormData,GetRelaxData } from '../../Interfaces/interface'
 import './RelaxPage.scss'
 import { Helmet } from 'react-helmet-async'
+import { useTranslation } from 'react-i18next'
+import Skeleton from '../../../Ui/Skelleton'
+import adminFetch from '../../adminFetch'
+import { useNavigate } from 'react-router-dom'
 const RelaxPage = () => {
 const [relaxData,setRelaxData] = useState<GetRelaxData[]>([])
 const [image,setImage] = useState<File|null>(null)
 const [editingId,setEditingId] = useState<string|null>(null)
 const [searchInput,setSearchInput] = useState<string>("")
-
+const [loading,setLoading] = useState<boolean>(true);
+const navigate = useNavigate()
 const handleChange = (
  e:React.ChangeEvent<HTMLInputElement>
 )=>{
@@ -82,13 +87,19 @@ const [relaxForm,setRelaxForm] = useState<RelaxFormData>({
   useEffect(()=>{
    const getRelaxData = async()=>{
 try {
-  const response = await fetch("http://localhost:3000/admin/relaxList")
+
+  const response = await adminFetch("http://localhost:3000/admin/relaxList",navigate)
+
+if (!response) return
+
   const data = await response.json()
   console.log(data);
   setRelaxData(data.allRelax || [])
 } catch (error) {
   console.log(error);
   
+}finally{
+setLoading(false)
 }
    }
 
@@ -115,10 +126,13 @@ formData.append("rating",relaxForm.rating.toString())
     formData.append("image",image)
   }
 
-
+const token = localStorage.getItem("data_token")
     fetch("http://localhost:3000/admin/relax",{
       method:"POST",
       body:formData,
+         headers:{
+    Authorization: `Bearer ${token}`
+  }
     })
     .then((response)=>response.json())
     .then((data)=>{
@@ -146,9 +160,13 @@ setRelaxForm({
   }
 
   const deleteRelaxPost = async (id:string)=>{
+
+    const token = localStorage.getItem("data_token")
     const response = await fetch(`http://localhost:3000/admin/relax/${id}`,{
     method:"DELETE",
-
+headers:{
+  Authorization: `Bearer ${token}`
+}
    })
    const data = await response.json();
    console.log(data);
@@ -182,32 +200,40 @@ formData.append("rating",relaxForm.rating.toString())
     formData.append("image",image)
   }
   if (editingId) {
+
+    const token = localStorage.getItem("data_token")
      await fetch(
-            `http://localhost:3000/admin/relax/${editingId}`,
+            `http://localhost:3002/admin/relax/${editingId}`,
             {
                 method: "PATCH",
-                body: formData
+                body: formData,
+                headers:{
+                  Authorization: `Bearer ${token}`
+                }
             }
         );
   }else{
-    await fetch(
-            `http://localhost:3000/admin/relax`,
+    const token = localStorage.getItem("data_token")
+    await fetch(`http://localhost:3002/admin/relax`,
             {
                 method: "POST",
-                body: formData
+                body: formData,
+                headers:{
+                  Authorization: `Bearer ${token}`
+                }
             }
         );
   }
   }
 
   const fitered = relaxData.filter((item)=>item.title.toLowerCase().includes(searchInput.toLowerCase()))
-
+const {t} = useTranslation()
   return (
 
     <Fragment>
  <Helmet>
 <title>
-Admin Page | Relax Post Creating
+{t("adminTitle.titleAdminRelax")}
 </title>
 
 
@@ -222,8 +248,8 @@ Admin Panel Page For Creating Relax Post
    
          <div className="relax-header">
            <div>
-             <h1>Relax</h1>
-             <p>Manage all Relax posts</p>
+             <h1>{t("adminTravelHeader")}</h1>
+             <p>{t("adminTravelParagraph")}</p>
            </div>
    
           
@@ -232,52 +258,52 @@ Admin Panel Page For Creating Relax Post
    
          <div className="relax-form">
    
-           <h2>Create Relax Post</h2>
+           <h2>{t("create.relaxPost")}</h2>
    
            <div className="form-grid">
    
              <div className="form-group full">
-               <label>Title</label>
-               <input type="text" value={relaxForm.title} onChange={handleChange} placeholder="Enter " name="title"/>
+               <label>{t("inputBox.title")}</label>
+               <input type="text" value={relaxForm.title} onChange={handleChange} placeholder={t("inputBox.titlePlaceHolder")} name="title"/>
              </div>
    
    
              <div className="form-group full">
-               <label>Short Description</label>
-               <input type="text"  value={relaxForm.short_description} onChange={handleChange} placeholder="Enter  short_description" name="short_description" />
+              <label>{t("inputBox.shortDescription")}</label>
+               <input type="text"  value={relaxForm.short_description} onChange={handleChange} placeholder={t("inputBox.placeHolderShortDescription")} name="short_description" />
              </div>
    
              <div className="form-group full">
-               <label>Description</label>
+               <label>{t("inputBox.description")}</label>
              <input type="text"  
              value={relaxForm.description} 
              onChange={handleChange} 
-             placeholder="Enter Price" 
+             placeholder={t("inputBox.placeHolderdescription")} 
              name="description" />
              </div>
    
 <div className="form-group full">
-  <label>Country</label>
+  <label>{t("inputBox.country")} </label>
 <input
   type="text"
    value={relaxForm.location.country}
    onChange={handleChange}
-   placeholder='Enter a country'
+   placeholder={t("inputBox.placeHolderCountry")}
    name="country"
 />
 </div>
 <div className="form-group full">
-  <label>City</label>
+  <label>{t("inputBox.city")}</label>
 <input
   type="text"
   name="city"
    value={relaxForm.location.city}
-   placeholder='Enter a city'
+   placeholder={t("inputBox.placeHolderCity")}
    onChange={handleChange}
 />
 </div>
 <div className="form-group full">
-  <label>Rating</label>
+  <label>{t("inputBox.rating")}</label>
 <input
 
   type="number"
@@ -285,20 +311,20 @@ Admin Panel Page For Creating Relax Post
   value={relaxForm.rating}
   step="0.1"
   onChange={handleChange}
-  placeholder='Enter a Rating'
+ 
 />
 </div>
 
 
              <div className="form-group">
-               <label>Upload Image</label>
+               <label>{t("inputBox.imgUpload")}</label>
                <input type="file" onChange={handleImageChange}/>
              </div>
    
            </div>
    
            <Button onClick={editingId ? saveRelax : addRelax} className="save-btn">
-             Save Post
+           {t("savePost")}
            </Button>
    
          </div>
@@ -313,15 +339,27 @@ Admin Panel Page For Creating Relax Post
                type="text"
                value={searchInput}
                onChange={(evt:React.ChangeEvent<HTMLInputElement>)=>setSearchInput(evt.target.value)}
-               placeholder="Search..."
+               placeholder={t("postSearch")}
              />
            </div>
    
    
            <div className="cards">
    
-             {!fitered || fitered.length === 0?(
-                <h2>Relax List not Found</h2>
+             {loading?(
+<>
+<Skeleton />
+<Skeleton />
+<Skeleton />
+</>
+             ): !fitered || fitered.length === 0?(
+                    <div className="empty-posts">
+          <h2>{t("emptyPostHeader")}</h2>
+
+          <p>
+            {t("emptyPostParagraph")}
+          </p>
+        </div>
              ):(
 fitered.map((item)=>{
                return(

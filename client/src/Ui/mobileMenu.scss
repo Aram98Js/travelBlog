@@ -1,0 +1,96 @@
+@mixin flexPos(){
+display: flex;
+justify-content: flex-start;
+align-items: center;
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 300px;
+  height: 100vh;
+  padding: 30px;
+  background-color: white;
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.15);
+  transition: left 0.3s ease;
+  z-index: 1000;
+ display: none;
+  &.active {
+    left: 0;
+  }
+
+  &__close {
+    display: block;
+    margin-left: auto;
+
+    border: none;
+    background: transparent;
+
+    font-size: 35px;
+    cursor: pointer;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    margin-top: 50px;
+
+    a {
+      color: #222;
+      text-decoration: none;
+      font-size: 20px;
+
+      &:hover {
+        color: #777;
+      }
+    }
+  }
+  .logoBlock{
+    width: 100px;
+    height: 100px;
+    background-image: url("../../public/originalIconwithpng.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .socialBlock{
+  position: relative;
+  @include flexPos();
+  gap: 25px;
+  width: 100%;
+  a{
+    position: relative;
+    color:#686666;
+    span{
+      position: absolute;
+      top: -15px;
+      left: -25px;
+      transition: all 0.5s ease;
+      opacity: 0;
+      visibility: hidden;
+      background-color: #fff;
+      padding: 5px;
+      border-radius: 10px;
+    }
+    &:hover{
+      span{
+        transform: translateY(-15px);
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+}
+}
+
+
+
+@media screen and (max-width: 768px) {
+ .mobile-menu{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+ } 
+}

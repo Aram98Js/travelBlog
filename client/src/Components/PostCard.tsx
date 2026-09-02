@@ -30,7 +30,7 @@ const sendComment = async (id:string)=>{
 
 
 
-const token = localStorage.getItem("token");
+const token = localStorage.getItem("accessToken");
 
 
 const response = await fetch(`http://localhost:3000/comment/post/${id}`,{
@@ -105,7 +105,7 @@ const handleCloseModal = ()=>{
       <img src="/avatar.png" alt="Admin"/>
 
       <div className="author-info">
-        <h4>Admin</h4>
+        <h4>{post.user.username}</h4>
 
         <span>
           {new Date(post.updatedAt)

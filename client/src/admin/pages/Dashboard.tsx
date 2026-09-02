@@ -1,13 +1,18 @@
 import React, { useState,useEffect } from "react";
 import type { DashboardActivity, DashboardData } from "../Interfaces/interface";
 import "./Dashboard.scss";
-import allTotals from '/total-posts.svg';
-import travel from '/travel.svg';
-import relax from '/relax.svg';
-import food from '/food.svg';
+import allTotals from '../../assets/icon/total-posts.svg';
+import travel from '../../assets/icon/travel.svg';
+import relax from '../../assets/icon/relax.svg';
+import food from '../../assets/icon/food.svg';
 import { Helmet } from "react-helmet-async";
+import { useTranslation } from "react-i18next";
+import adminFetch from "../adminFetch";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const {t} = useTranslation()
+  const navigate = useNavigate()
   const [dashboardData,setDashboardData] = useState<DashboardData |null>(null)
   const [dashboardActivity,setDashboardActivity] = useState<DashboardActivity[]>([])
   const allPosts = [
@@ -26,15 +31,18 @@ const Dashboard = () => {
   ]
   useEffect(()=>{
 const getDashboardPost = async()=>{
-const response = await fetch("http://localhost:3000/admin/dashboard/posts");
 
+
+const response = await adminFetch("http://localhost:3000/admin/dashboard/posts",navigate);
+
+
+
+
+if (!response) return 
 const data = await response.json();
-
-
 setDashboardData(data);
 setDashboardActivity(data.activity)
 console.log(dashboardActivity);
-
 }
 getDashboardPost()
   },[])
@@ -71,11 +79,11 @@ content="/food-banner.jpg"
     <div className="dashboard-title">
 
         <h1>
-          Dashboard
+       {t("dashboard")}
         </h1>
 
         <p>
-          Welcome back, Admin 👋
+          {t("welcome")} {}👋
         </p>
 
     </div>
@@ -91,7 +99,7 @@ content="/food-banner.jpg"
       <div className="stat-card-icon">
         <img src={allTotals} alt="" />
       </div>
-        <h3>Total Posts</h3>
+        <h3>{t("Total")}</h3>
         <p>{dashboardData.totalPosts}</p>
     </div>
 
@@ -99,7 +107,7 @@ content="/food-banner.jpg"
       <div className="stat-card-icon">
  <img src={travel} alt="" />
       </div>
-        <h3>Travel</h3>
+        <h3>{t("adminTravel")}</h3>
         <p>{dashboardData.stats.travel}</p>
     </div>
 
@@ -107,7 +115,7 @@ content="/food-banner.jpg"
       <div className="stat-card-icon">
          <img src={food} alt="" />
       </div>
-        <h3>Food</h3>
+        <h3>{t("adminFood")}</h3>
         <p>{dashboardData.stats.food}</p>
     </div>
 
@@ -115,7 +123,7 @@ content="/food-banner.jpg"
       <div className="stat-card-icon">
          <img src={relax} alt="" />
       </div>
-        <h3>Relax</h3>
+        <h3>{t("adminRelax")}</h3>
         <p>{dashboardData.stats.relax}</p>
     </div>
 
@@ -131,7 +139,7 @@ content="/food-banner.jpg"
 
 
           <h2>
-            Recent Activity
+            {t("recent")}
           </h2>
 
 
@@ -151,10 +159,10 @@ content="/food-banner.jpg"
                 <h4 style={item.action && item.action === "Created"?{color:"green"}:item.action==="Deleted"?{color:"red"}:{color:"rgb(195, 195, 54)"}}>
                    {
                      item.action === "Created"
-    ? `Created ${item.type} post`
+    ? ` ${t("messages.create")} ${item.type}`
      : item.action === "Deleted"
-    ? `Deleted ${item.type} post`
-    : `Updated ${item.type} post`
+    ? `${t("messages.delete")} ${item.type}`
+    : `${t("messages.update")} ${item.type}`
     
                    }
                 </h4>
@@ -192,7 +200,7 @@ content="/food-banner.jpg"
 
 
         <h2>
-          Latest Posts
+          {t("latest")}
         </h2>
 
 
@@ -208,22 +216,22 @@ content="/food-banner.jpg"
             <tr>
 
               <th>
-                Image
+                {t("table.image")}
               </th>
 
               <th>
-                Title
+                 {t("table.title")}
               </th>
 
               <th>
-                Category
+                {t("table.category")}
               </th>
 
               <th>
-                Date
+                 {t("table.date")}
               </th>
               <th>
-                Status
+                 {t("table.rating")}
               </th>
             </tr>
 
@@ -265,7 +273,7 @@ content="/food-banner.jpg"
     </td>
      <td>
         {
-        <span>{}</span>
+        <span>{item.rating}</span>
         }
     </td>
 </tr>

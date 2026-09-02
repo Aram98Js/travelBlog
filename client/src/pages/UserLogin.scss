@@ -13,23 +13,19 @@
 
   
 .auth-wrapper{
-    
-    background:
-    linear-gradient(
-        rgba(0,0,0,0.55),
-        rgba(0,0,0,0.55)
-    ),
-    url("/5bfb6f_26f1a5c736e544e09c63c82a4c792645~mv2_d_3839_1306_s_2.jpg");
-
-    background-size:cover;
-    background-position:center;
-    min-height:100vh;
-@include flexPos();
+background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url("/5bfb6f_26f1a5c736e544e09c63c82a4c792645~mv2_d_3839_1306_s_2.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+   @include flexPos();
+    position: relative;
+    top: 100px;
     .auth-card{
     width:470px;
     background:white;
     padding:40px;
     border-radius:15px;
+    gap: 15px;
     box-shadow:0 15px 40px rgba(0,0,0,.25);
    
     .logo{
@@ -55,6 +51,24 @@ h2{
 }
 .input-group{
     margin-bottom:20px;
+    position: relative;
+    .passwordTypeBtn{
+   position: relative;
+ 
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    height: 46px;
+    width: 45px;  
+     border: 1px solid #dcdcdc;
+ 
+      border-radius: 8px;
+      border-radius: 8px;
+      background: #fff;
+      color: #333;
+}
     label{
     display:block;
     margin-bottom:8px;
@@ -73,7 +87,10 @@ h2{
 }
 
 }
-
+.inputBox{
+@include flexPos();
+gap: 15px;
+}
 }
 button{
     width:100%;
@@ -94,7 +111,13 @@ button{
 
 
 
-
+.rememberBlock{
+    @include flexPos();
+    justify-content: flex-end;
+margin-top: 15px;
+    gap: 5px;
+    flex-direction: row-reverse;
+}
 
 
 .bottom-text{
@@ -103,6 +126,7 @@ button{
     margin-top:25px;
     color:#555;
     @include flexPos();
+    justify-content: space-between;
     gap: 15px;
      a{
     color:#0b4f6c;
@@ -112,4 +136,25 @@ button{
 }
 
 
+.input-error {
+  border: 1px solid red;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+@media screen and (max-width: 768px) {
+    .auth-wrapper{
+        top: 0;
+        height: 600px;
+          .auth-card {
+    width: 380px;
+
+}
+    }
+ 
+}
 

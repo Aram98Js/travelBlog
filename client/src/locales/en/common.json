@@ -5,83 +5,403 @@
   "food": "Food",
   "relax": "Relax",
   "login": "Login",
-  "register":"Register",
+  "register": "Register",
   "guest": "Guest",
-  "ourServices":"Our Services",
+  "ourServices": "Our Services",
   "profileText": "My Profile",
   "settingText": "Settings",
-   "languageText":"Languages",
-   "notificationText":"Notification",
-   "logoutText":"Log Out",
-      "travelHeader":"Travel Notes",
-    "travelParagraph":"Travel is a flirtation with life",
-    "guestHeader":"Hello Guest",
-    "guestParagraph":"Sign in to continue",
-    "userLoginHeader":"User Login",
-      "userLoginParagraph":"Welcome back! Login to manage your website",
-      "username":"Username",
-      "password":"Password",
-      "email":"Email Address",
-      "placeHolder":{
-        "user":"Enter Your Username",
-        "password":"Enter Your Password",
-        "usernameForRegister":"Write Your Username",
-        "emailForRegister":"Write Your Email",
-        "passwordForRegister":"Write Your password"
+  "languageText": "Languages",
+  "notificationText": "Notification",
+  "logoutText": "Log Out",
+  "travelHeader": "Travel Notes",
+  "travelParagraph": "Travel is a flirtation with life",
+  "guestHeader": "Hello Guest",
+  "guestParagraph": "Sign in to continue",
+  "userLoginHeader": "User Login",
+  "userLoginParagraph": "Welcome back! Login to manage your website",
+  "userRegisterHeader": "Create Account",
+  "userRegisterParagraph": "Register new administrator",
+  "username": "Username",
+  "password": "Password",
+  "email": "Email Address",
+  "genderLabel": "Gender",
+  "birthDate": "Date of birth",
+  "placeHolder": {
+    "user": "Enter Your Username",
+    "password": "Enter Your Password",
+    "usernameForRegister": "Write Your Username",
+    "emailForRegister": "Write Your Email",
+    "passwordForRegister": "Write Your password"
+  },
+  "loginButtonText": "Login",
+  "dontHaveAccountText": "You Don't have an account?",
+  "RegisterLink": "Register Now",
+  "HaveAccountText": "Already have account?",
+  "loginLink": "Login Now",
+  "aboutUs": "About Us",
+  "MottoText": "Explore • Taste • Relax",
+  "aboutUsObj": {
+    "header": "Welcome to our platform",
+    "paragraphOne": "We believe that every great journey begins with reliable information, and every unforgettable experience starts with making the right choice. That is why we created a platform where travelers, food lovers, and people seeking relaxation can discover everything they need in one convenient place.",
+    "paragraphTwo": "Our mission is to inspire people to explore new destinations, experience different cultures, enjoy exceptional cuisine, and create lasting memories. We carefully collect, organize, and present information to ensure that it is accurate, trustworthy, and easy to access.",
+    "paragraphThree": "Our team is committed to continuously improving the quality of our services, updating our content, and creating the best possible experience for every visitor. We pay close attention to every detail, from the usability of our website to the reliability of the information we provide.",
+    "paragraphFour": " We understand that your time is valuable. For this reason, we strive to make every search simple, efficient, and enjoyable by offering clear information that helps you make confident decisions.",
+    "paragraphFive": "Our vision is to build a trusted community where people can find inspiration, discover exciting destinations, explore new flavors,and choose the perfect place to relax.",
+    "paragraphSix": "Whether you are planning your next adventure, searching for a memorable restaurant, or simply looking for ideas, we are here to support your journey."
+  },
+  "SignaturePart": {
+    "SignatureHeader": "Thank you for choosing us.",
+    "SignatureParagraph": "Your trust inspires us to grow, improve,and serve you with excellence every day.",
+    "lastText": " With love, The Team."
+  },
+  "Cards": {
+    "card_one": "Discover beautiful places around the world",
+    "card_two": "Taste unforgettable dishes and restaurants.",
+    "card_three": "Find the perfect place to rest and recharge."
+  },
+  "Why_choose_us": "Why Choose Us?",
+  "chooseObject": {
+    "trust_info": "Trusted Information",
+    "trust_info_two": "Professional Team",
+    "trust_info_three": "Customer First",
+    "trust_info_four": "High Quality Content"
+  },
+  "thankYou": {
+    "thankYouHeader": "Thank You",
+    "thankYouParagraph": "Thank you for choosing our platform.",
+    "thankYouTwo": "With love",
+    "thankYouThree": "Our Organization Team"
+  },
+  "follow": "Follow us",
+  "explore": "Explore",
+  "category": "Categories",
+  "contact": "Contact",
+  "results": {
+    "happyVisitors": "Happy Visitors",
+    "destination": "Destination",
+    "restaurant": "Restaurant",
+    "positiveReviews": "Positive Reviews"
+  },
+  "discoverText": "Discover the world through travel, delicious food and relaxing experiences.",
+  "sendMessage": "Send Message",
+  "copyRightText": "Travel Notes All rights reserved.",
+  "travelGuidesTexts": {
+    "travelGuideHeader": "Explore The World",
+    "travelGuideParagraph": "Discover breathtaking destinations and unforgettable adventures.",
+    "SearchText": "Search destinations...",
+    "searchButtonText": "Search",
+    "travelGuideHeaderTwo": "Explore The World With Our Travel Guide",
+    "travelGuideParagraphTwo": "Planning your next adventure? Discover carefully selected destinations, hidden places and unforgettable experiences. From beautiful cities to breathtaking nature, our guides will help you find the best places.",
+    "new": "New",
+    "popular": "Popular",
+    "buttonText": "Read Travel Tips"
+  },
+  "foodGuidesTexts": {
+    "foodGuideHeader": "TASTE THE WORLD",
+    "foodGuideParagraph": "Find the best restaurants, traditional dishes and local cuisine.",
+    "SearchText": "Search Foods...",
+    "searchButtonText": "Search",
+    "foodGuideHeaderTwo": "Taste The World With Our Food Guide",
+    "foodGuideParagraphTwo": "Planning your next adventure? Discover carefully selected destinations, hidden places and unforgettable experiences. From beautiful cities to breathtaking nature, our guides will help you find the best places.",
+    "new": "New",
+    "popular": "Popular",
+    "buttonText": "Read Food Tips"
+  },
+  "relaxGuidesTexts": {
+    "relaxGuideHeader": "TASTE THE WORLD",
+    "relaxGuideParagraph": "Discover breathtaking destinations and unforgettable adventures.",
+    "SearchText": "Search Foods...",
+    "searchButtonText": "Search",
+    "relaxGuideHeaderTwo": "Find Your Perfect Relax",
+    "relaxGuideParagraphTwo": "Planning your next adventure? Discover carefully selected destinations, hidden places and unforgettable experiences. From beautiful cities to breathtaking nature, our guides will help you find the best places.",
+    "new": "New",
+    "popular": "Popular",
+    "buttonText": "Read Food Tips"
+  },
+  "themeText": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "settingsText": {
+    "profileText": "Profile",
+    "profileContent": "Change personal information",
+    "profileBtnText": "Edit",
+    "notificationText": "Notification",
+    "notificationContent": "Email notifications",
+    "notificationBtnText": "Manage",
+    "SecurityText": "Security",
+    "SecurityContent": "Password change",
+    "securityBtnText": "Change",
+    "DangerZoneText": "Danger Zone",
+    "DangerZoneContext": "Logout or permanently delete your account.",
+    "dangerZoneButtonText": {
+      "logOut": "Logout",
+      "deleteAccount": "Delete"
+    }
+  },
+  "securitPage": {
+    "securityHeader": "Security",
+    "securityParagraph": "Change your account password",
+    "currentP": "Current password",
+    "newP": "New password",
+    "confirmNewP": "Confirm new password"
+  },
+  "privacy_policy": "Privacy Policy",
+  "privacyPolicy": {
+    "header": {
+      "one": "“TRAVEL NOTES” WEBSITE PRIVACY POLICY",
+      "one_dot_one": "GENERAL PROVISIONS",
+      "one_dot_two": "PURPOSE OF THE WEBSITE",
+      "one_dot_three": "COLLECTED DATA",
+      "one_dot_four": "USE OF DATA",
+      "one_dot_five": "SECURITY AND LOCAL STORAGE",
+      "one_dot_six": "ACCOUNT MANAGEMENT AND DELETION",
+      "one_dot_seven": "EDUCATIONAL NATURE OF THE PROJECT"
+    },
+    "paragraph": {
+      "one": "Basic provisions regarding the use of the website, user data, and their protection.",
+      "one_dot_one": "This Privacy Policy defines the basic principles of collecting, using, storing, and protecting user data while using the “Travel Notes” website.",
+      "one_dot_one_two": "“Travel Notes” is an educational web project created to demonstrate modern web technologies and the functionality of a website focused on travel.",
+      "one_dot_one_three": "Using the website means that the user has read and understood this Privacy Policy.",
+      "one_dot_two": "The main purpose of the website is to provide informational content about travel, interesting places, food, and relaxation.",
+      "one_dot_two_two": "The website includes Travel, Food, and Relax sections where users can explore relevant content.",
+      "one_dot_two_three": "Some website features are available only to registered users.",
+      "one_dot_three": "During registration and the use of certain website features, the following data may be used: username, email address, password, user profile information, and notification-related data.",
+      "one_dot_three_two": "The user is responsible for the accuracy of the information they provide.",
+      "one_dot_four": "User data is used to provide the main functionality of the website.",
+      "one_dot_four_two": "The data may be used ",
+      "one_dot_five": "User passwords are not stored in plain text. They are hashed using the bcrypt technology.",
+      "one_dot_five_two": "Access token and refresh token mechanisms are used for user authentication.",
+      "one_dot_five_three": "The website may use the browser's Local Storage to maintain authentication and store certain user preferences.",
+      "one_dot_six": "Registered users can manage their accounts through the Settings section.",
+      "one_dot_six_two": "Users can update their profile information, change their password, log out, or delete their account.",
+      "one_dot_six_three": "When an account is deleted, the corresponding user data may be removed from the project's database.",
+      "one_dot_seven": "The “Travel Notes” website was created exclusively for educational and demonstration purposes.",
+      "one_dot_seven_two": "The purpose of the project is to demonstrate the use of modern frontend and backend technologies, including user registration, authentication, database operations, profile management, and a notification system.",
+      "one_dot_seven_three": "The website is not a travel agency, booking system, or payment platform.",
+      "one_dot_seven_four": "The website's functionality and content may change during the development of the project."
+    },
+    "dataList": {
+      "username": "Username",
+      "email": "Email address",
+      "password": "Password",
+      "profile": "User profile information",
+      "notifications": "Notification-related data"
+    },
+    "dataUsageList": {
+      "registration": "For user registration and login",
+      "authentication": "For user authentication",
+      "profile": "For updating profile information",
+      "password": "For changing the password",
+      "notifications": "For providing notifications",
+      "account": "For managing the user account"
+    },
+    "storageList": {
+      "accessToken": "accessToken",
+      "refreshToken": "refreshToken",
+      "userData": "Basic user information",
+      "preferences": "Certain website preferences"
+    },
+    "accountActionsList": {
+      "profile": "Update profile information",
+      "password": "Change password",
+      "logout": "Log out of the account",
+      "delete": "Delete the account"
+    }
+  },
+  "save_posts": "Save Posts",
+  "postDesc": "Posts you saved for later.",
+  "savedText": "Saved",
+  "pagesTitle": {
+    "homePage": "Home Page| Travel Notes",
+    "AboutUs": "About US | Travel Notes",
+    "travelPage": "Travel Page | Travel Notes",
+    "foodPage": "Food Page | Travel Notes",
+    "relaxPage": "Relax Page | Travel Notes",
+    "loginPage": "Login Page | Travel Notes",
+    "registerPage": "Create Account | Travel Notes",
+    "settingsPage": "Settings| Travel Notes",
+    "profilePage": "My Profile | Travel Notes",
+    "profileChangePage": "Change Profile | Travel Notes",
+    "securityPage": "Security | Travel Notes",
+    "savedPage": "Saved Posts | Travel Notes",
+    "notificationPage": "Notification | Travel Notes",
+    "privacyPage": "Privacy Policy | Travel Notes"
+  },
+  "showPassword": "Show Password",
+  "hidePassword": "Hide Password",
+  "notificationHeeader": "Notification",
+  "notificationP": "Stay updated with your account activity.",
+  "unRead": "unread",
+  "savePostEmptyHeader": "No saved posts yet",
+  "savePostEmptyParagraph": "When you save a post, it will appear here.",
+  "months": {
+    "first": "Month",
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
+  },
+  "gender": {
+    "first": "Select Gender",
+    "male": "Male",
+    "female": "Female"
+  },
+  "validation": {
+    "usernameRequired": "Username is required",
+    "usernameMinLength": "Username must be at least 3 characters",
+    "emailRequired": "Email is required",
+    "emailMustContainAt": "Email must contain '@' symbol",
+    "invalidEmail": "Invalid email",
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 8 characters",
+    "passwordWeak": "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character",
+    "genderRequired": "Gender is required",
+    "invalidGender": "Invalid gender",
+    "dateOfBirth": {
+      "dayRequired": "Day is required",
+      "monthRequired": "Month is required",
+      "yearRequired": "Year is required"
+    }
+  },
+  "userlogin": {
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "userNotFound": "User not found",
+    "wrongPassword": "Wrong password"
+  },
+  "rememberLabel": "Remember Me",
+
+
+
+  "adminLoginTexts": {
+    "adminLogin": "Admin Username",
+    "adminEmail": "Admin Email Address",
+    "adminPassword": "Admin Password",
+    "adminLoginHeader": "Admin Login",
+    "adminLoginParagraph": " Welcome back! Login to manage your website",
+    "adminLoginBtn": "Login",
+    "adminLoginPlaceHolder": "Enter administrator username.",
+    "adminPasswordPlaceHolder": "Enter administrator password.",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "hintPassWord": "Password must be at least 8 characters. ",
+    "currentPasswordPlaceholder": "Enter your current password",
+    "newPasswordPlaceholder": "Enter your new password",
+    "confirmNewPasswordPlaceholder": "Repeat your new password"
+  },
+  "dashboard": "Dashboard",
+  "adminFood": "Food",
+  "adminTravel": "Travel",
+  "adminRelax": "Relax",
+  "adminLogOut": "Logout",
+  "adminComment": "Comment",
+  "adminSettings": "Settings",
+  "notificationAdmin": "Notifications",
+  "notificationContentText": "Manage your admin notifications.",
+  "notificationContentTextTwo": "Manage how you receive notifications.",
+
+      "notificationsSettingsText":{
+    "emailNotification":"Email Notifications",
+    "emailNotificationparagraph":"Receive important notifications through email.",
+    "newComment":"New Comments",
+    "newCommentParagraph":"Get notified when a user posts a new comment.",
+    "newPost":"New Posts",
+    "newPostParagraph":"Get notified when a new post is created.",
+    "newLike":"New Like",
+    "newLikeParagraph":"Get notified when a new Like is created.",
+    "systemNotification":"System Notifications",
+    "systemNotificationParagraph":"Receive important system and security updates."
+  },
+
+  "adminAppearance": "Appearance",
+  "adminAppearanceParagraph": "Customize the appearance of your admin panel.",
+  "adminAppearanceTheme": "Theme",
+  "adminAppearanceThemeParagraph": "Choose how the admin panel should look.",
+  "adminAppearanceLightTheme": "Light",
+  "adminAppearanceLightThemeParagraph": "Light appearance",
+  "adminAppearanceDarkTheme": "Dark",
+  "adminAppearanceDarkThemeParagraph": "Dark appearance",
+  "adminAppearanceSystemTheme": "System",
+  "adminAppearanceSystemThemeParagraph": "Use system preference",
+  "adminProfile": "Profile",
+  "adminSecurity": "Security",
+  "adminNotificationSetting": "Notification Settings",
+  "adminSettingParagraph": "Manage your admin account settings",
+  "profilePageParagraph": "Manage your personal information",
+  "SavingProces": "Saving...",
+  "saveChangeText": "Save Changes",
+  "changingProcess": "Changing pasword...",
+  "changePasswordText": "Change pasword",
+  "securityPageParagraph": " Manage your password and keep your account secure.",
+  "aprove": "Aprove",
+  "reject": "Reject",
+  "adminRelaxHeader": "Relax",
+  "adminRelaxParagraph": "Manage all Relax posts",
+  "adminTravelHeader": "Travel",
+  "adminTravelParagraph": "Manage all Travel posts",
+  "adminFoodHeader": "Food",
+  "adminFoodParagraph": "Manage all  posts",
+  "commentHeader": "Comments",
+  "commentParagraph": "Manage user comments",
+  "create": {
+    "travelPost": "Create Travel Post",
+    "relaxPost": "Create Relax Post",
+    "foodPost": "Create food Post"
+  },
+  "welcome": "Welcome back",
+  "Total": "Total Posts",
+  "latest": "Latest Posts",
+  "recent": "Recent Activity",
+  "messages": {
+    "create": "Created  post",
+    "delete": "Deleted  post",
+    "update": "Updated  post"
+  },
+  "table": {
+    "image": "Image",
+    "rating": "Rating",
+    "title": "Title",
+    "category": "Category",
+    "date": "Date"
+  },
+  "inputBox": {
+    "title": "Title",
+    "titlePlaceHolder": "Write Title",
+    "shortDescription": "Short Description",
+    "placeHolderShortDescription": "Write Short Description",
+    "description": "Description",
+    "placeHolderdescription": "Write Description",
+    "country": "Country",
+    "placeHolderCountry": "Write country Name",
+    "city": "City",
+    "placeHolderCity": "Write City Name",
+    "rating": "rating",
+    "imgUpload": "Upload Image"
+  },
+  "savePost": "Save Post",
+  "emptyPostHeader": "Posts not found",
+  "emptyPostParagraph": "There are no posts at the moment.",
+  "postSearch": "Search Here",
+  "adminTitle": {
+    "titleAdminFood": "Food Post Creating | Admin Page ",
+    "titleAdminTravel": "Travel Post Creating | Admin Page ",
+    "titleAdminRelax": "Relax Post Creating | Admin Page ",
+    "titleAdminComment": "Comments | The administrator manages user comments.",
+           "titleAdminNotificationPage":"Notification | Admin Panel",
+    "titleAdminSettingPage":"Settings | Admin Panel",
+        "titleAdminLogin":"Admin Login | Travel Blog"
         
-      },
-        "loginButtonText":"Login",
-        "dontHaveAccountText":"You Don't have an account?",
-        "RegisterLink":"Register Now",
-        "HaveAccountText":"Already have account?",
-        "loginLink":"Login Now",
-        "aboutUs":"About Us",
-        "MottoText":"Explore • Taste • Relax",
-        "aboutUsObj":{
-       "header":"Welcome to our platform",
-        "paragraphOne":"We believe that every great journey begins with reliable information, and every unforgettable experience starts with making the right choice. That is why we created a platform where travelers, food lovers, and people seeking relaxation can discover everything they need in one convenient place.",
-        "paragraphTwo":"Our mission is to inspire people to explore new destinations, experience different cultures, enjoy exceptional cuisine, and create lasting memories. We carefully collect, organize, and present information to ensure that it is accurate, trustworthy, and easy to access.",
-            "paragraphThree":"Our team is committed to continuously improving the quality of our services, updating our content, and creating the best possible experience for every visitor. We pay close attention to every detail, from the usability of our website to the reliability of the information we provide.",
-            "paragraphFour":" We understand that your time is valuable. For this reason, we strive to make every search simple, efficient, and enjoyable by offering clear information that helps you make confident decisions.",
-            "paragraphFive":"Our vision is to build a trusted community where people can find inspiration, discover exciting destinations, explore new flavors,and choose the perfect place to relax.",
-            "paragraphSix":"Whether you are planning your next adventure, searching for a memorable restaurant, or simply looking for ideas, we are here to support your journey."
-      },
-      "SignaturePart":{
-        "SignatureHeader":"Thank you for choosing us.",
-        "SignatureParagraph":"Your trust inspires us to grow, improve,and serve you with excellence every day.",
-        "lastText":" With love, The Team."
-      },
-
-      "Cards":{
-        "card_one":"Discover beautiful places around the world",
-        "card_two":"Taste unforgettable dishes and restaurants.",
-        "card_three":"Find the perfect place to rest and recharge."
-      },
-      "Why_choose_us":"Why Choose Us?",
-      "chooseObject":{
-        "trust_info": "Trusted Information",
-        "trust_info_two": "Professional Team",
-        "trust_info_three": "Customer First",
-        "trust_info_four": "High Quality Content"
-
-      },
-        "thankYou":{
-          "thankYouHeader":"Thank You",
-          "thankYouParagraph":"Thank you for choosing our platform.",
-          "thankYouTwo":"With love",
-          "thankYouThree":"Our Organization Team"
-        },
-        "follow":"Follow us",
-        "explore":"Explore",
-        "category":"Categories",
-        "contact":"Contact",
-         "results":{
-          "happyVisitors":"Happy Visitors",
-          "destination":"Destination",
-          "restaurant":"Restaurant",
-          "positiveReviews":"Positive Reviews"
-        },
-        "discoverText":"Discover the world through travel, delicious food and relaxing experiences."
-
-      
+  },
+  "commentModalHeader": "No pending comments",
+  "commentModalParagraph": "There are no comments waiting for approval."
 }

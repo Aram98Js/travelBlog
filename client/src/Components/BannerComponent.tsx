@@ -1,13 +1,18 @@
+
 import "./bannerComponent.scss"
+import { useTranslation } from 'react-i18next';
 interface HeroBannerProps {
     title:string;
     description:string;
     image:string;
     placeholder:string;
+    handleChange: (evt:React.ChangeEvent<HTMLInputElement>)=>void,
+    search: string
 }
 
 
-const BannerComponent = ({title,description,image,placeholder}:HeroBannerProps) => {
+const BannerComponent = ({search,handleChange,title,description,image,placeholder}:HeroBannerProps) => {
+const {t} = useTranslation()
   return (
    <section 
 className="hero-banner"
@@ -23,37 +28,21 @@ rgba(0,0,0,.45)
 <div className="hero-content">
 
 
-<h1>
-{title}
-</h1>
-
-
-<p>
-{description}
-</p>
-
-
-
+<h1>{title}</h1>
+<p>{description}</p>
 <div className="search-box">
-
-
 <input 
 type="text"
 placeholder={placeholder}
+onChange={handleChange}
+value={search}
 />
 
-
 <button>
-Search
+{t("travelGuidesTexts.searchButtonText")}
 </button>
-
-
 </div>
-
-
 </div>
-
-
 </section>
 
   )
