@@ -38,6 +38,7 @@ import updateCommentRouter from './routers/updateCommentCountRoutes.js';
 import authMiddleware from './auth/authMiddleware.js';
 import settingModel from './models/SettingsSchema.js';
 import ai from './config/gemini.js';
+import bird from './config/messageBird.js';
 
 dotenv.config();
 const app = express();
@@ -79,92 +80,155 @@ mongoose.connect(process.env.MONGOOSE_URI)
 
 
 
-app.post("/userRegister",upload.single("image"),registerValidator,validate,
+
+app.post(
+  "/userRegister",
+  upload.single("image"),
+  registerValidator,
+  validate,
   async (req, res) => {
+
     console.log("REGISTER START");
 
     try {
+
       const {
         username,
         email,
         password,
+        phoneNumber,
         gender,
-    
+        country,
+        city
       } = req.body;
-const birthDate = JSON.parse(req.body.birthDate);
+
+      const birthDate = JSON.parse(req.body.birthDate);
+
+      if (password.length < 8) {
+        return res.status(409).json({
+          path: "password",
+          msg: "password is too short"
+        });
+      }
+
+      const existingUser = await User.findOne({
+        username
+      });
+
+      if (existingUser) {
+        return res.status(409).json({
+          path: "username",
+          msg: "username already exists"
+        });
+      }
+
+      const existingPhone = await User.findOne({
+        phoneNumber
+      });
+
+      if (existingPhone) {
+        return res.status(409).json({
+          path: "phoneNumber",
+          msg: "Phone number already exists"
+        });
+      }
+
+      const existingEmail = await User.findOne({
+        email
+      });
+
+      if (existingEmail) {
+        return res.status(409).json({
+          path: "email",
+          msg: "email already exists"
+        });
+      }
+
       const hashPass = await bcrypt.hash(password, 10);
 
+      // Generate 6-digit OTP
+      const otp = Math.floor(
+        100000 + Math.random() * 900000
+      ).toString();
 
-  if(password.length < 8){
-    return res.status(409).json({
-      path:"password",
-      msg:"password is too short"
-    })
-  }
-
-const existingUser = await User.findOne({username});
-
-if(existingUser){
-    const errorResponse = {
-        test: "HELLO_FROM_register",
-        path: "username",
-        msg: "username already exists"
-    };
-    console.log(errorResponse);
-    
-  return res.status(409).json(errorResponse)
-}
-
-const existingEmail = await User.findOne({ email });
-
-if (existingEmail) {
-    const errorResponse = {
-        test: "HELLO_FROM_register",
-        path: "email",
-        msg: "Email already exists"
-    };
-       console.log(errorResponse)
-    return res.status(409).json(errorResponse);
-}
+      // OTP expires in 5 minutes
+      const otpExpires = new Date(
+        Date.now() + 5 * 60 * 1000
+      );
 
       const newUser = {
         username,
         email,
         password: hashPass,
         gender,
+        phoneNumber,
         birthDate,
-        image: req.file?.path ||""
+        country,
+        city,
+        image: req.file?.path || "",
+
+        emailVerified: false,
+        emailOtp: otp,
+        emailOtpExpires: otpExpires
       };
-      const createdUser = await User.create(newUser);
 
-      const notificationed = await NotificationModel.create({
-        user: createdUser._id,
-        message: "is Registered",
-        isRead: false,
-        notificationCount: 1
-      });
+      const createdUser = await User.create(
+        newUser
+      );
 
-      const unreadCount = await NotificationModel.countDocuments({
-        user: createdUser._id,
-        isRead: false
-      });
+      // Development only
+      console.log(
+        "Email OTP:",
+        otp
+      );
+
+      const notificationed =
+        await NotificationModel.create({
+          user: createdUser._id,
+          message: "is Registered",
+          isRead: false,
+          notificationCount: 1,
+          type: "system",
+          postType: "user",
+          sender: createdUser._id
+        });
+
+      const unreadCount =
+        await NotificationModel.countDocuments({
+          user: createdUser._id,
+          isRead: false
+        });
 
       return res.status(201).json({
+
+        msg: "Registration successful",
+
         createdUser,
+
+        requiresEmailVerification: true,
+
+        phoneNumber,
+
         notificationed,
+
         unreadCount
+
       });
 
     } catch (error) {
-      console.log("REGISTER ERROR:", error);
+
+      console.log(
+        "REGISTER ERROR:",
+        error
+      );
 
       return res.status(500).json({
         Msg: error.message
       });
+
     }
   }
 );
-
 
 
 app.post("/userLogin", loginValidator,
@@ -400,6 +464,8 @@ if (!user) {
   }
   
 })
+
+
 
 
 app.patch("/profile", authMiddleWare, upload.single("image"), async (req, res) => {
@@ -677,6 +743,141 @@ const response = await OpenAI.Responses.create({
     });
  }
 })
+//------------------------------------------------For Phone Verification-----------------------------------------------------
+
+
+app.post("/auth/verify-email", async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+
+    // Check required fields
+    if (!email || !otp) {
+      return res.status(400).json({
+        msg: "Email and OTP are required"
+      });
+    }
+
+    // Find user
+    const user = await User.findOne({
+      email
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        msg: "User Not Found"
+      });
+    }
+
+   
+    if (user.emailVerified) {
+      return res.status(400).json({
+        msg: "Phone number is already verified"
+      });
+    }
+
+    if (!user.emailOtp || !user.emailOtpExpires) {
+      return res.status(400).json({
+        msg: "OTP not found"
+      });
+    }
+
+   
+    if (new Date() > user.emailOtpExpires) {
+      return res.status(400).json({
+        msg: "OTP has expired"
+      });
+    }
+
+   
+    if (user.emailOtp !== otp) {
+      return res.status(400).json({
+        msg: "Invalid OTP"
+      });
+    }
+
+
+    user.emailVerified = true;
+
+  
+    user.emailOtp = null;
+    user.emailOtpExpires = null;
+
+    await user.save();
+
+    return res.status(200).json({
+      msg: "Phone number verified successfully",
+      emailVerified: true
+    });
+
+  } catch (error) {
+    console.log("VERIFY EMAIL ERROR:", error);
+
+    return res.status(500).json({
+      msg: "Server error"
+    });
+  }
+});
+
+
+app.post("/auth/resend-email-otp", async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Check phone number
+    if (!email) {
+      return res.status(400).json({
+        msg: "Phone Number is required"
+      });
+    }
+
+    // Find user
+    const user = await User.findOne({
+      email
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        msg: "User not found"
+      });
+    }
+
+    // Check if already verified
+    if (user.emailVerified) {
+      return res.status(400).json({
+        msg: "Phone number is already verified"
+      });
+    }
+
+
+    const otp = Math.floor(
+      100000 + Math.random() * 900000
+    ).toString();
+
+    const otpExpires = new Date(
+      Date.now() + 5 * 60 * 1000
+    );
+
+    user.emailOtp = otp;
+    user.emailOtpExpires = otpExpires;
+
+    await user.save();
+    console.log("NEW Email OTP:", otp);
+
+    return res.status(200).json({
+      msg: "Verification code generated successfully"
+    });
+
+  } catch (error) {
+    console.log("RESEND OTP ERROR:", error);
+
+    return res.status(500).json({
+      msg: "Failed to resend OTP"
+    });
+  }
+});
+
+
+
 
 
 //------------------------------------------------For Admin Routes-----------------------------------------------------------
@@ -947,6 +1148,9 @@ app.post("/ai/check", async (req, res) => {
 
     const response = await ai.models.generateContent({
       model: "gemini-3.5-flash-lite",
+        config: {
+    responseMimeType: "application/json"
+  },
       contents: `
 Դու մեր կայքի AI chatbot-ն ես։
 
@@ -1164,6 +1368,13 @@ User:
 Անգլերեն:
 "Hello 👋 How can I help you?"
 
+
+
+Ողջույն տուր ՄԻԱՅՆ այն դեպքում, երբ օգտատիրոջ հիմնական հաղորդագրությունը պարզապես ողջույն է։
+Եթե հաղորդագրությունը պարունակում է հարց, խնդրանք կամ տեղեկատվության պահանջ՝ ՄԻ ՈՂՋՈՒՆԻՐ և անմիջապես պատասխանիր օգտատիրոջ հարցին։
+Եթե ողջույնը և հարցը միասին են՝ նույնպես ՄԻ ՈՂՋՈՒՆԻՐ և անմիջապես պատասխանիր հարցին։
+ԵՐԲԵՔ մի սկսիր յուրաքանչյուր պատասխանը ողջույնով։
+
 ========================
 11. OFF-TOPIC ՀԱՐՑԵՐ
 ========================
@@ -1238,6 +1449,14 @@ User:
 
 Օգտագործիր emoji միայն այն դեպքում,
 երբ դրանք բնական են տվյալ խոսակցության մեջ։
+
+===================================
+15. ՄՈՒՏՔ, ԳՐԱՆՑՈՒՄ և  ՎԵՐԻՖԻԿԱՑԻԱ
+===================================
+
+Տուր ինֆորմացիա թե ինչպես են գրանցվելու վերիֆիկացիայի մասին ինֆորմացիա հայտնիր
+պատրաստել եմ այնպես որ Էլ․ հասցեին է գալու վերիֆիկացիայի կոդը
+կարճ ասած ուղղորդես այդ հարցում մանրամասն
 ${message}
       `,
     });

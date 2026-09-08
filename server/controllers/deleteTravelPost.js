@@ -1,4 +1,4 @@
-import activityModel from "../models/Activity.js";
+    import activityModel from "../models/Activity.js";
 import Travel from "../models/Travel.js";
 
 

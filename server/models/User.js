@@ -12,7 +12,33 @@ const userSchema = new mongoose.Schema({
          unique: true,
         type: String,
     },
+    country:{
+      required: true,
+      type: String
+    },
+    city:{
+       required: true,
+      type: String
+    },
+phoneNumber:{
+  required:true,
+  unique: true,
+  type:String
+},
+emailVerified: {
+  type: Boolean,
+  default: false
+},
 
+emailOtp: {
+  type: String,
+  default: null
+},
+
+emailOtpExpires: {
+  type: Date,
+  default: null
+},
       image:{
     type:String
 },

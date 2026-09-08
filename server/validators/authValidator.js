@@ -29,7 +29,11 @@ export const registerValidator = [
 
 
 
-
+body("phoneNumber")
+.notEmpty()
+.withMessage("phoneNumberRequired")
+.matches(/^\+[1-9]\d{7,14}$/)
+.withMessage("invalidPhoneNumber"),
 
 
      body("password")
