@@ -86,7 +86,7 @@ const ProfileSettings = () => {
       const token = localStorage.getItem("data_token");
 
       const response = await fetch(
-        "http://localhost:3002/admin/profile",
+        "http://localhost:3000/admin/profile",
         {
           method: "PATCH",
 

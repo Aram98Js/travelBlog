@@ -24,6 +24,7 @@
   "username": "Username",
   "password": "Password",
   "email": "Email Address",
+   "phoneNumber":"Phone Number",
   "genderLabel": "Gender",
   "birthDate": "Date of birth",
   "placeHolder": {
@@ -31,6 +32,7 @@
     "password": "Enter Your Password",
     "usernameForRegister": "Write Your Username",
     "emailForRegister": "Write Your Email",
+     "phoneNumberForRegister":"Write your phone number",
     "passwordForRegister": "Write Your password"
   },
   "loginButtonText": "Login",
@@ -226,7 +228,8 @@
     "securityPage": "Security | Travel Notes",
     "savedPage": "Saved Posts | Travel Notes",
     "notificationPage": "Notification | Travel Notes",
-    "privacyPage": "Privacy Policy | Travel Notes"
+    "privacyPage": "Privacy Policy | Travel Notes",
+    "verifyPage": "Verify Your Email | Travel Notes"
   },
   "showPassword": "Show Password",
   "hidePassword": "Hide Password",
@@ -250,6 +253,14 @@
     "november": "November",
     "december": "December"
   },
+   "profilePageText":{
+    "countryText":"Country",
+    "dateOfBirth":"Date of Birth",
+    "memberSince":"Member Since",
+    "language":"Language",
+    "age":"Age"
+  },
+
   "gender": {
     "first": "Select Gender",
     "male": "Male",
@@ -260,7 +271,9 @@
     "usernameMinLength": "Username must be at least 3 characters",
     "emailRequired": "Email is required",
     "emailMustContainAt": "Email must contain '@' symbol",
-    "invalidEmail": "Invalid email",
+    "invalidEmail": "Invalid email",  
+    "phoneNumberRequired":"Phone number is required",
+    "invalidPhoneNumber":"Invalid Phone Number Format",
     "passwordRequired": "Password is required",
     "passwordMinLength": "Password must be at least 8 characters",
     "passwordWeak": "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character",
@@ -279,7 +292,13 @@
     "wrongPassword": "Wrong password"
   },
   "rememberLabel": "Remember Me",
-
+  "verification":{
+  "verifyPhone":"Verify your phone",
+  "sendVerificationCode":"We sent a verification code to",
+    "resendCode":"Resend code in",
+    "ResendCodeTwo":"Resend code",
+    "second":"sec"
+},
 
 
   "adminLoginTexts": {

@@ -106,7 +106,7 @@ content="website"
 
 
 </Helmet>
-<BannerComponent
+<BannerComponent data-aos="fade-up" data-aos-duration="1000"
 
 title={t("travelGuidesTexts.travelGuideHeader")}
 description={t("travelGuidesTexts.travelGuideParagraph")}
@@ -126,7 +126,7 @@ image="/travelImg.jpg"
 buttonText={t("travelGuidesTexts.buttonText")}
 
 />
-<div className="cards-grid">
+<div className="cards-grid" data-aos="fade-up" data-aos-duration="1000">
 
 {loading?(
 <>

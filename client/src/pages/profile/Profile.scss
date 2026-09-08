@@ -87,9 +87,10 @@
 .profile-title {
 
     display:flex;
-    align-items:center;
-    justify-content:space-between;
-
+    align-items:flex-start;
+    justify-content:flex-start;
+flex-direction: column;
+gap: 15px;
 }
 
 
@@ -166,7 +167,15 @@
 .profile-details strong {
 
     font-size:17px;
-
+&.dateofBirth{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    .Month{
+        text-transform: capitalize;
+    }
+}
 }
 
 

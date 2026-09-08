@@ -7,8 +7,17 @@ import { useTranslation } from 'react-i18next'
 interface DataForUser{
    username: string,
    email:string
-   image:string
+   image:string,
+   country: string,
+   city: string,
+   birthDate?:{
+    day?: number,
+    month?: string,
+    year?: number
+   }
 }
+
+
 const Profile = () => {
 const [userData,setUserData] = useState<DataForUser | null>(null);
 
@@ -108,11 +117,9 @@ return (
 
           </div>
 
-
-          <p className="bio">
-            Passionate traveler exploring new places,
-            cultures and unforgettable experiences.
-          </p>
+<br />
+<br />
+<br />
 
 
           <div className="profile-details">
@@ -120,29 +127,21 @@ return (
 
             <div>
               <span>
-                Country
+                {t("profilePageText.countryText")}
               </span>
 
               <strong>
-                Armenia
+                 {userData?.country} {userData?.city}
               </strong>
             </div>
 
 
-            <div>
-              <span>
-                Language
-              </span>
-
-              <strong>
-                English
-              </strong>
-            </div>
+            
 
 
             <div>
               <span>
-                Member Since
+               {t("profilePageText.memberSince")}
               </span>
 
               <strong>
@@ -151,15 +150,31 @@ return (
             </div>
 
 
-            <div>
+
+     <div>
               <span>
-                Favorite Place
+                 {t("profilePageText.age")}
               </span>
 
               <strong>
-                Italy
+                {new Date().getFullYear() - (userData?.birthDate?.year ?? 0)}
               </strong>
             </div>
+
+<div>
+              <span>
+                 {t("profilePageText.dateOfBirth")}
+              </span>
+
+              <strong className="dateofBirth">
+                <p className="Year">{userData?.birthDate?.year ?? 0}</p>
+                <p className="Month">{userData?.birthDate?.month ?? ""}</p>
+                <p className="Day"> {userData?.birthDate?.day ?? 0}</p>
+              </strong>
+            </div>
+
+
+      
 
 
           </div>

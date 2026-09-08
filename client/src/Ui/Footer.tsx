@@ -82,7 +82,7 @@ href: "/relax"
     })
   }
   return (
-    <footer className="footer">
+    <footer className="footer" data-aos="fade-up" data-aos-duration="1000">
 
       <div className="footer-container">
 

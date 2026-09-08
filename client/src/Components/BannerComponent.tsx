@@ -14,7 +14,7 @@ interface HeroBannerProps {
 const BannerComponent = ({search,handleChange,title,description,image,placeholder}:HeroBannerProps) => {
 const {t} = useTranslation()
   return (
-   <section 
+   <section data-aos="fade-up" data-aos-duration="1000"
 className="hero-banner"
 style={{
 backgroundImage:`linear-gradient(

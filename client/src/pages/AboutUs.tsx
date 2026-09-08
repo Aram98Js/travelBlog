@@ -56,7 +56,7 @@ content="website"
 />
     </Helmet>
 
-<section className="about">
+<section data-aos="fade-up" data-aos-duration="1000" className="about">
 
             <div className="about-hero">
               <img src={aboutUs} alt="" />
@@ -75,7 +75,7 @@ content="website"
 
             <div className="container">
 
-                <div className="about-content">
+                <div className="about-content" data-aos="fade-up" data-aos-duration="1000">
 
                     <div className="about-content">
 
@@ -232,7 +232,7 @@ content="website"
                 </div>
 
 
-                <div className="footer-text">
+                <div className="footer-text" data-aos="fade-right" data-aos-duration="1000">
 
                     <h2>{t("thankYou.thankYouHeader")}</h2>
 

@@ -24,6 +24,7 @@
   "username": "Օգտատիրոջ անուն",
   "password": "Գաղտնաբառ",
   "email": "Էլ․ Հասցե",
+  "phoneNumber":"Հեռ․ Համար",
   "genderLabel": "Սեռ",
   "birthDate": "Ծննդյան ամսաթիվ",
   "placeHolder": {
@@ -31,6 +32,7 @@
     "password": "Մուտքագրեք ձեր գաղտնաբառը",
     "usernameForRegister": "Գրեք ձեր գրանցվող օգտատիրոջ անունը",
     "emailForRegister": "Գրեք ձեր գրանցվող  գրանցման էլ. փոստը",
+    "phoneNumberForRegister":"Գրեք ձեր գրանցվող Հեռ․ համարը",
     "passwordForRegister": "Գրեք ձեր գրանցվող գրանցման գաղտնաբառը"
   },
   "loginButtonText": "Մուտք",
@@ -226,8 +228,18 @@
     "securityPage": "Անվտանգություն | Travel Notes",
     "savedPage": "Պահպանված Փոստեր | Travel Notes",
     "notificationPage": "Ծանուցումներ | Travel Notes",
-    "privacyPage": "Գաղտնիության քաղաքականություն| Travel Notes"
+    "privacyPage": "Գաղտնիության քաղաքականություն| Travel Notes",
+    "verifyPage": "Էլ․ փոստի հաստատում | Travel Notes"
   },
+
+  "profilePageText":{
+    "countryText":"Երկիր",
+    "dateOfBirth":"Ծննդյան Տարեթիվ",
+    "memberSince":"Մասնակից է",
+    "language":"ԼԵզու",
+    "age":"Տարիք"
+  },
+
   "showPassword": "Ցուցադրել գաղտնաբառերը",
   "hidePassword": "Թաքցնել գաղտնաբառերը",
   "notificationHeeader": "Ծանուցում",
@@ -259,6 +271,8 @@
     "usernameRequired": "Օգտանունը պարտադիր է",
     "usernameMinLength": "Օգտանունը պետք է լինի առնվազն 3 նիշ",
     "emailRequired": "Էլ․ հասցեն պարտադիր է",
+     "phoneNumberRequired":"Հեռախոսի համարը պարտադիր է",
+      "invalidPhoneNumber":"Հեռախոսահամարի ձևաչափը սխալ է",
     "emailMustContainAt": "Էլ․ հասցեն պետք է պարունակի «@» նշանը",
     "invalidEmail": "Էլ․ հասցեն սխալ է",
     "passwordRequired": "Գաղտնաբառը պարտադիր է",
@@ -280,6 +294,13 @@
     "wrongPassword": "Սխալ գաղտնաբառ"
   },
   "rememberLabel": "Հիշիր ինձ",
+  "verification":{
+  "verifyPhone":"Հաստատեք ձեր հեռախոսահամարը",
+  "sendVerificationCode":"Մենք հաստատման կոդ ենք ուղարկել հետևյալ հասցեին՝",
+    "resendCode":"Կրկին ուղարկել կոդը",
+    "ResendCodeTwo":"Կրկին ուղարկել կոդը",
+    "second":"վրկ"
+},
   "adminLoginTexts": {
     "adminLogin": "Ադմինիստրատորի օգտատիրոջ անուն",
     "adminEmail": "Ադմինիստրատորի օգտատիրոջ Էլ․Հասցեն",

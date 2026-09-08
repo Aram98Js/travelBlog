@@ -90,7 +90,7 @@ document.body.className = toggleTheme ? "dark" : "light";
   useEffect(() => {
     const getData = async () => {
       const token = localStorage.getItem("accessToken")
-      const response = await fetch("http://localhost:3002/notification/counter", {
+      const response = await fetch("http://localhost:3000/notification/counter", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -104,7 +104,7 @@ document.body.className = toggleTheme ? "dark" : "light";
   useEffect(() => {
     const getData = async () => {
       const token = localStorage.getItem("accessToken")
-      const response = await fetch("http://localhost:3002/save_post/counter", {
+      const response = await fetch("http://localhost:3000/save_post/counter", {
         headers: {
           Authorization: `Bearer ${token}`
         }

@@ -25,6 +25,7 @@ import PrivacyPolicy from "../pages/PrivacyPolicy";
 import Saved from "../pages/Saved";
 import Comments from "../admin/pages/Comments";
 import AdminNotification from "../admin/pages/AdminNotification";
+import VerifyPhone from "../pages/VerifyPhone";
 
 
 
@@ -87,6 +88,10 @@ const router = createBrowserRouter([
       {
         path:"saved",
         element: <Saved />
+      },
+      {
+        path:"otpVerify",
+        element: <VerifyPhone />
       },
    
     ]

@@ -98,7 +98,7 @@ buttonText={t("foodGuidesTexts.buttonText")}
 
 />
 
-<div className="cards_grid">
+<div className="cards_grid" data-aos="fade-up" data-aos-duration="1000">
 {loading?(
   <>
   <Skeleton />

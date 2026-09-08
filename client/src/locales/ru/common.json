@@ -24,6 +24,7 @@
   "username": "Имя пользователя",
   "password": "Пароль",
   "email": "Эл. Адрес",
+  "phoneNumber":"Номер Телефона",
   "genderLabel": "Пол",
   "birthDate": "Дата рождения",
   "placeHolder": {
@@ -31,6 +32,7 @@
     "password": "Введите ваш пароль",
     "usernameForRegister": "Введите ваше имя пользователя при регистрации",
     "emailForRegister": "Введите ваш адрес электронной почты при регистрации",
+        "phoneNumberForRegister":"Введите ваш номер телефона",
     "passwordForRegister": "Введите ваш пароль при регистрации"
   },
   "loginButtonText": "Войти",
@@ -71,6 +73,14 @@
     "thankYouParagraph": "Благодарим вас за выбор нашей платформы.",
     "thankYouTwo": "С любовью,",
     "thankYouThree": "Команда нашей организации"
+  },
+
+  "profilePageText":{
+    "countryText":"Страна",
+    "dateOfBirth":"Дата день рождения",
+    "memberSince":"Участник с",
+    "language":"Язык",
+    "age":"Возраст"
   },
   "follow": "Подписывайтесь на нас",
   "explore": "Иследовать",
@@ -226,7 +236,8 @@
     "securityPage": "Безопасность | Travel Notes",
     "savedPage": "Сохраненные записи | Travel Notes",
     "notificationPage": "Оповещение | Travel Notes",
-    "privacyPage": "Политика Конфиденциальности| Travel Notes"
+    "privacyPage": "Политика Конфиденциальности| Travel Notes",
+      "verifyPage": "Подтверждение электронной почты | Travel Notes"
   },
   "showPassword": "Показать пароль",
   "hidePassword": "Скрывать пароль",
@@ -262,6 +273,8 @@
     "emailMustContainAt": "Электронная почта должна содержать символ «@»",
     "emailMustContainAtSecond": "Электронная почта должна содержать символ «.»",
     "invalidEmail": "Неверный адрес электронной почты",
+    "phoneNumberRequired":"Номер Телефона обязательна",
+    "invalidPhoneNumber":"Неверный Формат номера телефона",
     "passwordRequired": "Пароль обязателен",
     "passwordMinLength": "Пароль должен содержать минимум 8 символов",
     "passwordWeak": "Пароль должен содержать хотя бы одну заглавную букву, одну строчную букву, одну цифру и один специальный символ",
@@ -281,6 +294,18 @@
     "wrongPassword": "Неверный пароль"
   },
   "rememberLabel": "Запомнить меня",
+"verification":{
+  "verifyPhone":"Подтвердите свой телефон",
+  "sendVerificationCode":"Мы отправили код подтверждения на ваш номер",
+    "resendCode":"Отправить код повторно",
+    "ResendCodeTwo":"Отправить код",
+    "second":"сек"
+},
+
+
+
+
+
   "adminLoginTexts": {
     "adminLogin": "Имя пользователя администратора",
     "adminEmail": "Эл. Адрес",

@@ -5,10 +5,17 @@ import { Eye, EyeClosed } from 'lucide-react'
 import './UserRegister.scss'
 import { Helmet } from 'react-helmet-async'
 import Button from '../Components/Button'
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+import emailjs from "@emailjs/browser";
+import { Country, City } from "country-state-city";
 type RegisterFormData = {
     username: string,
     email: string,
+    phoneNumber: string
     password: string,
+    country:string,
+    city:string,
    gender:string,
    birthDate:{
     day: number | "",
@@ -22,11 +29,15 @@ const Register = () => {
     const navigate = useNavigate();
     const[togglePassword,setTogglePassword] = useState<boolean>(false)
     const [image,setImage] = useState<File | null>(null)
+  
 const [formData,setFormData] = useState<RegisterFormData>({
       username: "",
       email: "",
+      phoneNumber:"",
       password: "",
       gender:"",
+      country:"",
+      city:"",
       birthDate:{
       day:"",
       month:"",
@@ -37,8 +48,11 @@ const [formData,setFormData] = useState<RegisterFormData>({
 const [errors,setErrors] = useState<{
   username:string,
   email:string,
+  phoneNumber:string,
   password:string,
   gender:string,
+city: string,
+country: string
   birthDate:{
     day: string,
     month: string 
@@ -47,8 +61,11 @@ const [errors,setErrors] = useState<{
 }>({
     username:"",
   email:"",
+  phoneNumber:"",
   password:"",
   gender:"",
+  city:"",
+  country:"",
   birthDate:{
     day: "",
     month:"" ,
@@ -61,7 +78,10 @@ const handleSumbit = async (evt:React.FormEvent<HTMLFormElement>)=>{
     username:"",
   email:"",
   password:"",
+  phoneNumber:"",
   gender:"",
+  city:"",
+  country:"",
   birthDate:{
     day: "",
     month:"" ,
@@ -77,6 +97,12 @@ const handleSumbit = async (evt:React.FormEvent<HTMLFormElement>)=>{
     newErrors.email = t("validation.emailRequired")
     
   } 
+
+  if(!formData.phoneNumber){
+    newErrors.phoneNumber = t("validation.phoneNumberRequired")
+    
+  } 
+
     if(!formData.password){
     newErrors.password = t("validation.passwordRequired")
 
@@ -97,6 +123,13 @@ if (!formData.birthDate.month) {
 if (!formData.birthDate.year) {
     newErrors.birthDate.year = t("validation.dateOfBirth.yearRequired");
 }
+if (!formData.country) {
+  newErrors.country = "Country is required";
+}
+
+if (!formData.city) {
+  newErrors.city = "City is required";
+}
 
 
 if (
@@ -104,6 +137,8 @@ if (
     newErrors.email ||
     newErrors.password ||
     newErrors.gender ||
+      newErrors.country ||
+  newErrors.city ||
     newErrors.birthDate.day ||
     newErrors.birthDate.month ||
     newErrors.birthDate.year
@@ -115,8 +150,11 @@ if (
      const dataForm = new FormData();
   dataForm.append("username",formData.username)
   dataForm.append("email",formData.email)
+  dataForm.append("phoneNumber",formData.phoneNumber)
   dataForm.append("password",formData.password)
   dataForm.append("gender",formData.gender)
+  dataForm.append("country", formData.country);
+dataForm.append("city", formData.city);
   dataForm.append("birthDate",JSON.stringify(formData.birthDate))
   if (image) {
     dataForm.append("image",image)
@@ -138,7 +176,44 @@ console.log("LOGIN ERROR DATA:", data);
         }));
         return
       }
-      navigate("/login") 
+
+
+
+
+if (!data.createdUser?.emailOtp) {
+  console.log("OTP IS MISSING:", data);
+
+  setErrors(prev => ({
+    ...prev,
+    email: "Verification code was not generated"
+  }));
+
+  return;
+}
+      
+    const otp = data?.createdUser?.emailOtp;
+
+
+  const emailResult =  await emailjs.send(
+      import.meta.env.VITE_VERIFY_SERVICE_ID,
+        import.meta.env.VITE_VERIFY_TEMPLATE_ID,
+        {
+          email: formData.email,
+          username: formData.username,
+          passcode: otp,
+          time: "5 minutes"
+        },
+         {
+          publicKey:import.meta.env.VITE_VERIFY_EMAIL_PUBLIC_KEY
+        }
+    )
+
+    console.log("EMAILJS RESULT:", emailResult);
+      navigate("/otpVerify",{
+         state: {
+          email: formData.email
+        }
+      }) 
    
 }
 
@@ -193,6 +268,14 @@ const handleChangeGender = (evt: React.ChangeEvent<HTMLSelectElement>)=>{
   gender:""
   }))
 }
+
+const countries = Country.getAllCountries().filter(
+  (country)=>
+country.isoCode !== "AZ" &&
+ country.isoCode !== "TR"
+)
+
+
   return (
 
 
@@ -248,6 +331,97 @@ const handleChangeGender = (evt: React.ChangeEvent<HTMLSelectElement>)=>{
           <p className='error'>{errors.email}</p>
         )}
       </div>
+
+<div className="input-group">
+  <label>Country</label>
+
+  <select
+    name="country"
+    value={formData.country}
+    onChange={(e) => {
+      setFormData((prev) => ({
+        ...prev,
+        country: e.target.value,
+        city: "",
+      }));
+    }}
+  >
+    <option value="">Select country</option>
+
+    {countries.map((country) => (
+      <option
+        key={country.isoCode}
+        value={country.isoCode}
+      >
+       {country.name}
+      </option>
+    ))}
+  </select>
+
+  {errors.country && (
+    <p className="error">{errors.country}</p>
+  )}
+</div>
+<div className="input-group">
+  <label>City</label>
+
+  <select
+    name="city"
+    value={formData.city}
+    onChange={(e) => {
+      setFormData((prev) => ({
+        ...prev,
+        city: e.target.value,
+      }));
+
+      setErrors((prev) => ({
+        ...prev,
+        city: "",
+      }));
+    }}
+    disabled={!formData.country}
+  >
+    <option value="">Select city</option>
+
+    {formData.country &&
+      City.getCitiesOfCountry(formData.country)?.map((city) => (
+        <option
+          key={city.name}
+          value={city.name}
+        >
+          {city.name}
+        </option>
+      ))}
+  </select>
+
+  {errors.city && (
+    <p className="error">{errors.city}</p>
+  )}
+</div>
+
+    {/*Phone Number*/}
+
+   <div className="input-group">
+        <label>{t("phoneNumber")}</label>
+
+    <PhoneInput
+    international
+    defaultCountry="AM"
+    value={formData.phoneNumber}
+    onChange={(value) =>
+      setFormData((prev) => ({
+        ...prev,
+        phoneNumber: value || "",
+      }))
+    }
+    placeholder={t("placeHolder.phoneNumberForRegister")}
+  />
+         {errors.email &&(
+          <p className='error'>{errors.phoneNumber}</p>
+        )}
+      </div>
+
+
 
       {/* Password */}
       <div className="input-group">

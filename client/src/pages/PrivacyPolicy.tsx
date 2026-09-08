@@ -38,7 +38,7 @@ const PrivacyPolicy = () => {
       <section className="privacy-policy">
       <div className="privacy-policy__container">
 
-        <div className="privacy-policy__header">
+        <div className="privacy-policy__header" data-aos="fade-down" data-aos-duration="1000">
           <h1>
            {t("privacyPolicy.header.one")}
           </h1>
@@ -52,7 +52,7 @@ const PrivacyPolicy = () => {
         <div className="privacy-policy__content">
 
           {/* 01 */}
-          <article className="privacy-section">
+          <article className="privacy-section" data-aos="fade-right" data-aos-duration="1000">
             <div className="privacy-section__number">01</div>
 
             <div className="privacy-section__body">
@@ -74,7 +74,7 @@ const PrivacyPolicy = () => {
 
 
           {/* 02 */}
-          <article className="privacy-section">
+          <article className="privacy-section" data-aos="fade-left" data-aos-duration="1000">
             <div className="privacy-section__number">02</div>
 
             <div className="privacy-section__body">
@@ -96,7 +96,7 @@ const PrivacyPolicy = () => {
 
 
           {/* 03 */}
-          <article className="privacy-section">
+          <article className="privacy-section" data-aos="fade-right" data-aos-duration="1000">
             <div className="privacy-section__number">03</div>
 
             <div className="privacy-section__body">
@@ -122,7 +122,7 @@ const PrivacyPolicy = () => {
 
 
           {/* 04 */}
-          <article className="privacy-section">
+          <article className="privacy-section" data-aos="fade-left" data-aos-duration="1000">
             <div className="privacy-section__number">04</div>
 
             <div className="privacy-section__body">
@@ -149,7 +149,7 @@ const PrivacyPolicy = () => {
 
 
           {/* 05 */}
-          <article className="privacy-section">
+          <article className="privacy-section" data-aos="fade-right" data-aos-duration="1000">
             <div className="privacy-section__number">05</div>
 
             <div className="privacy-section__body">
@@ -178,7 +178,7 @@ const PrivacyPolicy = () => {
 
 
           {/* 06 */}
-          <article className="privacy-section">
+          <article className="privacy-section" data-aos="fade-left" data-aos-duration="1000">
             <div className="privacy-section__number">06</div>
 
             <div className="privacy-section__body">
@@ -207,7 +207,7 @@ const PrivacyPolicy = () => {
 
 
           {/* 07 */}
-          <article className="privacy-section privacy-section--highlight">
+          <article className="privacy-section privacy-section--highlight" data-aos="fade-up" data-aos-duration="1000">
             <div className="privacy-section__number">07</div>
 
             <div className="privacy-section__body">
