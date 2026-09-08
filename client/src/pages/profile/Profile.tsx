@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import './Profile.scss'
 import Button from "../../Components/Button";
 import { useNavigate, useParams, } from "react-router-dom";

@@ -7,7 +7,7 @@ type HamburgerToggle = {
     hamburgerToggle: boolean
 }
 
-import React from 'react'
+
 
 const HamburgerButton = ({hamburgerToggle,toggleFunc}: HamburgerToggle) => {
   return (

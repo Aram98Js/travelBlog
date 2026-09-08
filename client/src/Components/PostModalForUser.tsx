@@ -1,4 +1,4 @@
-import React from 'react'
+
 import "./postModalForUser.scss"
 import type { UserPostData } from '../admin/Interfaces/interface';
 import Button from './Button';

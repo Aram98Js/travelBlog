@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import{ Fragment, useEffect, useState } from "react";
 import "./adminNotification.scss";
 import { useTranslation } from "react-i18next";
 import adminFetch from "../adminFetch";

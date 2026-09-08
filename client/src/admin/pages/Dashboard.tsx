@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import { useState,useEffect } from "react";
 import type { DashboardActivity, DashboardData } from "../Interfaces/interface";
 import "./Dashboard.scss";
 import allTotals from '../../assets/icon/total-posts.svg';
