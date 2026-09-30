@@ -5,5 +5,5 @@ import addRelaxAction from "../controllers/addRelaxController.js";
 import adminMiddleware from "../auth/adminMiddleware.js";
 
 const routerRelaxAdd = express.Router();
-routerRelaxAdd.post("/relax",upload.single("image"),adminMiddleware,addRelaxAction);
+routerRelaxAdd.post("/relax",adminMiddleware,upload.single("image"),addRelaxAction);
 export default routerRelaxAdd;

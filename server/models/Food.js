@@ -22,6 +22,10 @@ const foodSchema = new mongoose.Schema({
     image:{
     type:String
 },
+price:{
+    required: true,
+    type: Number
+},
 likesCount:{
     type:Number,
     default: 0

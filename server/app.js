@@ -39,6 +39,7 @@ import authMiddleware from './auth/authMiddleware.js';
 import settingModel from './models/SettingsSchema.js';
 import ai from './config/gemini.js';
 import bird from './config/messageBird.js';
+import violationUser from './models/violationUsers.js';
 
 dotenv.config();
 const app = express();
@@ -333,6 +334,91 @@ console.log(
 });
 
 
+
+app.get("/pagination",async(req,res)=>{
+ const {page,limit} = req.query; 
+
+ const pageNumber = Number(page);
+ const limitNumber = Number(limit)
+
+ const skip = (pageNumber - 1) * limitNumber;
+
+const post = [
+  ...(await Travel.find()).map(item => ({
+    ...item.toObject(),
+    category: "Travel"
+  })),
+
+  ...(await Food.find()).map(item => ({
+    ...item.toObject(),
+    category: "Travel"
+  })),
+
+ ...(await Relax.find()).map(item => ({
+    ...item.toObject(),
+    category: "Relax"
+  })),
+]
+
+
+
+const paginationSlice = post.slice(skip, skip + limitNumber);
+
+console.log("skip:", skip);
+console.log("limit:", limitNumber);
+console.log("slice:", paginationSlice.length);
+return res.status(200).json({
+  paginationSlice
+})
+})
+
+
+
+
+
+app.post("/refreshToken",(req,res)=>{
+ 
+
+  try {
+    const {refreshToken} = req.body; 
+      if(!refreshToken){
+    return res.status(401).json({
+      "msg":"token not found"
+    })
+  }
+  const decoded = jwt.verify(
+    refreshToken,
+    process.env.REFRESH_SECRET
+  );
+  req.user = decoded;
+
+  const accessToken = jwt.sign(
+            {
+                id: decoded.id,
+                username: decoded.username,
+                email: decoded.email,
+                role: decoded.role,
+                image: decoded.image
+            },
+            process.env.SECRET,
+            {
+                expiresIn: "1d"
+            }
+        );
+
+        return res.json({
+            accessToken
+        });
+  } catch (error) {
+     console.log("REFRESH TOKEN ERROR:", error);
+
+        return res.status(401).json({
+            msg: "Invalid or expired refresh token"
+        });
+
+  }
+
+})
 
 app.get("/admin/profile",adminMiddleware,async(req,res)=>{
   try {
@@ -940,7 +1026,27 @@ app.get("/admin/list_for_travel", adminMiddleware,async (req, res) => {
   })
 })
 
+app.get("/admin/violationUsers",adminMiddleware,async(req,res)=>{
+  try {
+      const violationUsers = await violationUser.find();
+  if(!violationUsers.length){
+    return res.status(404).json({
+      msg:"Vioation user not found",
+    })
+  }
 
+  return res.status(200).json({
+    msg: "violated user",
+    violationUsers
+  })
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({
+      msg:"server error"
+    })
+  }
+
+})
 
 app.get("/admin/relaxList", adminMiddleware,async (req, res) => {
   const allRelax = await Relax.find().populate("user","username");
@@ -1142,10 +1248,32 @@ app.get("/admin/notification",adminMiddleware,async(req,res)=>{
 
 
 
-app.post("/ai/check", async (req, res) => {
+app.post("/ai/check",async(req, res) => {
   try {
-    const { message } = req.body;
 
+   let violation = null
+
+
+   if(req.user){
+    violation =  await violationUser.findOne({
+      user: req.user.id
+    });
+   }
+
+
+    if (violation?.blocked) {
+      return res.status(403).json({
+        blocked: true,
+        message: "Your access to the chatbot has been blocked."
+      });
+    }
+
+
+
+    const { message } = req.body;
+    const foods = await Food.find().select("title short_description description price rating location").lean();
+    const travels = await Travel.find().select("title short_description description price rating location").lean();
+    const relaxes = await Relax.find().select("title short_description description price rating location").lean();
     const response = await ai.models.generateContent({
       model: "gemini-3.5-flash-lite",
         config: {
@@ -1456,7 +1584,47 @@ User:
 
 Տուր ինֆորմացիա թե ինչպես են գրանցվելու վերիֆիկացիայի մասին ինֆորմացիա հայտնիր
 պատրաստել եմ այնպես որ Էլ․ հասցեին է գալու վերիֆիկացիայի կոդը
-կարճ ասած ուղղորդես այդ հարցում մանրամասն
+կարճ ասած ուղղորդես այդ հարցում մանրամասն։
+
+
+contents: 
+Դու մեր կայքի AI chatbot-ն ես։
+
+... քո մնացած rules-երը ...
+
+===================================
+16. ՄԵՐ ՀԱՐԹԱԿԻ ԱՌԿԱ ՏՎՅԱԼՆԵՐԸ
+===================================
+
+Սրանք տվյալ պահին մեր database-ում առկա իրական post-երն են։
+
+FOOD:
+${JSON.stringify(foods)}
+
+TRAVEL:
+${JSON.stringify(travels)}
+
+RELAX:
+${JSON.stringify(relaxes)}
+
+ՇԱՏ ԿԱՐԵՎՈՐ։
+
+Օգտատիրոջը մեր կայքի post առաջարկելիս օգտագործիր ՄԻԱՅՆ վերևում տրամադրված տվյալները։
+
+ԵՐԲԵՔ մի հորինիր post, title, price, location, rating կամ այլ տվյալ։
+
+Եթե համապատասխան բաժնում տվյալների array-ը դատարկ է,
+ասա, որ տվյալ պահին մեր հարթակում այդ բաժնի վերաբերյալ համապատասխան տեղեկատվություն չկա։
+
+Եթե տվյալ բաժնում կա միայն 1 post,
+կարող ես ասել, որ այս պահին մեր հարթակում հասանելի է այդ մեկ տարբերակը։
+
+Եթե կան մի քանի post-եր,
+կարող ես առաջարկել համապատասխան տարբերակները։
+
+Օգտատիրոջ հարցը՝
+
+
 ${message}
       `,
     });
@@ -1465,14 +1633,75 @@ ${message}
 
     const result = JSON.parse(text);
 
-    return res.status(200).json({
+
+
+   if (result.violation === true) {
+  console.log("1. VIOLATION DETECTED");
+
+  if(req.user){
+  const existingViolation = await violationUser.findOne({
+    user: req.user.id
+  });
+    console.log("2. EXISTING:", existingViolation);
+    if (!existingViolation) {
+
+    console.log("3. CREATING VIOLATION USER");
+
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found"
+      });
+    }
+
+    await violationUser.create({
+      user: user._id,
+      username: user.username,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      reason: "Multiple violations"
+    });
+
+    console.log("4. CREATED");
+
+  } else {
+
+    console.log("3. UPDATING VIOLATION USER");
+
+    existingViolation.violationCount += 1;
+
+    if (existingViolation.violationCount >= 3) {
+      existingViolation.blocked = true;
+      existingViolation.blockedAt = new Date();
+    }
+
+    await existingViolation.save();
+
+    console.log("4. UPDATED");
+  }
+  }
+
+
+
+
+  
+}   
+
+return res.status(200).json({
       violation: result.violation,
       message: result.message,
       result: result.result
     });
 
+    
+
   } catch (error) {
-    console.log("GEMINI ERROR:", error);
+  console.log("========== AI ERROR ==========");
+  console.log(error);
+  console.log("MESSAGE:", error.message);
+  console.log("NAME:", error.name);
+  console.log("STACK:", error.stack);
 
     return res.status(500).json({
       message: "AI error"
@@ -1480,6 +1709,31 @@ ${message}
   }
 });
 
+app.get("/violationStatus",authMiddleware,async (req,res)=>{
+try {
+  const violation = await violationUser.findOne({
+   user: req.user.id
+  })
+
+  if(!violation){
+    return res.status(200).json({
+      blocked: false,
+      violationCount: 0
+    })
+  }
+
+  return res.status(200).json({
+    blocked: violation.blocked,
+    violationCount: violation.violationCount,
+    blockedAt: violation.blockedAt
+  })
+} catch (error) {
+  console.log(error);
+  return res.status(500).json({
+    msg:"server error"
+  });
+}
+})
 
 
 app.post("/admin/notification", adminMiddleware, async (req, res) => {

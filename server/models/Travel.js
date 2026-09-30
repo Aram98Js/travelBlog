@@ -18,6 +18,10 @@ const travelSchema = new mongoose.Schema({
         required: true,
         type: String,
     },
+    price: {
+        type: Number,
+        required: true
+    },
     image:{
     type:String
 },
