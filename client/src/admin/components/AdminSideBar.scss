@@ -47,6 +47,9 @@ img{
     }
 
   }
+  &.active{
+    display: flex
+  }
 
 }
 
@@ -65,4 +68,12 @@ button{
     object-fit: cover;
   }
 }
+}
+
+
+@media screen and (max-width: 768px){
+  .admin-sidebar{
+    display: none;
+    overflow-y: scroll;
+  }
 }

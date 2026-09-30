@@ -14,6 +14,7 @@ interface GuideCardProps {
     country:string;
     rating:number;
     views:number;
+    price:number
     likes:number;
     isNew?:boolean;
     isPopular?:boolean;
@@ -32,6 +33,7 @@ const GuideCards = ({
     rating,
     views,
     likes,
+    price,
     isNew,
     isPopular
 
@@ -88,7 +90,7 @@ return (
             }
         </div>
         <Button disabled={isSave} onClick={() =>actionSaveData(category,id)} className={`saved-btn ${isSave?"save":""}`}>
-            {isSave?"Saved":"Save"}
+            {isSave?"❤":"🤍"}
         </Button>
 
 
@@ -107,6 +109,9 @@ return (
         </h3>
         <p>
             {description}
+        </p>
+        <p>
+            {price}
         </p>
         <div className="card-footer">
             <div className="stats">

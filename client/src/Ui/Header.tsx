@@ -65,9 +65,9 @@ href: "/relax"
 
 
       <div className="socialBlock">
-        {socialData.map((item)=>{
+        {socialData.map((item,index)=>{
           return(
-            <Link to={item.href}>
+            <Link key={index} to={item.href}>
                <img src={item.imgUrl} alt={item.link} />
                <span>{item.name}</span>
             </Link>

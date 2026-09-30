@@ -1,10 +1,12 @@
 .profile-page {
-    min-height: 100vh;
-    background: #0f172a;
+   min-height: 100vh;
+ 
+    background: #1e293b;
+
     padding: 50px 20px;
     color: white;
     position: relative;
-    top: 100px;
+top: 100px
 }
 
 
@@ -228,19 +230,18 @@ gap: 15px;
 
 
 
-@media(max-width:900px){
+@media(max-width:990px) {
+  .profile-page {
+    min-height: auto;
+    top: auto;
+    position: static;
 
-    .profile-container{
-
-        grid-template-columns:1fr;
-
+    .profile-container {
+      grid-template-columns: 1fr;
     }
 
-
-    .travel-stats{
-
-        grid-template-columns:1fr;
-
+    .travel-stats {
+      grid-template-columns: 1fr;
     }
-
+  }
 }

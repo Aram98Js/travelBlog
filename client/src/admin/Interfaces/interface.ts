@@ -6,16 +6,20 @@ export type FoodFormData = {
   title: string,
   short_description: string,
   description: string,
+  price: number,
     location:{
     city:string,
     country:string
   },
   rating:number
 }
+
+
 export type TravelFormData = {
   title: string,
   short_description: string,
-  description: string
+  description: string,
+  price: number,
   location:{
     city:string,
     country:string
@@ -32,7 +36,8 @@ export type GetFoodData = {
   email?:string
  }
   short_description: string,
-  description: string 
+  description: string ,
+  price:number
   image:string,
 
     location:{
@@ -55,6 +60,7 @@ export type GetTravelData = {
   email?:string
  }
   short_description: string,
+  price: number,
   description: string 
   image:string,
 
@@ -74,6 +80,7 @@ export type RelaxFormData = {
   title: string,
   short_description: string,
   description: string,
+  price:number,
   location:{
     city:string,
     country:string
@@ -89,7 +96,8 @@ export type GetRelaxData = {
   email?:string
  }
   short_description: string,
-  description: string 
+  description: string ,
+  price: number,
   image:string,
     location:{
     city:string,

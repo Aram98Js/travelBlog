@@ -29,21 +29,45 @@ const navigate = useNavigate();
 const {t} = useTranslation()
 useEffect(()=>{
 
-const getProfile = async()=>{
-const token = localStorage.getItem("accessToken");
-const response = await fetch(
-    "http://localhost:3000/profile",
-    {
-        headers:{
-            Authorization:`Bearer ${token}`
+const getProfile = async () => {
+    const token = localStorage.getItem("accessToken");
+
+    const response = await fetch(
+        "http://localhost:3000/profile",
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         }
-    }
-);
-const data = await response.json();
+    );
+
+    if (response.status === 401) {
+            const refreshToken = localStorage.getItem("refreshToken");
+
+    const refreshResponse = await fetch(
+        "http://localhost:3000/refreshToken",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                refreshToken
+            })
+        }
+    );
+ const data = await refreshResponse.json();
 console.log(data);
-console.log("PROFILE USER:", data.user);
-setUserData(data.user)
-}
+    }
+
+    const data = await response.json();
+
+    console.log(data);
+    console.log("PROFILE USER:", data.user);
+
+    setUserData(data.user);
+};
+
 getProfile();
 
 

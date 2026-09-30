@@ -6,8 +6,17 @@
 .cards_grid{
     width: 100%;
       @include flexPos();
+      gap: 15px;
       .empty-posts{
     width: 100%;
 }
+}
+
+
+@media screen and (max-width: 991px){  
+
+    .cards_grid{
+        flex-direction: column;
+    }
 }
 

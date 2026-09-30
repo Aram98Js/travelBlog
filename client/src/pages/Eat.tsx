@@ -130,6 +130,7 @@ buttonText={t("foodGuidesTexts.buttonText")}
       city={item.location.city}
       country={item.location.country}  
       rating={item.rating}
+      price={item.price}
       views={item.viewsCount}
       likes={item.likesCount}
       isNew={isNew}

@@ -22,6 +22,7 @@ const TravelPage = () => {
     title:"",
     short_description:"",
     description:"",
+    price: 0,
     location:{
       city:"",
       country:""
@@ -72,7 +73,14 @@ setTravelForm(prev=>{
   }
 
  }
+ if(name==="price"){
 
+  return {
+   ...prev,
+   price:Number(value)
+  }
+
+ }
 
  return {
   ...prev,
@@ -89,7 +97,7 @@ useEffect(() => {
 
     try {
       
-      const response = await adminFetch("http://localhost:3002/admin/list_for_travel",navigate);
+      const response = await adminFetch("http://localhost:3000/admin/list_for_travel",navigate);
       if (!response) return 
       const data = await response.json();
       console.log(data);
@@ -111,9 +119,9 @@ useEffect(() => {
 
 
 
-const addTravel = async ()=>{
+const addTravel =  async ()=>{
 
-   if (!travelForm.title ||!travelForm.short_description || !travelForm.description || !travelForm.location.city ||!travelForm.location.country ||!travelForm.rating) return;
+   if (!travelForm.title ||!travelForm.short_description || !travelForm.description || !travelForm.location.city ||!travelForm.location.country ||!travelForm.rating||!travelForm.price) return;
    const formData = new FormData();
 
    formData.append("title",travelForm.title);
@@ -121,36 +129,44 @@ const addTravel = async ()=>{
     formData.append("description",travelForm.description);
     formData.append("location",JSON.stringify(travelForm.location))
 formData.append("rating",travelForm.rating.toString())
+formData.append("price",travelForm.price.toString())
     if(image){
     formData.append("image", image);
 }
 
-const token = localStorage.getItem("data_token")
+try {
+  const token = localStorage.getItem("data_token");
 
- await fetch("http://localhost:3000/admin/travel",{
+
+ const response =  await fetch("http://localhost:3000/admin/travel",{
   method:"POST",
   body:formData,
   headers:{
     Authorization: `Bearer ${token}`
   }
 })
-.then((response)=>response.json())
-.then((data)=>{
-  console.log(data);
-    setTravelData([
-    ...travelData,
-    data.travel,
-    
-  ]);
+
+     if(!response.ok){
+      const errorData = await response.text();
+        console.error("Server Error:", errorData);
+        return;
+     }
+     const data = await response.json();
+     console.log("success",data);
+     setTravelData(prev=>[...prev,data.outputTravel])
   
-}).catch((error)=>{
-  console.log(error);
-  
-});
+} catch (error) {
+  console.error("Network or Parsing Error:", error);
+}
+
+
+
+
 setTravelForm({
  title:"",
  short_description:"",
  description:"",
+ price: 0,
  location:{
   city:"",
   country:""
@@ -163,7 +179,7 @@ setTravelForm({
 
 const deleteTravel = async (id:string) =>{
 const token = localStorage.getItem("data_token")
-  const response = await fetch(`http://localhost:3002/admin/travel/${id}`,{
+  const response = await fetch(`http://localhost:3000/admin/travel/${id}`,{
     method: "DELETE",
       headers:{
     Authorization: `Bearer ${token}`
@@ -179,6 +195,7 @@ const editTravel = (item: GetTravelData)=>{
      title: item.title,
       short_description: item.short_description,
       description: item.description,
+      price: item.price,
         location:{
           city: item.location.city,
           country: item.location.country
@@ -199,7 +216,7 @@ const saveTravel = async ()=>{
   const token = localStorage.getItem("data_token")
   if (editId) {
      await fetch(
-            `http://localhost:3002/admin/travel/${editId}`,
+            `http://localhost:3000/admin/travel/${editId}`,
             {
                 method: "PATCH",
                 body: formData,
@@ -210,7 +227,7 @@ const saveTravel = async ()=>{
         );
   }else{
     await fetch(
-            `http://localhost:3002/admin/travel`,
+            `http://localhost:3000/admin/travel`,
             {
                 method: "POST",
                 body: formData,
@@ -306,6 +323,17 @@ Admin Panel Page For Creating Travel Post
 />
 </div>
 <div className="form-group full">
+  <label>{t("inputBox.price")}</label>
+<input
+
+  type="number"
+  name="price"
+  value={travelForm.price}
+  step="50"
+  onChange={handleChange}
+/>
+</div>
+<div className="form-group full">
   <label>{t("inputBox.rating")}</label>
 <input
 
@@ -316,6 +344,8 @@ Admin Panel Page For Creating Travel Post
   onChange={handleChange}
 />
 </div>
+
+
 
           <div className="form-group">
             <label>{t("inputBox.imgUpload")}</label>
@@ -382,6 +412,9 @@ Admin Panel Page For Creating Travel Post
 
       <span className="rating">
         ⭐ {item.rating}
+      </span>
+      <span className="rating">
+        💲 {item.price}
       </span>
 
     </div>

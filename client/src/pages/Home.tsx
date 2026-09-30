@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 
 import PostCard from "../Components/PostCard"
 import { Helmet } from "react-helmet-async"
+import Button from "../Components/Button"
 
 
 
@@ -17,21 +18,10 @@ import { Helmet } from "react-helmet-async"
 const Home = () => {
   const {t} = useTranslation()
 const [dashboardData,setDashboardData] = useState<DashboardData |null>(null)
+const [page, setPage] = useState(1);
+const [posts, setPosts] = useState<Post[]>([]);
+const limit:number = 6
 
-  const allPosts:Post[] = [
-   ...(dashboardData?.posts.travel || []).map(post=>({
-          ...post,
-      category:"Travel" as const
-   })),
-   ...(dashboardData?.posts.food || []).map(post=>({
-          ...post,
-      category:"Food" as const
-   })),
-   ...(dashboardData?.posts.relax || []).map(post=>({
-          ...post,
-      category:"Relax" as const
-   })),
-  ]
 const UrlData:DataURL[] = [
   {
     id: 1,
@@ -72,29 +62,29 @@ const patchLikeCount = async (id: string,path:string)=>{
   })
   const updatedPost = await response.json();
 
-setDashboardData(prev=>{
-  if (!prev) return prev;
-  return {
-    ...prev,
-    posts: {
-                      travel: prev.posts.travel.map(post =>
-                    post._id === id ? updatedPost : post
-                ),
+  setPosts(prev =>
+    prev.map(post =>
+      post._id === id ? updatedPost : post
+    )
+  );
+}
 
-                food: prev.posts.food.map(post =>
-                    post._id === id ? updatedPost : post
-                ),
+useEffect(()=>{
 
-                relax: prev.posts.relax.map(post =>
-                    post._id === id ? updatedPost : post
-                )
-
-    }
-  }
-})
+const pagination = async()=>{
+const response = await fetch(`http://localhost:3000/pagination?page=${page}&limit=${limit}`);
+const data = await response.json();
+setPosts(data.paginationSlice);
+console.log("page:", page);
+console.log("posts length:", data.paginationSlice.length);
+console.log("limit:", limit);
 }
 
 
+pagination()
+
+
+},[page])
 
 
   return (
@@ -152,7 +142,7 @@ content="website"
              
       </div>
 <div className="postBlock">
-{allPosts.map((item)=>{
+{posts.map((item)=>{
   return(
     <PostCard 
     key={item._id} 
@@ -162,7 +152,10 @@ content="website"
   )
     
 })}
-
+<div className="paginationBlock">
+  <Button className="paginationBtn" disabled={page===1} onClick={()=>setPage(page - 1 )}>Prev</Button>
+  <Button className="paginationBtn" disabled={posts.length<limit} onClick={()=>setPage(page + 1)}>Next</Button>
+</div>
 </div>
       
     </section>

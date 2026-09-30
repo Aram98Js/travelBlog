@@ -24,6 +24,7 @@ const Food = () => {
     title:"",
     short_description:"",
     description:"",
+    price: 0,
        location:{
       city:"",
       country:""
@@ -75,6 +76,12 @@ setFoodForm(prev=>{
 
  }
 
+ if (name === "price") {
+  return{
+    ...prev,
+    price:Number(value)
+  }
+ }
 
  return {
   ...prev,
@@ -93,7 +100,7 @@ const getFoodData = async ()=>{
 
   try {
     
-    const response = await adminFetch("http://localhost:3002/admin/foodList",navigate)
+    const response = await adminFetch("http://localhost:3000/admin/foodList",navigate)
     if (!response ) return
     const data = await response.json();
     setFoodData(data.allFoods || [])
@@ -122,7 +129,8 @@ if (
     !foodForm.description|| 
     !foodForm.location.country || 
     !foodForm.location.city || 
-    !foodForm.rating
+    !foodForm.rating||
+    !foodForm.price
 ){
     return;
 }
@@ -134,6 +142,7 @@ formData.append("short_description",foodForm.short_description);
 formData.append("description",foodForm.description);
 formData.append("location",JSON.stringify(foodForm.location))
 formData.append("rating",foodForm.rating.toString())
+formData.append("price",foodForm.price.toString())
 if(image){
     formData.append(
         "image",
@@ -142,7 +151,7 @@ if(image){
 }
 try {
   const token = localStorage.getItem("data_token")
-const response = await fetch("http://localhost:3002/admin/food",{
+const response = await fetch("http://localhost:3000/admin/food",{
         method:"POST",
         headers:{
           Authorization: `Bearer ${token}`
@@ -150,15 +159,24 @@ const response = await fetch("http://localhost:3002/admin/food",{
         body:formData
     }
 );
-const data = await response.json();
-console.log(data);
+
+    if (!response.ok) {
+ 
+        const errorData = await response.text();
+        console.error("Server Error:", errorData);
+        return;
+    }
+    const data = await response.json();
+    console.log("Success:", data);
+    setFoodData(prev => [...prev, data.outputFood]);
 }catch(error){
-console.log(error);
+console.error("Network or Parsing Error:", error);
 }
 setFoodForm({
   title:"",
   short_description:"",
   description:"",
+  price:0,
      location:{
       city:"",
       country:""
@@ -199,6 +217,7 @@ const editFood = (item: GetFoodData)=>{
       title: item.title,
       short_description: item.short_description,
       description: item.description,
+      price:item.price,
        location:item.location,
         rating:item.rating
   })
@@ -211,7 +230,9 @@ const saveFood = async () => {
     !foodForm.description ||
     !foodForm.location.city ||
     !foodForm.location.country ||
-    !foodForm.rating
+    !foodForm.rating||
+    !foodForm.price
+
   ) {
     return;
   }
@@ -223,6 +244,7 @@ const saveFood = async () => {
   formData.append("description", foodForm.description);
   formData.append("location", JSON.stringify(foodForm.location));
   formData.append("rating", foodForm.rating.toString());
+  formData.append("price", foodForm.price.toString());
 
   if (image) {
     formData.append("image", image);
@@ -246,13 +268,13 @@ const saveFood = async () => {
     const data = await response.json();
     console.log(data);
 
-    // Թարմացնում ենք ցուցակը
 
     
     setFoodForm({
       title: "",
       short_description: "",
       description: "",
+      price:0,
       location: {
         city: "",
         country: "",
@@ -351,6 +373,19 @@ Admin Panel Page For Creating Food Post
 
 
   <div className="form-group full">
+  <label>{t("inputBox.price")}</label>
+<input
+
+  type="number"
+  name="price"
+  value={foodForm.price}
+  step="5"
+  onChange={handleChange}
+  placeholder={t("inputBox.pricePlaceholder")}
+/>
+</div>
+
+  <div className="form-group full">
   <label>{t("inputBox.rating")}</label>
 <input
 
@@ -428,7 +463,10 @@ filtered.map((item)=>{
       <span className="rating">
         ⭐ {item.rating}
       </span>
-
+      <span className="rating">
+        💲 {item.price}
+      </span>
+       
     </div>
 
     <p className="short-description">

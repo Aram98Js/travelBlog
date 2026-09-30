@@ -93,7 +93,7 @@ getComments()
   };
 
   if (loading) {
-    return <div className="comments-page">Loading...</div>;
+    return <div className="comments-page"><h1>{t("loading")}</h1></div>;
   }
 
   return (

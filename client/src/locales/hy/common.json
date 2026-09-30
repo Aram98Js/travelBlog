@@ -326,6 +326,7 @@
   "adminComment": "Մեկնաբանություն",
   "adminSettings": "Կարգավորումներ",
   "notificationAdmin": "Ծանուցումներ",
+  "blockUser":"Օգտատերերի Սև Ցուցակ", 
   "notificationContentText": "Կառավարեք ձեր ադմինիստրատորի ծանուցումները։",
   "notificationContentTextTwo": "Կառավարեք ծանուցումներ ստանալու եղանակը։",
     "notificationsSettingsText":{
@@ -370,6 +371,8 @@
   "adminFoodParagraph": "Կառավարեք սննդի բաժնի գրառումները",
   "commentHeader": "Մեկնաբանություններ",
   "commentParagraph": "Կառավարեք օգտատիրոջ մեկնաբանությունները",
+   "notificationEmptyHeader":"Ծանուցումներ չկան",
+   "notificationEmptyParagraph":"Դուք դեռ ծանուցումներ չունեք։",
   "create": {
     "travelPost": "Ստեղծեք ճանապարհորդական գրառում",
     "relaxPost": "Ստեղծեք հանգստացնող գրառում",
@@ -399,6 +402,7 @@
     "description": "Նկարագրություն",
     "placeHolderdescription": "գրեք Նկարագրությունը",
     "country": "Երկիր",
+       "price":"Գին",
     "placeHolderCountry": "գրեք Երկիրը",
     "city": "Մայրաքաղաք",
     "placeHolderCity": "գրեք Մայրաքաղաքը",
@@ -412,12 +416,26 @@
     "titleAdminComment": "Մեկնաբանություններ | Ադմինիստրատորը կառավարում է օգտատերերի մեկնաբանությունները",
         "titleAdminNotificationPage":"Ծանուցում | Ադմինիստրատորի վահանակ",
     "titleAdminSettingPage":"Կարգավորումներ | Ադմինիստրատորի վահանակ",
-    "titleAdminLogin":"Ադմինիստրատորի մուտք | Ճանապարհորդական բլոգ"
+    "titleAdminLogin":"Ադմինիստրատորի մուտք | Ճանապարհորդական բլոգ",
+    "titleAdminBlackedLists":"Սև ցուցակում ընդգրկված օգտատերեր|  Ադմինիստրատորի վահանակ"
   },
   "savePost": "Պահպանել Փոստը",
   "emptyPostHeader": "Գրառումներ չեն գտնվել",
   "emptyPostParagraph": "Այս պահին գրառումներ չկան։",
   "postSearch": "Փնտրեք այստեղից ․․․",
   "commentModalHeader": "Սպասող մեկնաբանություններ չկան",
-  "commentModalParagraph": "Հաստատման սպասող մեկնաբանություններ չկան։"
+  "commentModalParagraph": "Հաստատման սպասող մեկնաբանություններ չկան։",
+
+
+  
+  "adminBlackListTable":{
+    "username":"Օգտատիրոջ անուն ",
+    "email":"Էլ. փոստ",
+    "phone":"Հեռախոսահամար",
+    "violation":"Խախտում",
+     "reason":"Պատճառ",
+     "status":"Կարգավիճակ",
+     "blockedAt":"Արգելափակված է"
+  },
+  "loading":"Բեռնում է..."
 }

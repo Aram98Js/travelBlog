@@ -45,7 +45,14 @@ setRelaxForm(prev=>{
   }
 
  }
+ if(name==="price"){
 
+  return {
+   ...prev,
+   price:Number(value)
+  }
+
+ }
 
  return {
   ...prev,
@@ -72,6 +79,7 @@ const [relaxForm,setRelaxForm] = useState<RelaxFormData>({
     title:"",
     short_description:"",
     description:"",
+    price:0,
         location:{
       city:"",
       country:""
@@ -108,7 +116,7 @@ getRelaxData()
 
 
   
-  const addRelax = ()=>{
+  const addRelax = async ()=>{
     if (!relaxForm.title ||
       !relaxForm.short_description ||
       !relaxForm.description || 
@@ -122,35 +130,42 @@ getRelaxData()
     formData.append("description",relaxForm.description);
     formData.append("location",JSON.stringify(relaxForm.location))
 formData.append("rating",relaxForm.rating.toString())
+formData.append("price",relaxForm.price.toString())
   if (image) {
     formData.append("image",image)
   }
 
-const token = localStorage.getItem("data_token")
-    fetch("http://localhost:3000/admin/relax",{
+
+  try {
+    const token = localStorage.getItem("data_token")
+   const response = await fetch("http://localhost:3000/admin/relax",{
       method:"POST",
       body:formData,
          headers:{
     Authorization: `Bearer ${token}`
   }
     })
-    .then((response)=>response.json())
-    .then((data)=>{
-      console.log(data.newRelax);
-        setRelaxData([
-    ...relaxData,
-    data.outputRelax
-  ]);
-      
-    }).catch((error)=>{
-      console.log(error);
-      
-    });
+  
+     if(!response.ok){
+      const errorData = await response.text();
+        console.error("Server Error:", errorData);
+        return;
+     }
+     const data = await response.json();
+     console.log("success",data);
+     setRelaxData(prev=>[...prev,data.outputRelax])
+  } catch (error) {
+    console.error("Network or Parsing Error:", error);
+  }
+
+
+    
 
 setRelaxForm({
   title:"",
   short_description:"",
   description:"",
+  price:0,
       location:{
       city:"",
       country:""
@@ -179,6 +194,7 @@ headers:{
       title: item.title,
       short_description: item.short_description,
       description: item.description,
+      price: item.price,
   location:{
           city: item.location.city,
           country: item.location.country
@@ -196,6 +212,7 @@ const formData = new FormData();
     formData.append("description",relaxForm.description);
     formData.append("location",JSON.stringify(relaxForm.location))
 formData.append("rating",relaxForm.rating.toString())
+formData.append("price",relaxForm.price.toString())
   if (image) {
     formData.append("image",image)
   }
@@ -203,7 +220,7 @@ formData.append("rating",relaxForm.rating.toString())
 
     const token = localStorage.getItem("data_token")
      await fetch(
-            `http://localhost:3002/admin/relax/${editingId}`,
+            `http://localhost:3000/admin/relax/${editingId}`,
             {
                 method: "PATCH",
                 body: formData,
@@ -214,7 +231,7 @@ formData.append("rating",relaxForm.rating.toString())
         );
   }else{
     const token = localStorage.getItem("data_token")
-    await fetch(`http://localhost:3002/admin/relax`,
+    await fetch(`http://localhost:3000/admin/relax`,
             {
                 method: "POST",
                 body: formData,
@@ -303,6 +320,18 @@ Admin Panel Page For Creating Relax Post
 />
 </div>
 <div className="form-group full">
+  <label>{t("inputBox.price")}</label>
+<input
+
+  type="number"
+  name="price"
+  value={relaxForm.price}
+  step="50"
+  onChange={handleChange}
+ 
+/>
+</div>
+<div className="form-group full">
   <label>{t("inputBox.rating")}</label>
 <input
 
@@ -314,7 +343,6 @@ Admin Panel Page For Creating Relax Post
  
 />
 </div>
-
 
              <div className="form-group">
                <label>{t("inputBox.imgUpload")}</label>
@@ -379,7 +407,9 @@ fitered.map((item)=>{
       <span className="rating">
         ⭐ {item.rating}
       </span>
-
+  <span className="rating">
+        💲 {item.price}
+      </span>
     </div>
 
     <p className="short-description">

@@ -42,7 +42,7 @@ const logOut = ()=>{
   return (
 
     <header className="admin-header">
-     
+        
       <div className="profile">
         <img
           src={adminPanel}

@@ -13,6 +13,7 @@ import ChatBot from '../Ui/ChatBot'
 
 
 
+
 type DataUser = {
   _id: string
   username: string;
@@ -28,6 +29,7 @@ type DataUser = {
 const MainLayout = () => {
   const { i18n } = useTranslation();
   const [hamburgerToggle,setHamburgerToggle] = useState<boolean>(false)
+const [chatBlocked,setChatBlocked] = useState<boolean>(false);
 
  const [userdata,setUserData] = useState<DataUser |null>(()=>{
     const user  = localStorage.getItem("user");
@@ -53,22 +55,41 @@ setUserData(
 };
 
 
-window.addEventListener(
-"userLogin",
-updateUser
-);
+window.addEventListener("userLogin",updateUser);
+window.addEventListener("userLogout", updateUser);
 console.log("HEADER USER:", userdata);
 console.log("HEADER IMAGE:", userdata?.image);
 
 return ()=>{
-window.removeEventListener(
-"userLogin",
-updateUser
-);
+window.removeEventListener("userLogin",updateUser);
+window.removeEventListener("userLogout",updateUser);
 }
 
 },[]);
 
+useEffect(()=>{
+const getviolinData = async()=>{
+ const token = localStorage.getItem("accessToken");
+
+console.log("ACCESS TOKEN:", token);
+
+const response = await fetch("http://localhost:3000/violationStatus", {
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+});
+
+const data = await response.json();
+
+console.log("STATUS:", response.status);
+
+setChatBlocked(data.blocked)
+
+  
+}
+
+getviolinData()
+},[])
 
 
   const logOut = ()=>{
@@ -89,7 +110,7 @@ updateUser
   }
   return (
   <>
-<ChatBot />
+<ChatBot chatBlocked={chatBlocked}/>
   {userdata?(
 
  <>

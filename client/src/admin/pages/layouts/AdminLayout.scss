@@ -28,8 +28,8 @@
         left:0;
         top:0;
         bottom:0;
-
         background:#445b8d;
+    z-index: 11;
 
     }
 
@@ -37,7 +37,7 @@
 
     .admin-main {
 
-        margin-left:260px; // Sidebar-ի լայնությունը
+        margin-left:260px;
 
         width:calc(100% - 260px);
 
@@ -74,4 +74,15 @@
   background: var(--card-color);
   color: var(--text-color);
   border: 1px solid var(--border-color);
+}
+
+@media screen and (max-width: 768px){
+    .admin-layout{
+    .admin-main {
+margin-left: 0;
+        width:100%;
+        min-height:100vh;
+    }
+
+    }
 }

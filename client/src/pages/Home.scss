@@ -78,7 +78,7 @@ gap: 5px;
     width: 100%;
     height: auto;
     @include flexPos();
-    flex-direction: column;
+    flex-wrap: wrap;
     .post-card{
 
     max-width:940px;

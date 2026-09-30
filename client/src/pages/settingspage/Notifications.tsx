@@ -115,7 +115,7 @@ getNotification()
               <div className="notification__content">
 
                 <p className="notification__message">
-                   {notification._id} { notification.message}
+                  { notification.message}
                 </p>
 
                 <span className="notification__date">

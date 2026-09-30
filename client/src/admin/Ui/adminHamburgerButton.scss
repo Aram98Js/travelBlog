@@ -1,0 +1,28 @@
+
+
+.AdminHamburgerBtn{
+    width: 35px;
+    height: 35px;
+    background-color: #fff;
+    color: #000;
+    border: none;   
+
+display: none;
+position: fixed;
+
+right: 15px;
+z-index: 1;
+}
+
+@media screen and (max-width: 768px) {
+ .AdminHamburgerBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    visibility: visible;
+    bottom: 15px;
+    z-index: 23;
+ }
+
+}

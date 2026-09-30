@@ -1,379 +1,976 @@
-@mixin flexPoition(){
-  display: flex;
-  justify-content: center;
-  align-items: center;
+@mixin flexPosition() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 
 .footer {
-  background: #102a43;
-  color: #ffffff;
-  padding: 70px 0 25px;
-  margin-top: 80px;
 
-  .footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 30px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    background: #102a43;
+    color: #ffffff;
 
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 50px;
-  }
+    padding: 70px 0 25px;
+    margin-top: 80px;
+
+    overflow: hidden;
 
 
-  // Logo + Description
+    /* =========================================
+       MAIN CONTAINER
+    ========================================= */
 
-  .footer-brand {
+    .footer-container {
 
- .footerLogoBlock{
+        width: 100%;
+        max-width: 1200px;
 
-width: 350px;
-@include flexPoition();
-background-image: url("../../src/assets/pngicons/putevye-zametki-logo.png");
-height: 100px;
-background-repeat: no-repeat;
-background-size: cover;
-}
+        margin: 0 auto;
 
+        padding: 0 30px;
 
-    p {
-      max-width: 320px;
-      line-height: 1.8;
-      color: rgba(255,255,255,0.75);
-      font-size: 15px;
-    }
+        box-sizing: border-box;
 
-  }
+        display: grid;
 
+        /*
+            Desktop:
+            Brand | Column | Column | Form
+        */
+        grid-template-columns:
+            minmax(0, 2fr)
+            minmax(0, 1fr)
+            minmax(0, 1fr)
+            minmax(280px, 1fr);
 
-
-  // Columns
-
-  .footer-column {
-
-    h3 {
-      font-size: 18px;
-      margin-bottom: 25px;
-      position: relative;
-
-
-      &::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: -10px;
-        width: 35px;
-        height: 2px;
-        background: #e8b86d;
-      }
+        gap: 40px;
 
     }
 
 
-    a,
-    p {
-      display: block;
+    /* =========================================
+       BRAND
+    ========================================= */
 
-      color: rgba(255,255,255,0.75);
+    .footer-brand {
 
-      text-decoration: none;
+        width: 100%;
+        min-width: 0;
 
-      margin-bottom: 14px;
+        box-sizing: border-box;
 
-      font-size: 15px;
 
-      transition: 0.3s;
-    }
+        .footerLogoBlock {
 
+            width: 350px;
+            max-width: 100%;
 
-    a:hover {
+            height: 100px;
 
-      color: #e8b86d;
+            @include flexPosition();
 
-      transform: translateX(5px);
+            background-image:
+                url("../../src/assets/pngicons/putevye-zametki-logo.png");
 
-    }
+            background-repeat: no-repeat;
 
+            background-position: left center;
 
-  }
-
-
-.footer-column {
-
-  h3 {
-    font-size: 18px;
-    margin-bottom: 25px;
-    position: relative;
-
-    &::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -10px;
-
-      width: 35px;
-      height: 2px;
-
-      background: #e8b86d;
-    }
-  }
-
-
-  // EmailJS Form
-
-  .footer-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-
-
-    input,
-    textarea {
-
-      width: 100%;
-
-      padding: 12px 15px;
-
-      border-radius: 8px;
-
-      border: 1px solid rgba(255,255,255,0.2);
-
-      background: rgba(255,255,255,0.08);
-
-      color: #fff;
-
-      outline: none;
-
-      font-size: 14px;
-
-      transition: .3s;
-
-
-      &::placeholder {
-        color: rgba(255,255,255,0.55);
-      }
-
-
-      &:focus {
-        border-color: #e8b86d;
-
-        background: rgba(255,255,255,0.12);
-      }
-
-    }
-
-
-    textarea {
-      resize: none;
-    }
-
-
-
-    button {
-      margin-top: 5px;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 10px;
-      background: #e8b86d;
-      color: #102a43;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: .3s;
-      &:hover {
-
-        transform: translateY(-3px);
-
-        background: #f3c987;
-
-      }
-
-    }
-
-  }
-
-}
-
-  // Social section
-
-  .footer-social {
-
-    margin-top: 55px;
-
-    text-align: center;
-
-
-    h3 {
-
-      font-size: 20px;
-
-      margin-bottom: 20px;
-
-    }
-
-
-    div {
-
-      display: flex;
-
-      justify-content: center;
-
-      gap: 25px;
-
-
-      span {
-
-        width: 42px;
-        height: 42px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-
-        border-radius: 50%;
-
-        background: rgba(255,255,255,0.1);
-
-        cursor: pointer;
-
-        transition: .3s;
-
-
-        &:hover {
-
-          background: #e8b86d;
-
-          color:#102a43;
-
-          transform: translateY(-5px);
+            background-size: contain;
 
         }
 
-      }
 
-    }
+        p {
 
-  }
+            width: 100%;
+            max-width: 320px;
 
+            margin: 20px 0 0;
 
+            line-height: 1.8;
 
+            color: rgba(255, 255, 255, 0.75);
 
+            font-size: 15px;
 
-  // Bottom copyright
-
-  .footer-bottom {
-
-    margin-top: 40px;
-
-    padding-top: 25px;
-
-    border-top: 1px solid rgba(255,255,255,0.15);
-
-
-    text-align:center;
-
-    color: rgba(255,255,255,0.6);
-
-    font-size:14px;
-
-  }
-
-
-
-
-
-  // Responsive
-
-
-  
-
-  @media screen and (max-width:900px){
-  
-    .footer-container {
-      grid-template-columns: repeat(2,1fr);
-      gap:40px;
+        }
 
     }
 
 
-    .footer-brand {
-      grid-column: span 2;
-    }
-  }
+    /* =========================================
+       COLUMNS
+    ========================================= */
 
-  @media screen and (max-width:768px) {
-  .footer-container{
-    .footer-brand{
-     @include flexPoition();
-     flex-direction: column;
-      .footerLogoBlock{
-        width: 100px;
-        height: 100px;
-        background-image: url("../../public/originalIconwithpng.png");
-      }
-    }
-  }
-      margin-top: 0;
-    
-  }
-
-
-
-
-  @media screen and (max-width:600px){
-
-    .footer-container {
-      grid-template-columns:1fr;
-      text-align:center;
-    }
-    .footer-brand {
-      grid-column:auto;
-      p {
-        margin:0 auto;
-      }
-    }
     .footer-column {
-      h3::after {
-        left:50%;
-        transform:translateX(-50%);
-      }
+
+        width: 100%;
+        min-width: 0;
+
+        box-sizing: border-box;
+
+
+        h3 {
+
+            font-size: 18px;
+
+            margin: 0 0 25px;
+
+            position: relative;
+
+
+            &::after {
+
+                content: "";
+
+                position: absolute;
+
+                left: 0;
+
+                bottom: -10px;
+
+                width: 35px;
+
+                height: 2px;
+
+                background: #e8b86d;
+
+            }
+
+        }
+
+
+        a,
+        p {
+
+            display: block;
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            color: rgba(255, 255, 255, 0.75);
+
+            text-decoration: none;
+
+            margin: 0 0 14px;
+
+            font-size: 15px;
+
+            transition: 0.3s;
+
+        }
+
+
+        a:hover {
+
+            color: #e8b86d;
+
+            transform: translateX(5px);
+
+        }
+
     }
 
 
+    /* =========================================
+       FORM COLUMN
+    ========================================= */
 
-    .socialBlock{
-  position: relative;
-  @include flexPoition();
-  gap: 25px;
-  .footerLink{
-    position: relative;
-    color:#686666;
-    span{
-      position: absolute;
-      top: -15px;
-      left: -25px;
-      transition: all 0.5s ease;
-      opacity: 0;
-      visibility: hidden;
-      background-color: #fff;
-      padding: 5px;
-      border-radius: 10px;
+    .footer-column:last-child {
+
+        width: 100%;
+        min-width: 0;
+
+        box-sizing: border-box;
+
+
+        .footer-form {
+
+            width: 100%;
+            max-width: 100%;
+
+            box-sizing: border-box;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+
+
+            input,
+            textarea {
+
+                display: block;
+
+                width: 100%;
+                max-width: 100%;
+
+                box-sizing: border-box;
+
+                padding: 12px 15px;
+
+                border-radius: 8px;
+
+                border: 1px solid rgba(255, 255, 255, 0.2);
+
+                background: rgba(255, 255, 255, 0.08);
+
+                color: #ffffff;
+
+                outline: none;
+
+                font-size: 14px;
+
+                font-family: inherit;
+
+                transition: 0.3s;
+
+
+                &::placeholder {
+
+                    color: rgba(255, 255, 255, 0.55);
+
+                }
+
+
+                &:focus {
+
+                    border-color: #e8b86d;
+
+                    background: rgba(255, 255, 255, 0.12);
+
+                }
+
+            }
+
+
+            textarea {
+
+                min-height: 120px;
+
+                resize: vertical;
+
+            }
+
+
+            button {
+
+                display: block;
+
+                width: 100%;
+
+                box-sizing: border-box;
+
+                margin-top: 5px;
+
+                padding: 12px 25px;
+
+                border: none;
+
+                border-radius: 10px;
+
+                background: #e8b86d;
+
+                color: #102a43;
+
+                font-size: 15px;
+
+                font-weight: 600;
+
+                cursor: pointer;
+
+                transition: 0.3s;
+
+
+                &:hover {
+
+                    transform: translateY(-3px);
+
+                    background: #f3c987;
+
+                }
+
+            }
+
+        }
+
     }
-    &:hover{
-      span{
-        transform: translateY(-15px);
-        opacity: 1;
-        visibility: visible;
-      }
+
+
+    /* =========================================
+       SOCIAL
+    ========================================= */
+
+    .footer-social {
+
+        width: 100%;
+
+        margin-top: 55px;
+
+        text-align: center;
+
+
+        h3 {
+
+            font-size: 20px;
+
+            margin: 0 0 20px;
+
+        }
+
+
+        > div {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 25px;
+
+            flex-wrap: wrap;
+
+
+            span {
+
+                width: 42px;
+
+                height: 42px;
+
+                display: flex;
+
+                align-items: center;
+
+                justify-content: center;
+
+                border-radius: 50%;
+
+                background: rgba(255, 255, 255, 0.1);
+
+                cursor: pointer;
+
+                transition: 0.3s;
+
+
+                &:hover {
+
+                    background: #e8b86d;
+
+                    color: #102a43;
+
+                    transform: translateY(-5px);
+
+                }
+
+            }
+
+        }
+
     }
-  }
+
+
+    /* =========================================
+       SOCIAL BLOCK
+    ========================================= */
+
+    .socialBlock {
+
+        position: relative;
+
+        @include flexPosition();
+
+        gap: 25px;
+
+        flex-wrap: wrap;
+
+
+        .footerLink {
+
+            position: relative;
+
+            color: #686666;
+
+
+            span {
+
+                position: absolute;
+
+                top: -15px;
+
+                left: 50%;
+
+                transform: translateX(-50%);
+
+                opacity: 0;
+
+                visibility: hidden;
+
+                background-color: #ffffff;
+
+                color: #102a43;
+
+                padding: 5px 8px;
+
+                border-radius: 10px;
+
+                white-space: nowrap;
+
+                transition: all 0.3s ease;
+
+            }
+
+
+            &:hover {
+
+                span {
+
+                    top: -35px;
+
+                    opacity: 1;
+
+                    visibility: visible;
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    /* =========================================
+       BOTTOM
+    ========================================= */
+
+    .footer-bottom {
+
+        width: 100%;
+
+        box-sizing: border-box;
+
+        margin-top: 40px;
+
+        padding: 25px 30px 0;
+
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+
+        text-align: center;
+
+        color: rgba(255, 255, 255, 0.6);
+
+        font-size: 14px;
+
+    }
+
+
+    /* =====================================================
+       1100px
+       SMALL DESKTOP
+    ===================================================== */
+
+    @media screen and (max-width: 1100px) {
+        padding: 50px 0 20px;
+margin-top: 0;
+        .footer-container {
+
+            grid-template-columns:
+                minmax(0, 1.6fr)
+                minmax(0, 1fr)
+                minmax(0, 1fr);
+
+            gap: 30px;
+
+            padding: 0 25px;
+
+        }
+
+
+        /*
+            Form moves to the next row
+            and occupies full width
+        */
+
+        .footer-column:last-child {
+
+            grid-column: 1 / -1;
+
+            width: 100%;
+
+
+            .footer-form {
+
+                width: 100%;
+
+                display: grid;
+
+                grid-template-columns: 1fr 1fr;
+
+                gap: 12px;
+
+            }
+
+
+            .footer-form textarea {
+
+                grid-column: 1 / -1;
+
+            }
+
+
+            .footer-form button {
+
+                grid-column: 1 / -1;
+
+            }
+
+        }
+
+
+        .footer-brand {
+
+            .footerLogoBlock {
+
+                width: 280px;
+
+                height: 90px;
+
+            }
+
+
+            p {
+
+                max-width: 300px;
+
+                font-size: 14px;
+
+            }
+
+        }
+
+
+        .footer-column {
+
+            h3 {
+
+                font-size: 17px;
+
+            }
+
+
+            a,
+            p {
+
+                font-size: 14px;
+
+            }
+
+        }
+
+    }
+
+
+    /* =====================================================
+       900px
+       TABLET
+    ===================================================== */
+
+    @media screen and (max-width: 900px) {
+   padding: 50px 0 20px;
+margin-top: 0;
+        .footer-container {
+
+            grid-template-columns:
+                minmax(0, 1fr)
+                minmax(0, 1fr);
+
+            gap: 35px;
+
+        }
+
+
+        /*
+            Brand full row
+        */
+
+        .footer-brand {
+
+            grid-column: 1 / -1;
+
+            text-align: center;
+
+
+            .footerLogoBlock {
+
+                width: 280px;
+
+                margin: 0 auto;
+
+                background-position: center;
+
+            }
+
+
+            p {
+
+                margin-left: auto;
+
+                margin-right: auto;
+
+            }
+
+        }
+
+
+        /*
+            Links columns
+        */
+
+        .footer-column {
+
+            width: 100%;
+
+            min-width: 0;
+
+            text-align: center;
+
+
+            h3 {
+
+                &::after {
+
+                    left: 50%;
+
+                    transform: translateX(-50%);
+
+                }
+
+            }
+
+
+            a:hover {
+
+                transform: none;
+
+            }
+
+        }
+
+
+        /*
+            Form full width
+        */
+
+        .footer-column:last-child {
+
+            grid-column: 1 / -1;
+
+            width: 100%;
+
+
+            .footer-form {
+
+                display: flex;
+
+                flex-direction: column;
+
+                width: 100%;
+
+            }
+
+
+            .footer-form input,
+            .footer-form textarea,
+            .footer-form button {
+
+                width: 100%;
+
+            }
+
+        }
+
+    }
+
+
+    /* =====================================================
+       768px
+       MOBILE
+    ===================================================== */
+
+    @media screen and (max-width: 768px) {
+
+        padding: 50px 0 20px;
+margin-top: 0;
+
+        .footer-container {
+
+            width: 100%;
+
+            grid-template-columns: minmax(0, 1fr);
+
+            gap: 35px;
+
+            padding: 0 20px;
+
+        }
+
+
+        .footer-brand {
+
+            grid-column: auto;
+
+            width: 100%;
+
+            text-align: center;
+
+
+            .footerLogoBlock {
+
+                width: 100px;
+
+                height: 100px;
+
+                margin: 0 auto;
+
+                background-image:
+                    url("../../public/originalIconwithpng.png");
+
+                background-position: center;
+
+                background-size: contain;
+
+            }
+
+
+            p {
+
+                width: 100%;
+
+                max-width: 500px;
+
+                margin: 20px auto 0;
+
+            }
+
+        }
+
+
+        .footer-column {
+
+            width: 100%;
+
+            max-width: 100%;
+
+            min-width: 0;
+
+            text-align: center;
+
+
+            h3 {
+
+                font-size: 18px;
+
+
+                &::after {
+
+                    left: 50%;
+
+                    transform: translateX(-50%);
+
+                }
+
+            }
+
+        }
+
+
+        /*
+            FORM
+        */
+
+        .footer-column:last-child {
+
+            grid-column: auto;
+
+            width: 100%;
+
+            min-width: 0;
+
+
+            .footer-form {
+
+                width: 100%;
+
+                max-width: 100%;
+
+                margin: 0;
+
+                box-sizing: border-box;
+
+            }
+
+
+            .footer-form input,
+            .footer-form textarea,
+            .footer-form button {
+
+                width: 100%;
+
+                max-width: 100%;
+
+                box-sizing: border-box;
+
+            }
+
+        }
+
+
+        .footer-social {
+
+            margin-top: 40px;
+
+        }
+
+
+        .footer-bottom {
+
+            padding-left: 20px;
+
+            padding-right: 20px;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       480px
+       SMALL MOBILE
+    ===================================================== */
+
+    @media screen and (max-width: 480px) {
+
+        padding: 40px 0 20px;
+
+
+        .footer-container {
+
+            padding: 0 15px;
+
+            gap: 30px;
+
+        }
+
+
+        .footer-brand {
+
+            .footerLogoBlock {
+
+                width: 90px;
+
+                height: 90px;
+
+            }
+
+
+            p {
+
+                font-size: 14px;
+
+                line-height: 1.7;
+
+            }
+
+        }
+
+
+        .footer-column {
+
+            h3 {
+
+                font-size: 17px;
+
+            }
+
+
+            a,
+            p {
+
+                font-size: 14px;
+
+            }
+
+        }
+
+
+        .footer-column:last-child {
+
+            .footer-form {
+
+                gap: 10px;
+
+            }
+
+
+            .footer-form input,
+            .footer-form textarea {
+
+                padding: 11px 12px;
+
+                font-size: 14px;
+
+            }
+
+
+            .footer-form textarea {
+
+                min-height: 110px;
+
+            }
+
+
+            .footer-form button {
+
+                padding: 11px 20px;
+
+            }
+
+        }
+
+
+        .footer-social {
+
+            h3 {
+
+                font-size: 18px;
+
+            }
+
+
+            > div {
+
+                gap: 15px;
+
+            }
+
+        }
+
+
+        .footer-bottom {
+
+            padding-top: 20px;
+
+            font-size: 13px;
+
+        }
+
+    }
+
 }
-
-
-  }
-
-}
-
-
-

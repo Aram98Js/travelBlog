@@ -25,12 +25,21 @@ navigate(url)
 
   const deleteUser = async ()=>{
     const token = localStorage.getItem("accessToken")
-await fetch ("http://localhost:3000/userDelete",{
+const response =  await fetch ("http://localhost:3000/userDelete",{
   method:"DELETE",
   headers:{
     Authorization: `Bearer ${token}`
   }
-})
+});
+
+if (response.ok) {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  localStorage.removeItem("user");
+   window.dispatchEvent(new Event("userLogout"));
+navigate("/login")
+}
+
   }
 
 

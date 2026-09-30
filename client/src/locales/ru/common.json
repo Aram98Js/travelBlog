@@ -331,7 +331,8 @@
   "adminComment": "Комментария",
   "adminSettings": "Настройкй",
   "notificationAdmin": "Оповещение",
-  "notificationContentText": "Управляйте уведомлениями администратора.",
+  "blockUser":"Чёрный список пользователей", 
+   "notificationContentText": "Управляйте уведомлениями администратора.",
   "notificationContentTextTwo": "Настройте способ получения уведомлений.",
   "notificationsSettingsText":{
     "emailNotification":"Уведомления по электронной почте",
@@ -375,6 +376,8 @@
   "adminFoodParagraph": "Управляйте всеми публикациями о еде.",
   "commentHeader": "Комментарии",
   "commentParagraph": "Управление комментариями пользователей",
+   "notificationEmptyHeader":"Уведомлений Нет",
+   "notificationEmptyParagraph":"У вас пока нет уведомлений.",
   "create": {
     "travelPost": "Создать пост о путешествиях",
     "relaxPost": "Создать пост о отдыхе",
@@ -402,6 +405,8 @@
     "shortDescription": "Краткое описание",
     "placeHolderShortDescription": "Напишите Краткое описание",
     "description": "Описание",
+    "price":"Цена",
+    "pricePlaceholder":"Напишите цена",
     "placeHolderdescription": "Напишите описание",
     "country": "Страна",
     "placeHolderCountry": "Напишите Страна",
@@ -417,12 +422,25 @@
     "titleAdminComment": "Комментарии | Администратор управляет комментариями пользователей",
     "titleAdminNotificationPage":"Уведомления | Панель администратора",
     "titleAdminSettingPage":"Настройки | Панель администратора",
-    "titleAdminLogin":"Вход для администратора | Блог о путешествиях"
+    "titleAdminLogin":"Вход для администратора | Блог о путешествиях",
+    "titleAdminBlackedLists":"Пользователи в черном списке| Панель администратора"
+    
   },
   "savePost": "Сохранить Пост",
   "emptyPostHeader": "Записи не найдены",
   "emptyPostParagraph": "В данный момент постов нет",
   "postSearch": "Поиск здесь...",
   "commentModalHeader": "Комментарии, ожидающие одобрения, отсутствуют.",
-  "commentModalParagraph": "Комментариев, ожидающих одобрения, нет."
+  "commentModalParagraph": "Комментариев, ожидающих одобрения, нет.",
+    
+  "adminBlackListTable":{
+    "username":"Имя пользователя",
+    "email":"Электронная почта",
+    "phone":"Телефон",
+    "violation":"Нарушение",
+     "reason":"Причина",
+     "status":"Статус",
+     "blockedAt":"Заблокировано в"
+  },
+   "loading":"Загрузка..."
 }

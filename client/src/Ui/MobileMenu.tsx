@@ -24,9 +24,9 @@ const MobileMenu = ({hamburgerToggle}:MobileMenuToggle) => {
         <Link to="/relax">{t("relax")}</Link>
       </nav>
    <div className="socialBlock">
-    {socialData.map((item)=>{
+    {socialData.map((item, index)=>{
       return(
-        <Link to={item.href}>
+        <Link key={index} to={item.href}>
           <img src={item.imgUrl} alt={item.name} />
           <span>{item.name}</span>
         </Link>

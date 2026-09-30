@@ -26,6 +26,8 @@ import Saved from "../pages/Saved";
 import Comments from "../admin/pages/Comments";
 import AdminNotification from "../admin/pages/AdminNotification";
 import VerifyPhone from "../pages/VerifyPhone";
+import NotFound from "../pages/NotFound";
+import BlockedUsers from "../admin/pages/BlockedUsers";
 
 
 
@@ -93,6 +95,10 @@ const router = createBrowserRouter([
         path:"otpVerify",
         element: <VerifyPhone />
       },
+      {
+        path:"*",
+        element: <NotFound />
+      },
    
     ]
   },
@@ -136,6 +142,10 @@ const router = createBrowserRouter([
       {
         path:"adminNotification",
         element:<AdminNotification />
+      },
+      {
+        path:"violationUsers",
+        element: <BlockedUsers/>
       }
   
     ]

@@ -47,7 +47,7 @@ console.log(dashboardActivity);
 getDashboardPost()
   },[])
 if(!dashboardData){
-    return <h2>Loading...</h2>
+    return <h1>{t("loading")}</h1>
 }
 
 

@@ -8,13 +8,15 @@ type Message = {
   text: string;
   sender: "user" | "bot";
 };
-
-const ChatBot = () => {
+type ChatBlocked={
+chatBlocked: boolean
+}
+const ChatBot = ({chatBlocked}:ChatBlocked) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
   const [message, setMessage] = useState("");
-
+  const [loading,setLoading] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
@@ -41,10 +43,17 @@ const ChatBot = () => {
     setMessage("");
 
     try {
+      const token = localStorage.getItem("accessToken")
+  
+       setLoading(true)
+console.log("AI TOKEN:", token);
         const response = await fetch("http://localhost:3000/ai/check",{
     method:"POST",
     headers:{
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+         ...(token && {
+    Authorization: `Bearer ${token}`
+  })
     },
     body:JSON.stringify({
         message: currentMessage
@@ -62,7 +71,7 @@ if(data.violation){
       sender: "bot"
     }
   ]);
-}
+}else{
 setMessages((prev)=>[
 ...prev,
 {
@@ -71,21 +80,27 @@ setMessages((prev)=>[
     sender:"bot"
 }
 ])
+}
+
 
     console.log("CHAT RESPONSE:", data);
 
     if (!response.ok) {
-      console.log("SERVER ERROR:", data);
+      console.log("SERVER ERROR:",);
       return;
     }
 
     } catch (error) {
         console.log(error);
         
+    }finally{
+      setLoading(false)
     }
 
 
   };
+
+
 
   const handleKeyDown = (
     evt: React.KeyboardEvent<HTMLInputElement>
@@ -163,7 +178,13 @@ setMessages((prev)=>[
               </div>
 
             ))}
-
+{loading && (
+  <div className="message message--bot">
+    <div className="message__bubble">
+      Մտածում եմ...
+    </div>
+  </div>
+)}
           </div>
 
 
@@ -173,12 +194,13 @@ setMessages((prev)=>[
 
             <input
               type="text"
-              placeholder="Գրիր հաղորդագրություն..."
+              placeholder={chatBlocked?"Դուք Արդեն բլոկավորված եք":"Գրեք հաղորդագրություն..."}
               value={message}
               onChange={(evt) =>
                 setMessage(evt.target.value)
               }
               onKeyDown={handleKeyDown}
+              disabled={chatBlocked?true:false}
             />
 
             <button

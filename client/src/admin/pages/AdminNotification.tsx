@@ -76,7 +76,7 @@ const data = await response.json();
   if (loading) {
     return (
       <section className="admin-notification">
-        <p>Loading...</p>
+       <h1>{t("loading")}</h1>
       </section>
     );
   }
@@ -131,10 +131,11 @@ const data = await response.json();
 
         <div className="admin-notification__empty">
 
-          <h3>No notifications</h3>
+          <h3>{t("notificationEmptyHeader")}</h3>
+          <h3></h3>
 
           <p>
-            You don't have any notifications yet.
+           {t("notificationEmptyParagraph")}
           </p>
 
         </div>
@@ -161,7 +162,7 @@ const data = await response.json();
 
 
             <div className="admin-notification__content">
-               <h3>{notification.sender.username}</h3>
+               <h3>{notification?.sender?.username}</h3>
               <p className="admin-notification__message">
 
                 {notification.message}

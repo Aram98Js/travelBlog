@@ -326,6 +326,7 @@
   "adminComment": "Comment",
   "adminSettings": "Settings",
   "notificationAdmin": "Notifications",
+  "blockUser":"Users Black List",
   "notificationContentText": "Manage your admin notifications.",
   "notificationContentTextTwo": "Manage how you receive notifications.",
 
@@ -372,6 +373,8 @@
   "adminFoodParagraph": "Manage all  posts",
   "commentHeader": "Comments",
   "commentParagraph": "Manage user comments",
+     "notificationEmptyHeader":"No Notifications",
+   "notificationEmptyParagraph":"You have no notifications yet.",
   "create": {
     "travelPost": "Create Travel Post",
     "relaxPost": "Create Relax Post",
@@ -399,6 +402,7 @@
     "shortDescription": "Short Description",
     "placeHolderShortDescription": "Write Short Description",
     "description": "Description",
+      "price":"Price",
     "placeHolderdescription": "Write Description",
     "country": "Country",
     "placeHolderCountry": "Write country Name",
@@ -416,11 +420,26 @@
     "titleAdminTravel": "Travel Post Creating | Admin Page ",
     "titleAdminRelax": "Relax Post Creating | Admin Page ",
     "titleAdminComment": "Comments | The administrator manages user comments.",
-           "titleAdminNotificationPage":"Notification | Admin Panel",
+    "titleAdminNotificationPage":"Notification | Admin Panel",
     "titleAdminSettingPage":"Settings | Admin Panel",
-        "titleAdminLogin":"Admin Login | Travel Blog"
+    "titleAdminLogin":"Admin Login | Travel Blog",
+    "titleAdminBlackedLists":"Blacklisted Users| Admin Panel"
         
   },
   "commentModalHeader": "No pending comments",
-  "commentModalParagraph": "There are no comments waiting for approval."
+  "commentModalParagraph": "There are no comments waiting for approval.",
+
+  "adminBlackListTable":{
+    "username":"Username",
+    "email":"Email",
+    "phone":"Phone",
+    "violation":"Violation",
+     "reason":"Reason",
+     "status":"Status",
+     "blockedAt":"Blocked At"
+
+  },
+
+
+  "loading":"LOADING..."
 }

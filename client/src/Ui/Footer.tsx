@@ -103,9 +103,9 @@ href: "/relax"
 
           <h3>{t("explore")}</h3>
 
-           {linkData.map((item)=>{
+           {linkData.map((item,index)=>{
             return(
-              <Link to={item.href}>{item.link}</Link>
+              <Link key={index} to={item.href}>{item.link}</Link>
             )
            })}
 
@@ -117,9 +117,9 @@ href: "/relax"
 
           <h3>{t("category")}</h3>
 
-           {categoryData.map((item)=>{
+           {categoryData.map((item,index)=>{
             return(
-              <Link to={item.href}>{item.link}</Link>
+              <Link key={index} to={item.href}>{item.link}</Link>
             )
            })}
 
@@ -178,9 +178,9 @@ href: "/relax"
         <h3>{t("follow")}</h3>
 
         <div className="socialBlock">
-        {socialData.map((item)=>{
+        {socialData.map((item,index)=>{
           return(
-            <Link to={item.href} className="footerLink">
+            <Link key={index} to={item.href} className="footerLink">
                <img src={item.imgUrl} alt={item.link} />
             
             </Link>

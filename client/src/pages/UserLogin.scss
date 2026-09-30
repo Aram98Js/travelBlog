@@ -146,6 +146,12 @@ margin-top: 15px;
   margin-top: 5px;
 }
 
+@media screen and (max-width: 1000px){
+    .auth-wrapper{
+           top: 0;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .auth-wrapper{
         top: 0;

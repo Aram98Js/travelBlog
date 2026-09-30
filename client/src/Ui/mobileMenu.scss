@@ -84,7 +84,23 @@ align-items: center;
   }
 }
 }
+@media screen and (max-width: 999px) {
+ .mobile-menu{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+ } 
+}
 
+
+
+@media screen and (max-width: 880px) {
+ .mobile-menu{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+ } 
+}
 
 
 @media screen and (max-width: 768px) {
