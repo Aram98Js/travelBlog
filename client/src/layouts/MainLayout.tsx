@@ -32,7 +32,7 @@ const MainLayout = () => {
 const [chatBlocked,setChatBlocked] = useState<boolean>(false);
 
  const [userdata,setUserData] = useState<DataUser |null>(()=>{
-    const user  = localStorage.getItem("user");
+const user = localStorage.getItem("user");
 
 return user ? JSON.parse(user) : null;
   });

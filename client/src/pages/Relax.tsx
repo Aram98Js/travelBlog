@@ -7,10 +7,12 @@ import { useTranslation } from "react-i18next"
 import GuideCards from '../Components/GuideCards'
 import "./relax.scss"
 import Skeleton from "../Ui/Skelleton"
+import AiRelaxModal from "../Components/AiRelax/AiRelaxModal"
 const Relax = () => {
 const [relaxPostData,setRelaxPostData] = useState<GetRelaxData[]>([]);
 const [loading,setLoading] = useState<boolean>(true)
 const [search,setSearch] = useState<string>("")
+  const [isOpenModal,setIsOpenModal] = useState<boolean>(false)
 const {t} = useTranslation()
   const MAX_LIKES_COUNT: number = 200;
   const MAX_VIEWS_COUNT: number = 200;
@@ -49,7 +51,13 @@ setLoading(false)
 }
 getDataRelax();
 },[])
+const openAiModal = ()=>{
+  setIsOpenModal(true)
+}
 
+const closeAiModal = ()=>{
+    setIsOpenModal(false)
+}
 
   return (
 <>
@@ -82,6 +90,7 @@ handleChange={handleChange}
 search={search}
 />
 
+{isOpenModal && <AiRelaxModal closeAiModal={closeAiModal}/>}
 <GuideIntro
 title={t("relaxGuidesTexts.relaxGuideHeaderTwo")}
 
@@ -90,7 +99,7 @@ description={t("relaxGuidesTexts.relaxGuideParagraphTwo")}
 image="/relaxImg.jpg"
 
 buttonText={t("relaxGuidesTexts.buttonText")}
-
+openAiModal={openAiModal}
 />
 <div className="cards_grid" data-aos="fade-up" data-aos-duration="1000">
 {loading?(
@@ -119,6 +128,7 @@ filteredItems.map((item)=>{
   key={item._id}
 image={item.image}
 category="Relax"
+price={item.price}
 title={item.title}
 description={item.description}
 city={item.location.city}

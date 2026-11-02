@@ -3,7 +3,7 @@ import "./Button.scss"
 interface PropsButton{
    className: string,
    children: React.ReactNode,
-   onClick: ()=>void
+   onClick?: ()=>void
    disabled?: boolean
    type?:"submit"|"reset"|"button"
 }

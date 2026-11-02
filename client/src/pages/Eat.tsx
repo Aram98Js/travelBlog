@@ -7,11 +7,13 @@ import GuideCards from "../Components/GuideCards"
 import { useTranslation } from "react-i18next"
 import './food.scss'
 import Skeleton from "../Ui/Skelleton"
+import AiChefModal from "../Components/AiChef/AiChefModal"
 
 const Eat = () => {
   const [foodPostData,setFoodPostData] = useState<GetFoodData[]>([])
   const [loading,setLoading] = useState<boolean>(true);
   const [search,setSearch] = useState<string>("")
+  const [isAiOpen,setIsAiOpen] = useState<boolean>(false)
 const {t} = useTranslation()
 
   useEffect(()=>{
@@ -53,6 +55,14 @@ return dif <= 7 * 24 * 60 * 60 * 1000;
 
   const MAX_LIKES_COUNT = 200;
   const MAX_VIEWS_COUNT = 200;
+
+  const handleAiModalOpen = ()=>{
+    setIsAiOpen(true)
+  }
+
+  const handleAiModalClose = ()=>{
+    setIsAiOpen(false)
+  }
   return (
     <>
 <Helmet>
@@ -95,9 +105,12 @@ description={t("foodGuidesTexts.foodGuideParagraphTwo")}
 
 image="/FoodImg.jpg"
 buttonText={t("foodGuidesTexts.buttonText")}
+openAiModal={handleAiModalOpen}
 
 />
-
+{isAiOpen && (
+  <AiChefModal closeAiModal={handleAiModalClose} />
+)}
 <div className="cards_grid" data-aos="fade-up" data-aos-duration="1000">
 {loading?(
   <>

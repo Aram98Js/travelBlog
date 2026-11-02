@@ -9,6 +9,7 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import emailjs from "@emailjs/browser";
 import { Country, City } from "country-state-city";
+import GoogleAuthButton from '../Components/GoogleAuthButton'
 type RegisterFormData = {
     username: string,
     email: string,
@@ -550,10 +551,10 @@ country.isoCode !== "AZ" &&
                <label>Upload Image</label>
                <input type="file" onChange={handleImageChange}/>
              </div>
-      <button type="submit">
+      <Button className="registerBtn" type="submit">
         {t("register")}
-      </button>
-
+      </Button>
+       <GoogleAuthButton />
     </form>
 
     <p>{t("HaveAccountText")} <Link to="/login">{t("loginLink")}</Link></p>

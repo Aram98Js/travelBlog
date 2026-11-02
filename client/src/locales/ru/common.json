@@ -287,6 +287,12 @@
     "invalidGender": "Неверно указан пол",
     "birthDateRequired": "Дата рождения обязательна"
   },
+    "relaxAi": {
+    "natureMessage": "Я хочу отдохнуть на природе",
+    "weekendMessage": "Я хочу отдохнуть на выходных",
+    "spaMessage": "Я хочу в спа",
+    "familyMessage": "Я хочу семейный отдых"
+  },
   "userLogin": {
     "emailRequired": "Электронная почта обязательна",
     "passwordRequired": "Пароль обязателен",
@@ -442,5 +448,42 @@
      "status":"Статус",
      "blockedAt":"Заблокировано в"
   },
-   "loading":"Загрузка..."
+   "loading":"Загрузка...",
+     "thinking":"Я думаю...",
+    "AiRelaxChatBtns":{
+      "natureBtn":"Природа",
+      "weekendBtn":"Выходные",
+      "spaBtn":"Спа",
+      "familyBtn":"Семейный"
+    },
+
+       "aiPlaceholder":{
+       "relaxPlaceholder":"Какое место вы ищете?",
+       "travelPlaceholder":"Куда бы вы хотели поехать?",
+       "foodPlaceholder":"Например: яйца, картофель, лук..."
+    },
+
+    "AiChats":{
+      "relaxAsistantHeaderOne":"Помощник для отдыха",
+      "relaxAsistantHeaderTwo":"Давайте подберем место, где можно расслабиться",
+
+      "travelAsistantHeaderOne":"Гид по путешествиям",
+      "travelAsistantHeaderTwo":"Куда бы вы хотели отправиться?",
+
+      "foodAsistantHeader":"Шеф-повар с ИИ",
+
+      "relaxAsistantParagraphOne":"Найдите свой идеальный отдых",
+      "relaxAsistantParagraphTwo":"Расскажите, какой именно отдых вы ищете.",
+
+      "travelAsistantParagraphOne":"Ваш ИИ-помощник в путешествиях",
+      "travelAsistantParagraphTwo":"Расскажите, куда вы собираетесь, как долго продлится поездка или какие впечатления вы хотите получить.",
+
+      "foodAsistantParagraph":"Назовите имеющиеся у вас ингредиенты, и я предложу блюдо.",
+         
+
+      "relaxChatBtn":"Найти место",
+      "foodChatBtn":"Спросить шеф-повара",
+      "travelChatBtn":"Спросить гида"
+}
+
 }

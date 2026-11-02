@@ -1,0 +1,220 @@
+.relax-ai-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(20, 40, 30, 0.45);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+}
+
+.relax-ai-modal {
+  position: relative;
+
+  width: min(500px, 92%);
+  height: 650px;
+
+  background: #fdfdf9;
+
+  border-radius: 22px;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.relax-ai-close {
+  position: absolute;
+
+  top: 15px;
+  right: 18px;
+
+  border: none;
+  background: transparent;
+
+  font-size: 28px;
+
+  cursor: pointer;
+}
+
+.relax-ai-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 22px;
+
+  border-bottom: 1px solid #e8e8df;
+}
+
+.relax-ai-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #e7f1e8;
+
+  font-size: 24px;
+}
+
+.relax-ai-header h2 {
+  margin: 0;
+}
+
+.relax-ai-header span {
+  font-size: 13px;
+
+  color: #788078;
+}
+
+.relax-ai-messages {
+  flex: 1;
+
+  padding: 20px;
+
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.relax-ai-welcome {
+  margin: auto;
+
+  text-align: center;
+
+  max-width: 350px;
+}
+
+.relax-welcome-icon {
+  font-size: 55px;
+}
+
+.relax-ai-welcome h3 {
+  margin: 10px 0;
+}
+
+.relax-ai-welcome p {
+  color: #687068;
+
+  line-height: 1.5;
+}
+
+.relax-options {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+
+  margin-top: 20px;
+}
+
+.relax-options button {
+  padding: 11px;
+
+  border: 1px solid #dfe6df;
+
+  border-radius: 10px;
+
+  background: white;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.relax-options button:hover {
+  background: #eef5ee;
+}
+
+.relax-message {
+  max-width: 80%;
+
+  padding: 11px 15px;
+
+  border-radius: 15px;
+
+  white-space: pre-line;
+}
+
+.relax-message.user {
+  align-self: flex-end;
+
+  background: #6f9272;
+
+  color: white;
+
+  border-bottom-right-radius: 4px;
+}
+
+.relax-message.bot {
+  align-self: flex-start;
+
+  background: #edf1ed;
+
+  border-bottom-left-radius: 4px;
+}
+
+.relax-ai-input {
+  padding: 15px;
+
+  border-top: 1px solid #e8e8df;
+}
+
+.relax-ai-input textarea {
+  width: 100%;
+  min-height: 70px;
+
+  resize: none;
+
+  padding: 12px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #dfe6df;
+
+  border-radius: 10px;
+
+  outline: none;
+}
+
+.relax-ai-submit {
+  width: 100%;
+
+  margin-top: 10px;
+
+  padding: 12px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #6f9272;
+
+  color: white;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.relax-ai-submit:hover {
+  background: #5d7f60;
+}

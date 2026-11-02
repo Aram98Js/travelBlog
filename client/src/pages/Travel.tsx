@@ -4,16 +4,17 @@ import './travel.scss'
 import GuideIntro from '../Components/GuideIntro'
 import GuideCards from '../Components/GuideCards'
 import { Helmet } from 'react-helmet-async';
-import { useEffect,useState } from 'react';
+import { Fragment, useEffect,useState } from 'react';
 import type {  GetTravelData } from '../admin/Interfaces/interface';
 import { useTranslation } from 'react-i18next';
 import Skeleton from '../Ui/Skelleton';
+import AiTravelModal from '../Components/AiTravel/AiTravelModal';
 const Travel = () => {
 const {t} = useTranslation()
 const [travelsData,setTravelsData] = useState<GetTravelData[]>([])
 const [loading,setLoading] = useState<boolean>(true)
 const[search,setSearch] = useState<string>("")
-
+const [isOpenModal,setIsOpenModal] = useState<boolean>(false)
 
 
 const filteredItems = travelsData.filter((item)=>item.title.toLowerCase().includes(search.toLowerCase()))
@@ -60,10 +61,15 @@ const handleChange = (evt:React.ChangeEvent<HTMLInputElement>)=>{
 setSearch(evt.target.value)
 }
 
-
+const openAiModal = ()=>{
+setIsOpenModal(true)
+}
+const closeModal = ()=>{
+  setIsOpenModal(false)
+}
   return (
 
-   <>
+   <Fragment>
 <Helmet>
 
 <title>
@@ -124,8 +130,9 @@ description={t("travelGuidesTexts.travelGuideParagraphTwo")}
 image="/travelImg.jpg"
 
 buttonText={t("travelGuidesTexts.buttonText")}
-
+openAiModal={openAiModal}
 />
+{isOpenModal && <AiTravelModal closeAiModal={closeModal} />}
 <div className="cards-grid" data-aos="fade-up" data-aos-duration="1000">
 
 {loading?(
@@ -156,9 +163,11 @@ const isPopular = item.likesCount >= MAX_LIKES_COUNT && item.viewsCount >= MAX_V
 const isNew = isNewPost(item.createdAt)
 return(
   
+  
   <GuideCards 
   id={item._id}
   key={item._id}
+  price={item.price}
   category="Travel"
 image={item.image}
 title={item.title}
@@ -171,6 +180,7 @@ likes={item.likesCount}
 isNew={isNew}
 isPopular={isPopular}
   />
+  
 )
   
 })
@@ -183,7 +193,7 @@ isPopular={isPopular}
 
 
 </div>
-</>
+</Fragment>
   )
 }
 

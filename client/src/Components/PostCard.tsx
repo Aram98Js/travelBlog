@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import Button from "./Button";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
+import Man from '../assets/pngicons/man (1).png'
 import type { Post, UserPostData } from "../admin/Interfaces/interface";
 import './PostCard.scss'
 
@@ -84,6 +85,9 @@ const handleCloseModal = ()=>{
   setOPenModalData(null);
   setOpenModal(false)
 }
+
+console.log("POST USER:", post.user);
+console.log("POST DATA:", post);
   return (
 
     <Fragment>
@@ -102,7 +106,7 @@ const handleCloseModal = ()=>{
 
     <div className="post-author">
 
-      <img src="/avatar.png" alt="Admin"/>
+      <img src={Man} alt="Admin" />
 
       <div className="author-info">
         <h4>{post.user.username}</h4>

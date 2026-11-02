@@ -5,6 +5,7 @@ import './UserLogin.scss'
 import { Eye, EyeClosed } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import Button from '../Components/Button'
+import GoogleAuthButton from '../Components/GoogleAuthButton'
 
 type LoginFormData = {
     email: string,
@@ -189,9 +190,12 @@ window.dispatchEvent(new Event("userLogin"));
                <p className='error'>{errors.password}</p>
              )}
             </div>
-            <button type="submit">
+        
+            <Button className="submitBtn" type="submit">
                 {t("loginButtonText")}
-            </button>
+            </Button>
+            
+                <GoogleAuthButton />
         </form>
         <div className="bottom-text">
             {t("dontHaveAccountText")}

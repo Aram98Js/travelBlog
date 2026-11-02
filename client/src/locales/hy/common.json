@@ -267,6 +267,14 @@
     "male": "Արական",
     "female": "Իգական"
   },
+
+
+  "relaxAi": {
+    "natureMessage": "Ես ուզում եմ հանգստանալ բնության գրկում",
+    "weekendMessage": "Ես ուզում եմ հանգստյան օրերին հանգստանալ",
+    "spaMessage": "Ես ուզում եմ գնալ սպա",
+    "familyMessage": "Ես ուզում եմ ընտանեկան հանգիստ"
+  },
   "validation": {
     "usernameRequired": "Օգտանունը պարտադիր է",
     "usernameMinLength": "Օգտանունը պետք է լինի առնվազն 3 նիշ",
@@ -437,5 +445,41 @@
      "status":"Կարգավիճակ",
      "blockedAt":"Արգելափակված է"
   },
-  "loading":"Բեռնում է..."
+  "loading":"Բեռնում է...",
+    "thinking":"Մտածում եմ...",
+  "AiRelaxChatBtns":{
+      "natureBtn":"Բնություն",
+      "weekendBtn":"Շաբաթավերջ",
+      "spaBtn":"Սպա",
+      "familyBtn":"Ընտանեկան"
+    },
+
+      "aiPlaceholder":{
+       "relaxPlaceholder":"Ինչպիսի՞ վայր եք փնտրում։",
+       "travelPlaceholder":"Որտե՞ղ կցանկանայիք ճամփորդել։",
+       "foodPlaceholder":"Օրինակ՝ ձու, կարտոֆիլ, սոխ..."
+    },
+
+    "AiChats":{
+      "relaxAsistantHeaderOne":"Հանգստի օգնական",
+      "relaxAsistantHeaderTwo":"Եկեք գտնենք հանգստանալու վայր",
+
+      "travelAsistantHeaderOne":"Ուղևորության ուղեցույց",
+      "travelAsistantHeaderTwo":"Ո՞ւր կցանկանայիք մեկնել։",
+
+      "foodAsistantHeader":"AI-խոհարար",
+
+      "relaxAsistantParagraphOne":"Գտեք ձեր կատարյալ հանգիստը",
+      "relaxAsistantParagraphTwo":"Ասեք՝ ինչպիսի հանգիստ եք փնտրում։",
+
+      "travelAsistantParagraphOne":"եր AI-ուղեկցորդը",
+      "travelAsistantParagraphTwo":"Պատմեք նպատակակետի, ուղևորության տևողության կամ ակնկալվող տպավորությունների մասին։",
+
+      "foodAsistantParagraph":"Ասեք, թե ինչ բաղադրիչներ ունեք, և ես կառաջարկեմ ուտեստ։",
+         
+
+      "relaxChatBtn":"Գտնել վայր",
+      "foodChatBtn":"Հարցնել խոհարարին",
+      "travelChatBtn":"Հարցնել ուղեկցորդին"
+    }
 }

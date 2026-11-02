@@ -285,6 +285,15 @@
       "yearRequired": "Year is required"
     }
   },
+
+
+ "relaxAi": {
+    "natureMessage": "I want a nature escape",
+    "weekendMessage": "I want a weekend getaway",
+    "spaMessage": "I want a spa experience",
+    "familyMessage": "I want a family vacation"
+  },
+
   "userlogin": {
     "emailRequired": "Email is required",
     "passwordRequired": "Password is required",
@@ -441,5 +450,41 @@
   },
 
 
-  "loading":"LOADING..."
+  "loading":"LOADING...",
+  "thinking":"I'm thinking...",
+  "AiRelaxChatBtns":{
+     "natureBtn":"Nature",
+      "weekendBtn":"Weekend",
+      "spaBtn":"Spa",
+      "familyBtn":"Family"
+    },
+
+    "aiPlaceholder":{
+       "relaxPlaceholder":"What kind of place are you looking for?",
+       "travelPlaceholder":"Where would you like to travel?",
+       "foodPlaceholder":"For example: eggs, potatoes, onion..."
+    },
+
+    "AiChats":{
+      "relaxAsistantHeaderOne":"Relax Assistant",
+      "relaxAsistantHeaderTwo":"Let's find a place to relax",
+
+      "travelAsistantHeaderOne":"Travel Guide",
+      "travelAsistantHeaderTwo":"Where would you like to go?",
+
+      "foodAsistantHeader":"AI Chef",
+
+      "relaxAsistantParagraphOne":"Find your perfect escape",
+      "relaxAsistantParagraphTwo":"Tell me what kind of relaxation you're looking for.",
+
+      "travelAsistantParagraphOne":"Your AI travel assistant",
+      "travelAsistantParagraphTwo":"Tell me about your destination, trip duration, or what kind of experience you're looking for.",
+
+      "foodAsistantParagraph":"Tell me what ingredients you have, and I'll suggest a dish.",
+         
+
+      "relaxChatBtn":"Find a Place",
+      "foodChatBtn":"Ask Chef",
+      "travelChatBtn":"Ask Guide"
+    }
 }

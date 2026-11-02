@@ -7,7 +7,7 @@ interface GuideIntroProps {
     description:string;
     image:string;
     buttonText?:string;
-
+    openAiModal: ()=>void
 }
 
 
@@ -15,7 +15,8 @@ const GuideIntro = ({
     title,
     description,
     image,
-    buttonText="Explore More"
+    buttonText="Explore More",
+    openAiModal
 
 }:GuideIntroProps)=>{
 
@@ -39,7 +40,7 @@ return (
 
 
 
-<button>
+<button onClick={openAiModal}>
 {buttonText}
 </button>
 

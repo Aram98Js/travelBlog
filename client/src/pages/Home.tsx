@@ -2,7 +2,7 @@ import "./Home.scss"
 import travelImg from '/travelImg.jpg'
 import relaxImg from '/relaxImg.jpg'
 import foodImg from '/FoodImg.jpg'
-import type { DashboardData, DataURL, Post, } from "../admin/Interfaces/interface"
+import type {DataURL, Post, } from "../admin/Interfaces/interface"
 import {  Link } from "react-router-dom"
 import { Fragment, useEffect, useState } from "react"
 
@@ -11,13 +11,14 @@ import { useTranslation } from "react-i18next";
 import PostCard from "../Components/PostCard"
 import { Helmet } from "react-helmet-async"
 import Button from "../Components/Button"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 
 
 
 const Home = () => {
   const {t} = useTranslation()
-const [dashboardData,setDashboardData] = useState<DashboardData |null>(null)
+
 const [page, setPage] = useState(1);
 const [posts, setPosts] = useState<Post[]>([]);
 const limit:number = 6
@@ -42,16 +43,7 @@ const UrlData:DataURL[] = [
     pathName: t("relax")
   },
 ]
-useEffect(()=>{
-const getInfos = async()=>{
-const response = await fetch("http://localhost:3000/admin/dashboard/posts");
-const data = await response.json();
-setDashboardData(data);
-console.log(data);
 
-}
-getInfos();
-},[])
 const patchLikeCount = async (id: string,path:string)=>{
   const token =  localStorage.getItem("accessToken")
  const response = await fetch(`http://localhost:3000/admin/${path}/${id}/like`,{
@@ -142,6 +134,10 @@ content="website"
              
       </div>
 <div className="postBlock">
+  <div className="paginationBlock">
+  <Button className="paginationBtn" disabled={page===1} onClick={()=>setPage(page - 1 )}><ChevronLeft /></Button>
+  <Button className="paginationBtn" disabled={posts.length<limit} onClick={()=>setPage(page + 1)}><ChevronRight /></Button>
+</div>
 {posts.map((item)=>{
   return(
     <PostCard 
@@ -152,10 +148,7 @@ content="website"
   )
     
 })}
-<div className="paginationBlock">
-  <Button className="paginationBtn" disabled={page===1} onClick={()=>setPage(page - 1 )}>Prev</Button>
-  <Button className="paginationBtn" disabled={posts.length<limit} onClick={()=>setPage(page + 1)}>Next</Button>
-</div>
+
 </div>
       
     </section>

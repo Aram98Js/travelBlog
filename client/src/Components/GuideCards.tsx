@@ -30,6 +30,7 @@ const GuideCards = ({
     description,
     city,
     country,
+
     rating,
     views,
     likes,

@@ -5,6 +5,7 @@ import Russia from '../assets/changeLangFlag/Flag_of_Russia_Flat_Round_Corner-64
 import USA from '../assets/changeLangFlag/Flag_of_United_States_Flat_Round_Corner-64x64.png'
 import { Link} from 'react-router-dom'
 import { useTranslation } from "react-i18next";
+import Man from '../assets/pngicons/man (1).png'
 import {
   UserRound,
   ChevronRight,
@@ -68,7 +69,8 @@ const ProfileDropdown = ({user_data, logOutFunc, changeLangFunc }: ProfileData) 
 
 
 useEffect(()=>{
-document.body.className = toggleTheme ? "dark" : "light";
+  document.body.classList.toggle("dark", toggleTheme);
+  document.body.classList.toggle("light", !toggleTheme);
 },[toggleTheme])
  
 
@@ -101,6 +103,7 @@ document.body.className = toggleTheme ? "dark" : "light";
     getData();
   }, [])
 
+  
   useEffect(() => {
     const getData = async () => {
       const token = localStorage.getItem("accessToken")
@@ -124,7 +127,7 @@ document.body.className = toggleTheme ? "dark" : "light";
       <div className="profile-header">
 
         <img
-          src={user_data.image || "/user.png"}
+          src={user_data.image ?? Man}
           alt="user"
           className="avatar"
         />
