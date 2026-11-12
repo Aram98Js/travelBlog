@@ -1,12 +1,12 @@
 import "./AdminSideBar.scss";
   import { useTranslation } from "react-i18next"
 import { NavLink } from "react-router-dom";
-import logo from '../../assets/pngicons/putevye-zametki-logo.png'
 import Button from "../../Components/Button";
 import Armenia from '../../assets/changeLangFlag/Flag_of_Armenia_Flat_Round_Corner-64x64.png'
 import Russia from '../../assets/changeLangFlag/Flag_of_Russia_Flat_Round_Corner-64x64.png'
 import USA from '../../assets/changeLangFlag/Flag_of_United_States_Flat_Round_Corner-64x64.png'
 import { changeLanguage } from "../Interfaces/changeLanguage";
+import AdminLogo from "./AdminLogo"
 
 type ClassNameSideBar = {
 openClassName: string
@@ -72,9 +72,7 @@ pageName:t("blockUser")
   return (
 
     <aside className={`admin-sidebar ${openClassName}`}>
-      <div className="logo">
-        <img src={logo} alt="" />
-      </div>
+      <AdminLogo />
       <nav>
 
         {

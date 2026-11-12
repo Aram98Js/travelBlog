@@ -7,6 +7,7 @@ import socialData from '../socialData';
 
 
 import { useTranslation } from "react-i18next";
+import Logo from '../Components/Logo';
 
 export type Links = {
   link: string;
@@ -48,9 +49,7 @@ href: "/relax"
   return (
     <header>
 
-  <div className="logo_block">
-
-      </div>
+<Logo />
 
        <ol>
         {linkData.map((links,id)=>{

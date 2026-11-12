@@ -24,7 +24,10 @@ type RegisterFormData = {
     year:number | ""
    }
 }
-
+interface MonthsData{
+  value: number,
+  label: string,
+}
 const Register = () => {
   const {t} = useTranslation()
     const navigate = useNavigate();
@@ -276,6 +279,20 @@ country.isoCode !== "AZ" &&
  country.isoCode !== "TR"
 )
 
+ const months: MonthsData[] = [
+  { value: 1, label:t("months.january") },
+  { value: 2, label: t("months.february") },
+  { value: 3, label:t("months.march") },
+  { value: 4, label: t("months.april")},
+  { value: 5, label: t("months.may") },
+  { value: 6, label: t("months.june")},
+  { value: 7, label: t("months.july") },
+  { value: 8, label: t("months.august") },
+  { value: 9, label: t("months.september") },
+  { value: 10, label: t("months.october") },
+  { value: 11, label: t("months.november") },
+  { value: 12, label: t("months.december") }
+ ]
 
   return (
 
@@ -503,28 +520,26 @@ country.isoCode !== "AZ" &&
           </div>
          <div>
             <select
-            name="month"
-            value={formData.birthDate.month}
-            onChange={handleBirthChange}
-          >
-            <option value="">
-              {t("months.first")}
-            </option>
-            <option value="january">{t("months.january")}</option>
-            <option value="feburuay">{t("months.february")}</option>
-            <option value="march">{t("months.march")}</option>
-            <option value="april">{t("months.april")}</option>
-            <option value="may">{t("months.may")}</option>
-            <option value="june">{t("months.june")}</option>
-            <option value="july">{t("months.july")}</option>
-            <option value="august">{t("months.august")}</option>
-            <option value="september">{t("months.september")}</option>
-            <option value="october">{t("months.october")} </option>
-            <option value="november">{t("months.november")}</option>
-            <option value="december">{t("months.december")}</option>
+  value={formData.birthDate.month}
+  onChange={(evt) => {
+    setFormData((prev) => ({
+      ...prev,
+      birthDate: {
+        ...prev.birthDate,
+        month: Number(evt.target.value)
+      }
+    }));
+  }}
+>
+  <option value={0}>Select month</option>
 
-            {/* Months */}
-          </select>
+  {months.map((month) => (
+    <option key={month.value} value={month.value}>
+      {month.label}
+    </option>
+  ))}
+</select>
+       
    {errors.birthDate.month &&(
           <p className='error'>{errors.birthDate.month}</p>
         )}

@@ -52,13 +52,13 @@
 
       padding:8px 18px;
 
-      background:#ffffff;
+      background:var(--card-bg);
       border-radius:30px;
 
       font-size:14px;
       font-weight:600;
 
-      color:#333;
+      color:var(--text-color);
 
     }
 
@@ -103,7 +103,7 @@
 
       span {
         font-size:13px;
-        color:#888;
+        color:var(--text-secondary);
       }
 
     }
@@ -118,7 +118,7 @@
 
     font-size:28px;
 
-    color:#222;
+    color:var(--text-color);
 
   }
 
@@ -130,7 +130,7 @@
 
     line-height:1.7;
 
-    color:#666;
+    color:var(--text-secondary);
 
     font-size:16px;
 
@@ -151,7 +151,7 @@
 
     padding-top:20px;
 
-    border-top:1px solid #eee;
+    border-top:1px solid var(--border-color);
 
 
 
@@ -161,7 +161,7 @@
 
       gap:20px;
 
-      color:#777;
+      color:var(--text-secondary);
 
       font-size:14px;
 
@@ -173,7 +173,7 @@
 
       border:none;
 
-      background:#f5f5f5;
+      background:var(--hover-bg);
 
       padding:10px 20px;
 

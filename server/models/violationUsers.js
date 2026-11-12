@@ -17,11 +17,11 @@ email:{
 },
 phoneNumber:{
      type: String,
-   required: true
+   default: null
 },
 violationCount:{
     type: Number,
-    default: 1
+    default: 0
    
 },
 reason:{

@@ -135,7 +135,7 @@ href: "/relax"
     <input
       type="text"
       name="name"
-      placeholder={t("yourName")}
+      placeholder={t("footerEmailInput.username")}
         value={formData.name}
       onChange={handleChange}
       required
@@ -144,7 +144,7 @@ href: "/relax"
     <input
       type="email"
       name="email"
-      placeholder={t("yourEmail")}
+      placeholder={t("footerEmailInput.email")}
         value={formData.email}
        onChange={handleChange}
       required
@@ -152,7 +152,7 @@ href: "/relax"
 
     <textarea
       name="message"
-      placeholder={t("yourMessage")}
+      placeholder={t("footerEmailInput.textArea")}
       rows={4}
       value={formData.message}
        onChange={handleChange}

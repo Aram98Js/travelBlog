@@ -12,16 +12,45 @@ interface DataForUser{
    city: string,
    birthDate?:{
     day?: number,
-    month?: string,
+    month?: number,
     year?: number
    }
 }
 
+interface ProfileStats {
+  savedPlaces: number,
+  reviews: number,
+  trips: number,
+}
+const calculateAge = (birthDate?: DataForUser["birthDate"]) => {
+  if (!birthDate?.day || !birthDate?.month || !birthDate?.year) {
+    return "Նշված չէ";
+  }
+
+  const today = new Date();
+
+  let age = today.getFullYear() - birthDate.year;
+
+  const hasNotHadBirthday =
+    today.getMonth() + 1 < birthDate.month ||
+    (today.getMonth() + 1 === birthDate.month &&
+      today.getDate() < birthDate.day);
+
+  if (hasNotHadBirthday) {
+    age--;
+  }
+
+  return age;
+};
 
 const Profile = () => {
 const [userData,setUserData] = useState<DataForUser | null>(null);
+const [profileStats,setProfileStats] = useState<ProfileStats>({
+  savedPlaces: 0,
+  reviews: 0,
+  trips: 0
+})
 
- 
   const { id } = useParams();
 
   console.log("PROFILE ID:", id);
@@ -73,7 +102,38 @@ getProfile();
 
 },[]);
 
+useEffect(()=>{
 
+
+const getProfileStats = async()=>{
+   try {
+      const token = localStorage.getItem("accessToken")
+const response = await fetch("http://localhost:3000/profile/stats",{
+  headers:{
+    Authorization: `Bearer ${token}`
+  }
+});
+if (!response.ok) return;
+
+const data =await response.json();
+console.log(data);
+
+setProfileStats(data)
+
+  } catch (error) {
+    console.log(error);
+    
+  }
+ 
+
+}
+
+  getProfileStats()
+
+
+
+
+},[])
 
 return (
 
@@ -120,7 +180,7 @@ return (
           />
 
           <Button onClick={()=>navigate("/profile_change")}  className="edit-btn">
-            Edit Profile
+                  {t("EditProfile")}
           </Button>
 
         </div>
@@ -181,7 +241,7 @@ return (
               </span>
 
               <strong>
-                {new Date().getFullYear() - (userData?.birthDate?.year ?? 0)}
+                 {calculateAge(userData?.birthDate)}
               </strong>
             </div>
 
@@ -190,11 +250,13 @@ return (
                  {t("profilePageText.dateOfBirth")}
               </span>
 
-              <strong className="dateofBirth">
-                <p className="Year">{userData?.birthDate?.year ?? 0}</p>
-                <p className="Month">{userData?.birthDate?.month ?? ""}</p>
-                <p className="Day"> {userData?.birthDate?.day ?? 0}</p>
-              </strong>
+            <strong className="dateofBirth">
+    {userData?.birthDate?.day &&
+    userData?.birthDate?.month &&
+    userData?.birthDate?.year
+      ? `${String(userData.birthDate.day).padStart(2, "0")}.${String(userData.birthDate.month).padStart(2, "0")}.${userData.birthDate.year}`
+      : "Նշված չէ"}
+  </strong>
             </div>
 
 
@@ -219,11 +281,11 @@ return (
         <div className="stat-card">
 
           <h2>
-            24
+            {profileStats.trips || t("emptyResult")}
           </h2>
 
           <p>
-            Trips
+           {t("userProfileStats.trips")}
           </p>
 
         </div>
@@ -233,11 +295,11 @@ return (
         <div className="stat-card">
 
           <h2>
-            15
+            {profileStats.reviews || t("emptyResult")}
           </h2>
 
           <p>
-            Reviews
+            {t("userProfileStats.reviews")}
           </p>
 
         </div>
@@ -247,11 +309,11 @@ return (
         <div className="stat-card">
 
           <h2>
-            8
+            {profileStats.savedPlaces || t("emptyResult")}
           </h2>
 
           <p>
-            Saved Places
+             {t("userProfileStats.savedPlace")}
           </p>
 
         </div>

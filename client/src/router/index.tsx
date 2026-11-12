@@ -28,6 +28,7 @@ import AdminNotification from "../admin/pages/AdminNotification";
 import VerifyPhone from "../pages/VerifyPhone";
 import NotFound from "../pages/NotFound";
 import BlockedUsers from "../admin/pages/BlockedUsers";
+import PostDetails from "../pages/PostDetails";
 
 
 
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
         path:"otpVerify",
         element: <VerifyPhone />
       },
+      {
+  path: "/posts/:category/:id",
+  element: <PostDetails />
+},
       {
         path:"*",
         element: <NotFound />

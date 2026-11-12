@@ -301,6 +301,8 @@
     "wrongPassword": "Wrong password"
   },
   "rememberLabel": "Remember Me",
+  "EditProfile": "Edit Profile",
+   "emptyResult":"Not Yet Available",
   "verification":{
   "verifyPhone":"Verify your phone",
   "sendVerificationCode":"We sent a verification code to",
@@ -308,8 +310,48 @@
     "ResendCodeTwo":"Resend code",
     "second":"sec"
 },
+"postDetails":{
+"Price":"Price",
+"Description":"Description",
+"Published":"Published",
+"UserRatings":"User Ratings",
+"Rating":"Rating",
+"anyRatings":"This post does not have any ratings yet.",
+"ratePlace":"Rate this place",
+"opinion":"Write your opinion...",
+"inProcess":"In progress...",
+"sendRating":"Submit rating"
+},
+
+"footerEmailInput":{
+"username":"Your Name",
+"email":"Your Email",
+"textArea":"Yor Message"
+},
+
+ "logo": {
+    "title": "Travel Notes"
+  },
+  "violationUsers":"Violation Users",
+  "violationHeading":"Users who have violated chatbot rules",
+  "violationTotal":"Violations",
+"ViewDetails":"View Details →",
+  "postDetailsSEO": {
+    "title": "{{title}} | Travel, Food & Relax",
+    "description": "Discover {{title}}. Explore detailed information, visitor reviews, and helpful tips.",
+    "keywords": "{{title}}, travel, food, relaxation, attractions, tourism, reviews",
+    "siteName": "Travel, Food & Relax",
+    "travel": "Travel",
+    "food": "Food",
+    "relax": "Relax"
+  },
 
 
+  "userProfileStats":{
+    "trips":"Trips",
+    "reviews":"Reviews",
+    "savedPlace":"Saved Place"
+  },
   "adminLoginTexts": {
     "adminLogin": "Admin Username",
     "adminEmail": "Admin Email Address",

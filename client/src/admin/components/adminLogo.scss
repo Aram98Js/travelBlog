@@ -1,0 +1,87 @@
+
+.adminLogo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 16px 12px;
+  box-sizing: border-box;
+
+  text-decoration: none;
+  overflow: hidden;
+
+  .adminLogoImage {
+    width: 62px;
+    height: 62px;
+    object-fit: contain;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .adminLogoText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+
+    h4 {
+      margin: 0;
+      max-width: 100%;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.35;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .line {
+      width: 70%;
+      max-width: 150px;
+      height: 3px;
+      border-radius: 20px;
+      background: linear-gradient(
+        90deg,
+        #b98b46,
+        #e1c28a,
+        #b98b46
+      );
+      transition: width 0.3s ease;
+    }
+  }
+
+  &:hover {
+    .adminLogoImage {
+      transform: rotate(12deg) scale(1.05);
+    }
+
+    .line {
+      width: 90%;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .adminLogo {
+    padding: 12px 8px;
+    gap: 7px;
+
+    .adminLogoImage {
+      width: 45px;
+      height: 45px;
+    }
+
+    .adminLogoText h4 {
+      font-size: 15px;
+    }
+  }
+}

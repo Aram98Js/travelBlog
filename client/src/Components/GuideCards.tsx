@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import "./guideCards.scss";
 import Button from "./Button";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 interface GuideCardProps {
@@ -41,6 +42,7 @@ const GuideCards = ({
 }:GuideCardProps)=>{
 const [isSave, setIsSave] = useState<boolean>(false);
 const {t} = useTranslation();
+const navigate = useNavigate();
 const actionSaveData = async (category:string, id:string)=>{
 
 const token = localStorage.getItem("accessToken")
@@ -57,6 +59,10 @@ if (response.ok) {
 }
 console.log(data);
 
+}
+
+const handleReadGuide = ()=>{
+    navigate(`/posts/${category.toLowerCase()}/${id}`)
 }
 
 const handleChangeSave = (id: string)=>{
@@ -124,9 +130,9 @@ return (
                 </span>
 
             </div>
-            <button className="read-btn">
-                Read Guide →
-            </button>
+            <Button onClick = {handleReadGuide} className="read-btn">
+               {t("ViewDetails")}
+            </Button>
         </div>
     </div>
 </div>

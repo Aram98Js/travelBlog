@@ -36,6 +36,7 @@ import NotificationModel from './models/Notification.js';
 import saveModel from './models/SavePosts.js';
 import updateCommentRouter from './routers/updateCommentCountRoutes.js';
 import authMiddleware from './auth/authMiddleware.js';
+import optionalAuthMiddleware from './auth/optionalAuthMiddleware.js';
 import settingModel from './models/SettingsSchema.js';
 import ai from './config/gemini.js';
 
@@ -45,6 +46,10 @@ import weekendRouter from './routers/relaxRoute/weekendRoute.js';
 import spaRouter from './routers/relaxRoute/spaRoute.js';
 import familyRouter from './routers/relaxRoute/familyRoute.js';
 import googleAouthRouter from './routers/googleAuthRoute.js';
+import { getReviewRouter, reviewRouter } from './routers/reviewRoutes.js';
+import getPostDetailRouter from './routers/getPostDetailsRoutes.js';
+import SavedPlace from './models/SavedPlace.js';
+import profileStatRouter from './routers/profileStatsRoute.js';
 
 dotenv.config();
 const app = express();
@@ -68,7 +73,11 @@ app.use("/admin",routerFoodLikePatch)
 app.use("/admin",routerRelaxLikePatch)
 app.use("/comment", commentRouter);
 app.use(patchCountRouter)
-app.use(updateCommentRouter)
+app.use(updateCommentRouter);
+app.use(reviewRouter);
+app.use(getReviewRouter);
+app.use(getPostDetailRouter)
+app.use(profileStatRouter)
 
 
 
@@ -558,72 +567,169 @@ app.get("/postRelax",async(req,res)=>{
   })
 })
 
+app.get("/test", (req, res) => {
+  return res.status(200).json({
+    msg: "Server is working"
+  });
+});
+
 app.get("/profile", authMiddleWare, async (req, res) => {
-
-
   try {
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.user.id)
+      .select("-password -refreshToken -emailOtp");
 
-if (!user) {
-  return res.status(404).json({
-    "msg":"User NOt Found"
-  })
-}
-
-  console.log(req.user);
-  res.json({
-    user
-  })
-
-  } catch (error) {
-     return res.status(500).json({
-      msg: error.message
-    });
-  }
-  
-})
-
-
-
-
-app.patch("/profile", authMiddleWare, upload.single("image"), async (req, res) => {
-  try {
-    const { username, email } = req.body;
-
-    const updateData = {};
-     console.log("FILE:", req.file);
-    if (username) {
-      updateData.username = username;
-    }
-
-    if (email) {
-      updateData.email = email;
-    }
-if (req.file){
-  updateData.image = req.file.path
-}
-    const updatedUser = await User.findByIdAndUpdate(
-      req.user.id,
-      updateData,
-     { returnDocument: "after" }
-    );
-
-    if (!updatedUser) {
+    if (!user) {
       return res.status(404).json({
         msg: "User not found"
       });
     }
 
-    return res.json({
-      updatedUser
+    return res.status(200).json({
+      user
     });
 
   } catch (error) {
     return res.status(500).json({
-      msg: error.message
+      msg: "Internal server error"
     });
   }
-})
+});
+
+
+
+
+
+app.patch(
+  "/profile",
+  authMiddleWare,
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const { username, email, birthDate } = req.body;
+
+      const updateData = {};
+
+      // Username
+      if (username) {
+        updateData.username = username;
+      }
+
+      // Email
+      if (email) {
+        updateData.email = email;
+      }
+
+      // Profile image
+      if (req.file) {
+        updateData.image = req.file.path;
+      }
+
+      // BirthDate
+      if (birthDate) {
+        let parsedBirthDate;
+
+        try {
+          parsedBirthDate = JSON.parse(birthDate);
+        } catch (error) {
+          return res.status(400).json({
+            msg: "Invalid birthDate JSON"
+          });
+        }
+
+        const { day, month, year } = parsedBirthDate ?? {};
+
+        const date = new Date(
+          Date.UTC(year, month - 1, day)
+        );
+
+        const isValidDate =
+          Number.isInteger(day) &&
+          Number.isInteger(month) &&
+          Number.isInteger(year) &&
+          year >= 1900 &&
+          year <= new Date().getFullYear() &&
+          date.getUTCFullYear() === year &&
+          date.getUTCMonth() === month - 1 &&
+          date.getUTCDate() === day &&
+          date <= new Date();
+
+        if (!isValidDate) {
+          return res.status(400).json({
+            msg: "Invalid birth date"
+          });
+        }
+
+        updateData.birthDate = {
+          day,
+          month,
+          year
+        };
+      }
+
+      // Debug logs
+      console.log("REQ BODY:", req.body);
+      console.log("UPDATE DATA:", updateData);
+
+      console.log(
+        "SCHEMA BIRTHDATE:",
+        User.schema.path("birthDate")
+      );
+
+      console.log(
+        "SCHEMA BIRTHDATE DAY:",
+        User.schema.path("birthDate.day")
+      );
+
+      // Update user
+      const updatedUser = await User.findByIdAndUpdate(
+        req.user.id,
+        {
+          $set: updateData
+        },
+        {
+          new: true,
+          runValidators: true
+        }
+      ).select("-password -refreshToken -emailOtp");
+
+      if (!updatedUser) {
+        return res.status(404).json({
+          msg: "User not found"
+        });
+      }
+
+      // Check database result
+      console.log(
+        "UPDATED BIRTHDATE:",
+        updatedUser.birthDate
+      );
+
+      console.log(
+        "UPDATED USER:",
+        updatedUser.toObject()
+      );
+
+      return res.status(200).json({
+        msg: "Profile updated successfully",
+        updatedUser
+      });
+
+    } catch (error) {
+      console.error("Profile update error:", error);
+
+      if (error.name === "ValidationError" ||
+          error.name === "CastError") {
+        return res.status(400).json({
+          msg: error.message
+        });
+      }
+
+      return res.status(500).json({
+        msg: "Internal server error"
+      });
+    }
+  }
+);
 
 
 
@@ -708,44 +814,74 @@ notificationCounter
 
 
 
-app.post("/save_post/:category/:id",authMiddleWare,async(req,res)=>{
-
+app.post("/save_post/:category/:id", authMiddleWare, async (req, res) => {
   try {
-    const {category,id} = req.params;
-    let post;
-  if (category === "Travel") {
-    post = await Travel.findById(id);
-  }
-  if (category === "Food") {
-    post = await Food.findById(id);
-  }
-  if (category === "Relax") {
-    post = await Relax.findById(id);
-  }
+    const { category, id } = req.params;
+
+    const models = {
+      travel: Travel,
+      food: Food,
+      relax: Relax
+    };
+
+    const Model = models[category.toLowerCase()];
+
+    if (!Model) {
+      return res.status(400).json({
+        msg: "Invalid category"
+      });
+    }
+
+    if (!mongoose.isValidObjectId(id)) {
+      return res.status(400).json({
+        msg: "Invalid post ID"
+      });
+    }
+
+    const post = await Model.findById(id);
 
     if (!post) {
       return res.status(404).json({
         msg: "Post not found"
       });
     }
-   const savedPosts = await saveModel.create({
-      user: req.user.id,
-      post:post._id,
-      category: category
-    }
-    )
 
-  return res.status(201).json({
-    post,
-    savedPosts
-  })
+    const existingSavedPost = await saveModel.findOne({
+      user: req.user.id,
+      post: post._id,
+      category: Model.modelName
+    });
+
+    if (existingSavedPost) {
+      return res.status(409).json({
+        msg: "Post already saved"
+      });
+    }
+
+    const savedPosts = await saveModel.create({
+      user: req.user.id,
+      post: post._id,
+      category: Model.modelName
+    });
+
+    const savedPlaces = await saveModel.countDocuments({
+      user: req.user.id
+    });
+
+    return res.status(201).json({
+      post,
+      savedPosts,
+      savedPlaces
+    });
+
   } catch (error) {
+    console.error("SAVE POST ERROR:", error);
+
     return res.status(500).json({
       msg: "Server error"
     });
   }
-  
-})
+});
 
 
 
@@ -1058,27 +1194,24 @@ app.get("/admin/list_for_travel", adminMiddleware,async (req, res) => {
   })
 })
 
-app.get("/admin/violationUsers",adminMiddleware,async(req,res)=>{
+app.get("/admin/violationUsers", adminMiddleware, async (req, res) => {
   try {
-      const violationUsers = await violationUser.find();
-  if(!violationUsers.length){
-    return res.status(404).json({
-      msg:"Vioation user not found",
-    })
-  }
+    const violationUsers = await violationUser.find();
 
-  return res.status(200).json({
-    msg: "violated user",
-    violationUsers
-  })
+    return res.status(200).json({
+      msg: "Violation users fetched successfully",
+      violationUsers,
+      total: violationUsers.length
+    });
+
   } catch (error) {
-    console.log(error)
-    return res.status(500).json({
-      msg:"server error"
-    })
-  }
+    console.error("VIOLATION USERS ERROR:", error);
 
-})
+    return res.status(500).json({
+      msg: "Server error"
+    });
+  }
+});
 
 app.get("/admin/relaxList", adminMiddleware,async (req, res) => {
   const allRelax = await Relax.find().populate("user","username");
@@ -1279,8 +1412,37 @@ app.get("/admin/notification",adminMiddleware,async(req,res)=>{
 })
 
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-app.post("/ai/check",async(req, res) => {
+const generateWithRetry = async (options, maxAttempts = 3) => {
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      return await ai.models.generateContent(options);
+    } catch (error) {
+      const status = error.status;
+
+      const retryable =
+        status === 503 ||
+        status === 429 ||
+        status === 500;
+
+      if (!retryable || attempt === maxAttempts) {
+        throw error;
+      }
+
+      const delay = 1000 * 2 ** (attempt - 1);
+
+      console.log(
+        `Gemini API error ${status}. Retry ${attempt}/${maxAttempts} after ${delay}ms`
+      );
+
+      await sleep(delay);
+    }
+  }
+};
+
+
+app.post("/ai/check",optionalAuthMiddleware,async(req, res) => {
   try {
 
    let violation = null
@@ -1295,9 +1457,12 @@ app.post("/ai/check",async(req, res) => {
 
     if (violation?.blocked) {
       return res.status(403).json({
-        blocked: true,
-        message: "Your access to the chatbot has been blocked."
-      });
+    violation: true,
+    blocked: true,
+    violationCount: violation.violationCount,
+    message: "Your access to the chatbot has been blocked.",
+    result: null
+  });
     }
 
 
@@ -1306,7 +1471,7 @@ app.post("/ai/check",async(req, res) => {
     const foods = await Food.find().select("title short_description description price rating location").lean();
     const travels = await Travel.find().select("title short_description description price rating location").lean();
     const relaxes = await Relax.find().select("title short_description description price rating location").lean();
-    const response = await ai.models.generateContent({
+    const response = await generateWithRetry({
       model: "gemini-3.5-flash-lite",
         config: {
     responseMimeType: "application/json"
@@ -1661,70 +1826,62 @@ ${message}
       `,
     });
 
-    const text = response.text;
+const text = response.text;
+const result = JSON.parse(text);
 
-    const result = JSON.parse(text);
+let blocked = false;
+let violationCount = 0;
 
+if (result.violation === true && req.user) {
+  const user = await User.findById(req.user.id);
 
+  if (!user) {
+    return res.status(404).json({
+      message: "User not found"
+    });
+  }
 
-   if (result.violation === true) {
-  console.log("1. VIOLATION DETECTED");
-
-  if(req.user){
   const existingViolation = await violationUser.findOne({
-    user: req.user.id
+    user: user._id
   });
-    console.log("2. EXISTING:", existingViolation);
-    if (!existingViolation) {
 
-    console.log("3. CREATING VIOLATION USER");
-
-    const user = await User.findById(req.user.id);
-
-    if (!user) {
-      return res.status(404).json({
-        message: "User not found"
-      });
-    }
-
-    await violationUser.create({
+  if (!existingViolation) {
+    const newViolation = await violationUser.create({
       user: user._id,
       username: user.username,
       email: user.email,
-      phoneNumber: user.phoneNumber,
-      reason: "Multiple violations"
+      phoneNumber: user.phoneNumber ?? null,
+      reason: "Inappropriate language",
+      violationCount: 1,
+      blocked: false
     });
 
-    console.log("4. CREATED");
-
+    violationCount = newViolation.violationCount;
   } else {
-
-    console.log("3. UPDATING VIOLATION USER");
-
     existingViolation.violationCount += 1;
 
-    if (existingViolation.violationCount >= 3) {
+    violationCount = existingViolation.violationCount;
+
+    if (violationCount >= 3) {
       existingViolation.blocked = true;
       existingViolation.blockedAt = new Date();
     }
 
     await existingViolation.save();
-
-    console.log("4. UPDATED");
   }
-  }
-}   
 
+  blocked = violationCount >= 3;
+}
 
-
-
-return res.status(200).json({
-      violation: result.violation,
-      message: result.message,
-      result: result.result
-    });
-
-    
+return res.status(blocked ? 403 : 200).json({
+  violation: result.violation,
+  violationCount,
+  blocked,
+  message: blocked
+    ? "Դուք 3 անգամ խախտել եք կանոնները։ Ձեր մուտքը chatbot արգելափակված է։"
+    : result.message,
+  result: blocked ? null : result.result
+});
 
   } catch (error) {
   console.log("========== AI ERROR ==========");

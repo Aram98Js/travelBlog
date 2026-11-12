@@ -299,7 +299,18 @@
     "userNotFound": "Пользователь не найден",
     "wrongPassword": "Неверный пароль"
   },
+"ViewDetails":"Подробнее →",
+    "userProfileStats":{
+    "trips":"Поездки",
+    "reviews":"Отзывы",
+    "savedPlace":"Сохранённые места"
+  },
+  "violationUsers":"Нарушители:",
+  "violationHeading":"Пользователи, нарушившие правила чат-бота:",
+   "violationTotal":"Нарушения",
   "rememberLabel": "Запомнить меня",
+    "EditProfile": "Редактировать профиль",
+    "emptyResult":"Пока недоступно",
 "verification":{
   "verifyPhone":"Подтвердите свой телефон",
   "sendVerificationCode":"Мы отправили код подтверждения на ваш номер",
@@ -308,8 +319,40 @@
     "second":"сек"
 },
 
+"postDetails":{
+"Price":"Цена",
+"Description":"Описание",
+"Published":"Опубликовано",
+"UserRatings":"Пользовательские оценки",
+"Rating":"рейтинг",
+"anyRatings":"У этого поста пока нет оценок.",
+"ratePlace":"Оцените это место",
+"opinion":"Напишите свой отзыв...",
+"inProcess":"В процессе...",
+"sendRating":"Отправить оценку"
+},
 
 
+
+  "postDetailsSEO": {
+    "title": "{{title}} | Путешествия, еда и отдых",
+    "description": "Откройте для себя {{title}}. Узнайте подробную информацию, ознакомьтесь с отзывами посетителей и полезными советами.",
+    "keywords": "{{title}}, путешествия, еда, отдых, достопримечательности, туризм, отзывы",
+    "siteName": "Путешествия, еда и отдых",
+    "travel": "Путешествия",
+    "food": "Еда",
+    "relax": "Отдых"
+  },
+
+  "footerEmailInput":{
+"username":"Ваше имя",
+"email":"Ваше Эл. адрес",
+"textArea":"Ваше Сообщения"
+},
+
+ "logo": {
+    "title": "Путевые заметки"
+  },
 
 
   "adminLoginTexts": {

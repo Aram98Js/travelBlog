@@ -1,3 +1,4 @@
+
 import commentModel from "../models/comment.js";
 import notificationModel from "../models/Notification.js";
 import settingModel from "../models/SettingsSchema.js";
@@ -8,54 +9,64 @@ const commentController = async (req, res) => {
     const { text, category } = req.body;
     const { postId } = req.params;
 
-    console.log("1. Comment request");
-
-    const newComment = await commentModel.create({
-      user: req.user.id,
-      post: postId,
-      text,
-      category
-    });
-
-    console.log("2. Comment created:", newComment);
-
-    const admin = await User.findOne({
-      role: "admin"
-    });
-
-    console.log("3. Admin:", admin);
-
-    if (!admin) {
-      return res.status(404).json({
-        message: "Admin not found"
+    if (!text?.trim() || !category) {
+      return res.status(400).json({
+        message: "Text and category are required"
       });
     }
 
-  const settings = await settingModel.findOne({
-    user:admin._id
-  })
-
-  if (settings?.notification?.newComment) {
-    await notificationModel.create({
-      user: admin._id,
-        sender: req.user.id,
-        postType: category,
-      type: "comment",
-      message: "Someone commented on your post"
+    // 1. Create comment
+    const newComment = await commentModel.create({
+      user: req.user.id,
+      post: postId,
+      text: text.trim(),
+      category
     });
-  }
 
-    
+    // 2. Count user's comments
+    const reviews = await commentModel.countDocuments({
+      user: req.user.id
+    });
 
-    console.log("4. Notification created:", newNotification);
+    // 3. Find admin and send notification
+    let newNotification = null;
+
+    try {
+      const admin = await User.findOne({
+        role: "admin"
+      });
+
+      if (admin) {
+        const settings = await settingModel.findOne({
+          user: admin._id
+        });
+
+        if (settings?.notification?.newComment) {
+          newNotification = await notificationModel.create({
+            user: admin._id,
+            sender: req.user.id,
+            postType: category,
+            type: "comment",
+            message: "Someone commented on your post"
+          });
+        }
+      }
+    } catch (notificationError) {
+      console.error(
+        "Notification error:",
+        notificationError
+      );
+    }
 
     return res.status(201).json({
+      message: "Comment created successfully",
       newComment,
+      reviews,
       newNotification
     });
 
   } catch (error) {
-    console.log("ERROR:", error);
+    console.error("Comment error:", error);
 
     return res.status(500).json({
       message: error.message

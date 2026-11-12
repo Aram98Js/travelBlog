@@ -20,6 +20,8 @@ import {
 import Button from '../Components/Button'
 import { useNavigate } from 'react-router-dom'
 interface ProfileData {
+  darkTheme: boolean
+  changeTheme: () => void
   changeLangFunc: (lang: string) => void
   logOutFunc: () => void,
 
@@ -34,33 +36,18 @@ interface ProfileData {
 
 
 
-const ProfileDropdown = ({user_data, logOutFunc, changeLangFunc }: ProfileData) => {
+const ProfileDropdown = ({user_data, logOutFunc, changeLangFunc, darkTheme, changeTheme }: ProfileData) => {
 
   
   const navigate = useNavigate()
   const [toggle, setToggle] = useState<boolean>(false)
 
 
- const getThemeByTime = ()=>{
-    const hour = new Date().getHours();
-    if (hour>=6 && hour < 18) {
-      return "light"
-    }else{
-      return "dark"
-    }
-  }
 
 
   const [notifyData, setNotifyData] = useState<number>(0);
   const [saveNumber, setSaveNumber] = useState<number>(0);
-  const [toggleTheme, setToggleTheme] = useState(() => {
-    const saved =  localStorage.getItem("theme");
-    if (saved) {
-      return saved === "dark"
-    }
-    return  getThemeByTime() === "dark"
-    
-  })
+
   const { t } = useTranslation()
 
   const handleToggle = () => {
@@ -68,21 +55,12 @@ const ProfileDropdown = ({user_data, logOutFunc, changeLangFunc }: ProfileData) 
   }
 
 
-useEffect(()=>{
-  document.body.classList.toggle("dark", toggleTheme);
-  document.body.classList.toggle("light", !toggleTheme);
-},[toggleTheme])
+
  
 
 
 
-  const handleChangeTheme = () => {
-    setToggleTheme(prev => {
-      const newTheme = !prev;
-      localStorage.setItem("theme", newTheme ? "dark" : "light");
-      return newTheme
-    });
-  }
+  const handleChangeTheme = changeTheme;
 
   const moveToNotificationPage = (url: string) => {
     navigate(url)
@@ -219,8 +197,8 @@ useEffect(()=>{
         </div>
         <div className="menu-item light_dark_theme">
 
-          <Button className={`themeBtn ${toggleTheme ? "dark" : "light"}`} onClick={handleChangeTheme}>
-            {toggleTheme ? t("themeText.light") : t("themeText.dark")}
+          <Button className={`themeBtn ${darkTheme ? "dark" : "light"}`} onClick={handleChangeTheme}>
+            {darkTheme ? t("themeText.light") : t("themeText.dark")}
           </Button>
         </div>
 

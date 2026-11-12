@@ -1,5 +1,6 @@
 
-import React, { useState } from "react";
+import { useState } from "react";
+import type { KeyboardEvent } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
 import "./ChatBot.scss";
 
@@ -8,15 +9,28 @@ type Message = {
   text: string;
   sender: "user" | "bot";
 };
-type ChatBlocked={
-chatBlocked: boolean
-}
-const ChatBot = ({chatBlocked}:ChatBlocked) => {
 
+type ChatBotProps = {
+  chatBlocked: boolean;
+  onBlocked: () => void;
+};
+
+type ChatResponse = {
+  violation?: boolean;
+  violationCount?: number;
+  blocked?: boolean;
+  message?: string | null;
+  result?: string | null;
+};
+
+const ChatBot = ({
+  chatBlocked,
+  onBlocked
+}: ChatBotProps) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const [message, setMessage] = useState("");
-  const [loading,setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
+
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
@@ -25,98 +39,115 @@ const ChatBot = ({chatBlocked}:ChatBlocked) => {
     }
   ]);
 
-  const sendMessage = async () => {
-
-    if (!message.trim()) return;
-
-    const newMessage: Message = {
-      id: Date.now(),
-      text: message,
-      sender: "user"
-    };
-
+  const addBotMessage = (text: string) => {
     setMessages((prev) => [
       ...prev,
-      newMessage
-    ]); 
- const currentMessage = message;
-    setMessage("");
+      {
+        id: Date.now() + Math.random(),
+        text,
+        sender: "bot"
+      }
+    ]);
+  };
 
-    try {
-      const token = localStorage.getItem("accessToken")
-  
-       setLoading(true)
-console.log("AI TOKEN:", token);
-        const response = await fetch("http://localhost:3000/ai/check",{
-    method:"POST",
-    headers:{
-        "Content-Type":"application/json",
-         ...(token && {
-    Authorization: `Bearer ${token}`
-  })
-    },
-    body:JSON.stringify({
-        message: currentMessage
-    })
-
-})
-
-const data = await response.json();
-if(data.violation){
-  setMessages((prev) => [
-    ...prev,
-    {
-      id: Date.now() + Math.random(),
-      text: data.message,
-      sender: "bot"
-    }
-  ]);
-}else{
-setMessages((prev)=>[
-...prev,
-{
-    id: Date.now() + 1,
-    text:data.result,
-    sender:"bot"
-}
-])
-}
-
-
-    console.log("CHAT RESPONSE:", data);
-
-    if (!response.ok) {
-      console.log("SERVER ERROR:",);
+  const sendMessage = async () => {
+    if (!message.trim() || loading || chatBlocked) {
       return;
     }
 
+    const currentMessage = message.trim();
+
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: Date.now() + Math.random(),
+        text: currentMessage,
+        sender: "user"
+      }
+    ]);
+
+    setMessage("");
+    setLoading(true);
+
+    try {
+      const token = localStorage.getItem("accessToken");
+
+      const response = await fetch(
+        "http://localhost:3000/ai/check",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...(token
+              ? {
+                  Authorization: `Bearer ${token}`
+                }
+              : {})
+          },
+          body: JSON.stringify({
+            message: currentMessage
+          })
+        }
+      );
+
+      const data: ChatResponse = await response.json();
+
+      console.log("CHAT RESPONSE:", data);
+
+      // Անմիջական բլոկավորում
+      if (data.blocked === true) {
+        onBlocked();
+        setMessage("");
+
+        addBotMessage(
+          data.message ||
+            "Դուք արգելափակված եք։"
+        );
+
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Server error"
+        );
+      }
+
+      if (data.violation === true) {
+        addBotMessage(
+          data.message ||
+            "Խնդրում ենք պահպանել հաղորդակցման կանոնները։"
+        );
+
+        return;
+      }
+
+      addBotMessage(
+        data.result || "Պատասխան չի ստացվել։"
+      );
     } catch (error) {
-        console.log(error);
-        
-    }finally{
-      setLoading(false)
+      console.error("CHAT ERROR:", error);
+
+      addBotMessage(
+        error instanceof Error
+          ? error.message
+          : "Տեղի ունեցավ սխալ։"
+      );
+    } finally {
+      setLoading(false);
     }
-
-
   };
 
-
-
   const handleKeyDown = (
-    evt: React.KeyboardEvent<HTMLInputElement>
+    evt: KeyboardEvent<HTMLInputElement>
   ) => {
-
     if (evt.key === "Enter") {
-      sendMessage();
+      void sendMessage();
     }
-
   };
 
   return (
     <>
-
-      {/* Chat Button */}
-
       {!isOpen && (
         <button
           className="chat-button"
@@ -126,28 +157,20 @@ setMessages((prev)=>[
         </button>
       )}
 
-
-      {/* Chat Window */}
-
       {isOpen && (
-
         <div className="chatbot">
-
-          {/* Header */}
-
           <div className="chatbot__header">
-
             <div className="chatbot__info">
-
               <div className="chatbot__avatar">
                 🤖
               </div>
 
               <div>
                 <h3>Travel Assistant</h3>
-                <span>Online</span>
+                <span>
+                  {chatBlocked ? "Blocked" : "Online"}
+                </span>
               </div>
-
             </div>
 
             <button
@@ -156,69 +179,61 @@ setMessages((prev)=>[
             >
               <X size={20} />
             </button>
-
           </div>
 
-
-          {/* Messages */}
-
           <div className="chatbot__messages">
-
             {messages.map((msg) => (
-
               <div
                 key={msg.id}
                 className={`message message--${msg.sender}`}
               >
-
                 <div className="message__bubble">
                   {msg.text}
                 </div>
-
               </div>
-
             ))}
-{loading && (
-  <div className="message message--bot">
-    <div className="message__bubble">
-      Մտածում եմ...
-    </div>
-  </div>
-)}
+
+            {loading && (
+              <div className="message message--bot">
+                <div className="message__bubble">
+                  Մտածում եմ...
+                </div>
+              </div>
+            )}
           </div>
 
-
-          {/* Input */}
-
           <div className="chatbot__input">
-
             <input
               type="text"
-              placeholder={chatBlocked?"Դուք Արդեն բլոկավորված եք":"Գրեք հաղորդագրություն..."}
+              placeholder={
+                chatBlocked
+                  ? "Դուք արգելափակված եք"
+                  : "Գրեք հաղորդագրություն..."
+              }
               value={message}
               onChange={(evt) =>
                 setMessage(evt.target.value)
               }
               onKeyDown={handleKeyDown}
-              disabled={chatBlocked?true:false}
+              disabled={chatBlocked || loading}
             />
 
             <button
+              type="button"
               onClick={sendMessage}
-              disabled={!message.trim()}
+              disabled={
+                chatBlocked ||
+                loading ||
+                !message.trim()
+              }
             >
               <Send size={19} />
             </button>
-
           </div>
-
         </div>
-
       )}
-
     </>
   );
 };
 
 export default ChatBot;
-

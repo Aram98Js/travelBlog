@@ -6,22 +6,34 @@ import { useTranslation } from "react-i18next";
 type UserData = {
   username: string;
   email: string;
-  image:string
+  image:string,
+  birthDate: {
+    day: number,
+    month: number,
+    year: number,
+  }
 };
 
 const ProfileSettings = () => {
   const {t} = useTranslation( )
 const [image,setImage] = useState<File|null>(null)
-const [formData,setFormData] = useState<UserData>(()=>{
-  const user = localStorage.getItem("user");
-  return user?
-  JSON.parse(user) 
-  :{
-    username:"",
-    email:"",
-    image:""
-  }
-})
+const [formData, setFormData] = useState<UserData>(() => {
+  const storedUser = localStorage.getItem("user");
+
+  const user = storedUser ? JSON.parse(storedUser) : {};
+
+  return {
+    username: user.username ?? "",
+    email: user.email ?? "",
+    image: user.image ?? "",
+
+    birthDate: {
+      day: user.birthDate?.day ?? 0,
+      month: user.birthDate?.month ?? 0,
+      year: user.birthDate?.year ?? 0,
+    }
+  };
+});
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
@@ -30,9 +42,11 @@ const [formData,setFormData] = useState<UserData>(()=>{
       const dataForm = new FormData();
       dataForm.append("username",formData.username);
       dataForm.append("email",formData.email);
+      dataForm.append("birthDate",JSON.stringify(formData.birthDate));
       if (image) {
         dataForm.append("image",image)
       }
+      console.log("SENDING BIRTHDATE:", formData.birthDate);
       const response = await fetch("http://localhost:3000/profile",{
           method: "PATCH",
           headers: {
@@ -49,7 +63,8 @@ const [formData,setFormData] = useState<UserData>(()=>{
         alert(data.msg);
         return;
       }
-
+console.log("UPDATED USER:", data);
+console.log("UPDATED BIRTHDATE:", data.updatedUser?.birthDate);
       localStorage.setItem(
         "user",
         JSON.stringify(data.updatedUser)
@@ -208,7 +223,62 @@ if (evt.target.files) {
         />
 
       </div>
+<div className="birthDateGroup">
+  <label>Ծննդյան ամսաթիվ</label>
 
+  <div className="birthDateInputs">
+    <input
+      type="number"
+      placeholder="Օր"
+      min={1}
+      max={31}
+      value={formData.birthDate.day || ""}
+      onChange={(e) =>
+        setFormData((prev) => ({
+          ...prev,
+          birthDate: {
+            ...prev.birthDate,
+            day: Number(e.target.value)
+          }
+        }))
+      }
+    />
+
+    <input
+      type="number"
+      placeholder="Ամիս"
+      min={1}
+      max={12}
+      value={formData.birthDate.month || ""}
+      onChange={(e) =>
+        setFormData((prev) => ({
+          ...prev,
+          birthDate: {
+            ...prev.birthDate,
+            month: Number(e.target.value)
+          }
+        }))
+      }
+    />
+
+    <input
+      type="number"
+      placeholder="Տարի"
+      min={1900}
+      max={new Date().getFullYear()}
+      value={formData.birthDate.year || ""}
+      onChange={(e) =>
+        setFormData((prev) => ({
+          ...prev,
+          birthDate: {
+            ...prev.birthDate,
+            year: Number(e.target.value)
+          }
+        }))
+      }
+    />
+  </div>
+</div>
 
       <button
         className="save-button"

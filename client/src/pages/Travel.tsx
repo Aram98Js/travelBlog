@@ -9,6 +9,7 @@ import type {  GetTravelData } from '../admin/Interfaces/interface';
 import { useTranslation } from 'react-i18next';
 import Skeleton from '../Ui/Skelleton';
 import AiTravelModal from '../Components/AiTravel/AiTravelModal';
+
 const Travel = () => {
 const {t} = useTranslation()
 const [travelsData,setTravelsData] = useState<GetTravelData[]>([])
@@ -164,6 +165,7 @@ const isNew = isNewPost(item.createdAt)
 return(
   
   
+  
   <GuideCards 
   id={item._id}
   key={item._id}
@@ -181,6 +183,12 @@ isNew={isNew}
 isPopular={isPopular}
   />
   
+  
+  
+
+
+
+
 )
   
 })

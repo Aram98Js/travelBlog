@@ -97,12 +97,12 @@ getViolationUsers()
 <section className="violation-page">
             <div className="violation-page__header">
                 <div>
-                    <h1>Violation Users</h1>
-                    <p>Users who have violated chatbot rules</p>
+                    <h1>{t("violationUsers")}</h1>
+                    <p>{t("violationHeading")}</p>
                 </div>
 
                 <span className="violation-page__count">
-                    Total: {blockedUsers.length}
+                  {t("violationTotal")}  : {blockedUsers.length}
                 </span>
             </div>
 

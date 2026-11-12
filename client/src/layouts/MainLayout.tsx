@@ -28,6 +28,17 @@ type DataUser = {
 
 const MainLayout = () => {
   const { i18n } = useTranslation();
+  const [darkTheme, setDarkTheme] = useState<boolean>(() => {
+    const saved = localStorage.getItem("theme");
+    return saved ? saved === "dark" : (new Date().getHours() < 6 || new Date().getHours() >= 18);
+  });
+  useEffect(() => {
+    document.body.classList.toggle("dark", darkTheme);
+    document.body.classList.toggle("light", !darkTheme);
+    localStorage.setItem("theme", darkTheme ? "dark" : "light");
+  }, [darkTheme]);
+  const changeTheme = () => setDarkTheme(previous => !previous);
+
   const [hamburgerToggle,setHamburgerToggle] = useState<boolean>(false)
 const [chatBlocked,setChatBlocked] = useState<boolean>(false);
 
@@ -110,15 +121,15 @@ getviolinData()
   }
   return (
   <>
-<ChatBot chatBlocked={chatBlocked}/>
+<ChatBot chatBlocked={chatBlocked}  onBlocked={() => setChatBlocked(true)}/>
   {userdata?(
 
  <>
-<ProfileDropdown   user_data={userdata} logOutFunc = {logOut} changeLangFunc = {changeLang}/>
+<ProfileDropdown   user_data={userdata} logOutFunc = {logOut} changeLangFunc = {changeLang} darkTheme={darkTheme} changeTheme={changeTheme}/>
 </>
 ):(
   <>
-       <GuestDropdown  logInFunc = {login} changeLangFunc = {changeLang}/>
+       <GuestDropdown  logInFunc = {login} changeLangFunc = {changeLang} darkTheme={darkTheme} changeTheme={changeTheme}/>
   </>
 
 )}

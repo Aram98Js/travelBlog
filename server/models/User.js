@@ -65,18 +65,26 @@ emailOtpExpires: {
  birthDate: {
   day: {
     type: Number,
+    min: 1,
+    max: 31,
     required: function () {
       return this.provider === "local";
     }
   },
+
   month: {
-    type: String,
+    type: Number,
+    min: 1,
+    max: 12,
     required: function () {
       return this.provider === "local";
     }
   },
+
   year: {
     type: Number,
+    min: 1900,
+    max: new Date().getFullYear(),
     required: function () {
       return this.provider === "local";
     }

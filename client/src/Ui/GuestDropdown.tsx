@@ -10,11 +10,13 @@ import { Link } from 'react-router-dom'
 
 
 interface PropsGuest{
+    darkTheme: boolean
+    changeTheme: () => void
     changeLangFunc: (lang:string)=>void
   logInFunc: ()=>void,
 
 }
-const GuestDropdown = ({logInFunc,changeLangFunc,}:PropsGuest) => {
+const GuestDropdown = ({logInFunc,changeLangFunc,darkTheme,changeTheme}:PropsGuest) => {
     const [toggle,setToggle] = useState<boolean>(false)
     const {t} = useTranslation();
      const handleToggle = ()=>{
@@ -65,6 +67,11 @@ const GuestDropdown = ({logInFunc,changeLangFunc,}:PropsGuest) => {
         
     </div>
 
+    <div className="menu-item light_dark_theme">
+      <Button className={`themeBtn ${darkTheme ? "dark" : "light"}`} onClick={changeTheme}>
+        {darkTheme ? t("themeText.light") : t("themeText.dark")}
+      </Button>
+    </div>
 </div>
 </div>
    

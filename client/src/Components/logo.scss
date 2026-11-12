@@ -1,0 +1,127 @@
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  width: fit-content;
+  max-width: 100%;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  .compass {
+    width: 65px;
+    height: 65px;
+    flex-shrink: 0;
+    object-fit: contain;
+    display: block;
+  }
+
+  .logoContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+    min-width: 0;
+  }
+
+  .logoText {
+    color: var(--text-color);
+    font-family: "Montserrat", "Arial", sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+
+  }
+
+  .line {
+    display: block;
+    width: 75%;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      #b98b46,
+      #e1c28a,
+      #b98b46
+    );
+    border-radius: 20px;
+    transition: width 0.3s ease;
+  }
+
+  &:hover {
+    .logoTitle {
+      color: #b98b46;
+    }
+
+    .goldLine {
+      width: 100%;
+    }
+  }
+}
+
+// Tablet
+@media (max-width: 992px) {
+  .logo {
+    gap: 10px;
+
+    .compass {
+      width: 55px;
+      height: 55px;
+    }
+
+    .logoTitle {
+      font-size: 20px;
+    }
+  }
+}
+
+// Mobile
+@media (max-width: 600px) {
+  .logo {
+    gap: 8px;
+
+    .compass {
+      width: 42px;
+      height: 42px;
+    }
+
+    .logoContent {
+      gap: 5px;
+    }
+
+    .logoTitle {
+      font-size: 16px;
+      letter-spacing: -0.3px;
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+
+    .goldLine {
+      height: 2px;
+      width: 65%;
+    }
+  }
+}
+
+// Small mobile
+@media (max-width: 380px) {
+  .logo {
+    gap: 6px;
+
+    .compass {
+      width: 36px;
+      height: 36px;
+    }
+
+    .logoTitle {
+      font-size: 14px;
+    }
+  }
+}
